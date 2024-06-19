@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "./apiConfig";
+import axios from "axios";
 
 function App() {
+  const [ErrorMsg, setErrorMsg] = useState("");
+  useEffect(() => {
+    const fetchDataTest = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}Wainwrights`);
+        const data = res.json();
+        console.log(data);
+      } catch (err) {
+        setErrorMsg("Error found");
+        console.log(ErrorMsg);
+      }
+    };
+
+    fetchDataTest();
+  }, [ErrorMsg]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>Hello Ben</p>
+      {ErrorMsg && <p>{ErrorMsg}</p>}
     </div>
   );
 }
