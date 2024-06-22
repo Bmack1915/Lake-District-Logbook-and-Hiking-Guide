@@ -3,13 +3,15 @@ import Slider from "./Slider";
 
 function MapFilters({ setFilteredWainwrights, wainwrights }) {
   const [selectedArea, setSelectedArea] = useState(null);
-  const [currentValue, setCurrentValue] = useState(1000);
+  const [currentHeight, setCurrentHeight] = useState(1000);
+  const [currentLength, setCurrentLength] = useState(0);
+  const [currentDifficulty, setCurrentDifficulty] = useState();
 
   useEffect(() => {
     function checkFilter() {
       let filtered = wainwrights;
 
-      filtered = filtered.filter((w) => w.heightM < currentValue);
+      filtered = filtered.filter((w) => w.heightM < currentHeight);
 
       if (selectedArea) {
         filtered = filtered.filter((w) => w.area === selectedArea);
@@ -19,12 +21,12 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
     }
 
     checkFilter();
-  }, [selectedArea, currentValue]);
+  }, [selectedArea, currentHeight]);
 
   function HandleReset() {
     setSelectedArea(null);
     setFilteredWainwrights(wainwrights);
-    setCurrentValue(1000);
+    setCurrentHeight(1000);
   }
 
   const areas = [
@@ -55,9 +57,24 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
 
       <div>
         <Slider
-          currentValue={currentValue}
-          setCurrentValue={setCurrentValue}
-        ></Slider>
+          currentValue={currentHeight}
+          setCurrentValue={setCurrentHeight}
+          min={289}
+          max={1000}
+          unit="metres"
+        >
+          Height
+        </Slider>
+
+        <Slider
+          currentValue={currentLength}
+          setCurrentValue={setCurrentLength}
+          min={5}
+          max={40}
+          unit="km"
+        >
+          Length of walk
+        </Slider>
         <button onClick={HandleReset}>Reset</button>
       </div>
     </div>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import ReactSlider from "react-slider";
 
-function Slider({ currentValue, setCurrentValue }) {
+function Slider({ currentValue, setCurrentValue, min, max, children, unit }) {
   return (
     <div>
       <ReactSlider
@@ -10,11 +10,13 @@ function Slider({ currentValue, setCurrentValue }) {
         thumbClassName="customSlider-thumb"
         defaultValue={0}
         value={currentValue}
-        min={289}
-        max={1000}
+        min={min}
+        max={max}
         onChange={(currentValue) => setCurrentValue(currentValue)}
       ></ReactSlider>
-      <p>Height in metres: {currentValue}</p>
+      <p>
+        {children} {currentValue} {unit}
+      </p>
     </div>
   );
 }
