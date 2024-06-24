@@ -32,21 +32,20 @@ function MapInfoPage() {
   }, []);
 
   return (
-    <div>
-      {!isLoading && wainwrights.length > 0 ? (
-        <MapSummary
-          wainwrights={filteredWainwrights}
-          //   filteredWainwrights.length > 0 ? filteredWainwrights : wainwrights
-          // }
-        />
-      ) : (
-        <Loading />
-      )}
+    <div className="flex justify-evenly py-10">
       <MapFilters
         wainwrights={wainwrights}
         setFilteredWainwrights={setFilteredWainwrights}
       />
-      {errorMsg && <p>{errorMsg}</p>}
+
+      {!isLoading && wainwrights.length > 0 ? (
+        <MapSummary wainwrights={filteredWainwrights} />
+      ) : (
+        <div>
+          <Loading />
+        </div>
+      )}
+      {errorMsg && <p className="w-full text-center">{errorMsg}</p>}
     </div>
   );
 }

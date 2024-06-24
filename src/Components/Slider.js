@@ -1,11 +1,11 @@
-import React, { Children, useState } from "react";
+import React from "react";
 import ReactSlider from "react-slider";
 
 function Slider({ currentValue, setCurrentValue, min, max, children, unit }) {
   return (
-    <div>
+    <div className="mb-5 flex items-center space-x-4 p-5">
       <ReactSlider
-        className="customSlider"
+        className="customSlider w-64"
         trackClassName="customSlider-track"
         thumbClassName="customSlider-thumb"
         defaultValue={0}
@@ -13,10 +13,12 @@ function Slider({ currentValue, setCurrentValue, min, max, children, unit }) {
         min={min}
         max={max}
         onChange={(currentValue) => setCurrentValue(currentValue)}
-      ></ReactSlider>
-      <p>
-        {children} {currentValue} {unit}
-      </p>
+      />
+      <div className="flex items-baseline">
+        <p>
+          {children} {currentValue} {unit}
+        </p>
+      </div>
     </div>
   );
 }
