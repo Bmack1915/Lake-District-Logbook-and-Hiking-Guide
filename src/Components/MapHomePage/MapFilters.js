@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Slider from "./Slider";
+import Slider from "../Slider";
 
 function MapFilters({ setFilteredWainwrights, wainwrights }) {
   const [selectedArea, setSelectedArea] = useState(null);
@@ -41,7 +41,7 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
   ];
   return (
     //Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
-    <div className="spacing-5 border-8 border-double p-3">
+    <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double p-3">
       <h1 className="flex justify-center p-5 text-xl font-bold">
         Find your route!
       </h1>

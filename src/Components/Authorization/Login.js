@@ -1,7 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link, Navigate } from "react-router-dom";
+import { API_BASE_URL } from "../apiConfig";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function Login() {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    try {
+      const response = await axios.post(`${API_BASE_URL}account/login`, {
+        Email: email,
+        Password: password,
+      });
+
+      const { token } = response.data;
+      Cookies.set("token", token, { expires: 1 });
+      console.log(token);
+      window.location.reload();
+      alert("Login successful!");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed. Please check your credentials and try again.");
+    }
+  };
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -19,7 +45,7 @@ export default function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={handleSubmit} method="POST">
           <div>
             <label
               htmlFor="email"
