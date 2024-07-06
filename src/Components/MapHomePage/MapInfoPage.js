@@ -4,14 +4,17 @@ import "../../App.css";
 import "../../index.css";
 import { Loading } from "../Loading.js";
 import { MapSummary } from "./MapSummary.js";
-import MapFilters from "./MapFilters.js";
+import RouteFilters from "./RouteFilters.js";
 import { API_BASE_URL } from "../apiConfig.js";
+import WainwrightFilters from "./WainwrightFilters.js";
+import ToggleButton from "../ToggleSlider.js";
 
 function MapInfoPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [wainwrights, setWainwrights] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filteredWainwrights, setFilteredWainwrights] = useState(wainwrights);
+  const [filterToggle, setFilterToggle] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,19 +37,31 @@ function MapInfoPage() {
 
   return (
     <div className="flex justify-evenly py-10">
-      <MapFilters
-        wainwrights={wainwrights}
-        setFilteredWainwrights={setFilteredWainwrights}
-      />
-      <div className="m-3 overflow-hidden rounded-xl">
-        {!isLoading && wainwrights.length > 0 ? (
-          <MapSummary wainwrights={filteredWainwrights} />
-        ) : (
-          <div>
-            <Loading />
+      <ToggleButton onToggle={filterToggle} setOnToggle={setFilterToggle}>
+        {filterToggle ? "Wainwright Finder" : "Route Finder"}
+      </ToggleButton>
+
+      {filterToggle ? (
+        <>
+          <WainwrightFilters
+            wainwrights={wainwrights}
+            setFilteredWainwrights={setFilteredWainwrights}
+          />
+          <div className="m-3 overflow-hidden rounded-xl">
+            {!isLoading && wainwrights.length > 0 ? (
+              <MapSummary wainwrights={filteredWainwrights} />
+            ) : (
+              <div>
+                <Loading />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      ) : null}
+      {/* (
+        <RouteFilters />
+      )} */}
+
       {errorMsg && <p className="w-full text-center">{errorMsg}</p>}
     </div>
   );
