@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Slider from "../Slider";
+import MultiRangeSlider from "../../MultiEndSlider";
+import ToggleButton from "../ToggleSlider";
 
-function MapFilters({ setFilteredWainwrights, wainwrights }) {
+function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
   const [selectedArea, setSelectedArea] = useState(null);
-  const [currentHeight, setCurrentHeight] = useState(1000);
-  const [currentLength, setCurrentLength] = useState(0);
-  const [currentDifficulty, setCurrentDifficulty] = useState();
+  const [currentHeight, setCurrentHeight] = useState([265, 1200]);
+  const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     function checkFilter() {
       let filtered = wainwrights;
 
-      filtered = filtered.filter((w) => w.heightM < currentHeight);
+      filtered = filtered.filter(
+        (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
+      );
 
       if (selectedArea) {
         filtered = filtered.filter((w) => w.area === selectedArea);
@@ -21,13 +24,12 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
     }
 
     checkFilter();
-  }, [selectedArea, currentHeight]);
+  }, [selectedArea, currentHeight, wainwrights, setFilteredWainwrights]);
 
   function HandleReset() {
     setSelectedArea(null);
     setFilteredWainwrights(wainwrights);
-    setCurrentHeight(1000);
-    setCurrentLength(0);
+    setCurrentHeight([265, 1200]);
   }
 
   const areas = [
@@ -43,7 +45,7 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
     //Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
     <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double p-3">
       <h1 className="flex justify-center p-5 text-xl font-bold">
-        Find your route!
+        Wainwright Finder
       </h1>
       <div className="flex flex-wrap">
         {areas.map((area) => (
@@ -53,6 +55,7 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
                 type="radio"
                 name="areaFilter"
                 value={area}
+                checked={selectedArea === area}
                 onChange={(e) => setSelectedArea(e.target.value)}
                 className="mr-2"
               />
@@ -67,23 +70,18 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
           <Slider
             currentValue={currentHeight}
             setCurrentValue={setCurrentHeight}
-            min={289}
-            max={1000}
             unit="metres"
+            min={265}
+            max={1200}
           >
             Height
           </Slider>
 
-          <Slider
-            currentValue={currentLength}
-            setCurrentValue={setCurrentLength}
-            min={5}
-            max={40}
-            unit="km"
-          >
-            Length of walk
-          </Slider>
+          <ToggleButton onToggle={completed} setOnToggle={setCompleted}>
+            {completed ? "Completed" : "Uncompleted"}
+          </ToggleButton>
         </div>
+
         <div className="flex justify-center">
           <button
             onClick={HandleReset}
@@ -97,4 +95,4 @@ function MapFilters({ setFilteredWainwrights, wainwrights }) {
   );
 }
 
-export default MapFilters;
+export default WainwrightFilters;
