@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Slider from "../Slider";
-import MultiRangeSlider from "../../MultiEndSlider";
 import ToggleButton from "../ToggleSlider";
 
 function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {

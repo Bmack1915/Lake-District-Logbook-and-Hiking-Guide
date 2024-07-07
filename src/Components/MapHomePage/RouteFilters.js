@@ -1,63 +1,85 @@
 import React, { useEffect, useState } from "react";
 import Slider from "../Slider";
 
-function RouteFilters({ setFilteredWainwrights, wainwrights }) {
-  const [selectedArea, setSelectedArea] = useState(null);
-  const [currentHeight, setCurrentHeight] = useState([100, 1100]);
-  const [currentLength, setCurrentLength] = useState([0, 37]);
-  const [currentDifficulty, setCurrentDifficulty] = useState();
+//Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
+function RouteFilters({ setFilteredRoutes, routes }) {
+  const [currentAscent, setCurrentAscent] = useState([100, 1100]);
+  const [currentDistance, setCurrentDistance] = useState([0, 37]);
+  const [selectedDifficulty, setSelectedDifficulty] = useState();
+  const [time, setTime] = useState([0, 15]);
+
+  const difficulties = [
+    "Easy",
+    "Easy/Moderate",
+    "Moderate",
+    "Moderate",
+    "Moderate/Hard",
+    "Hard",
+    "Very Hard",
+    "Severe",
+  ];
 
   useEffect(() => {
     function checkFilter() {
-      let filtered = wainwrights;
+      let filtered = routes;
 
-      filtered = filtered.filter((w) => w.heightM < currentHeight);
+      filtered = filtered.filter(
+        (r) => r.ascentM >= currentAscent[0] && r.ascentM >= currentAscent[1],
+      );
 
-      if (selectedArea) {
-        filtered = filtered.filter((w) => w.area === selectedArea);
+      filtered = filtered.filter(
+        (r) =>
+          r.distanceKm >= currentAscent[0] && r.distanceKm >= currentAscent[1],
+      );
+
+      filtered = filtered.filter((r) => r.time >= time[0] && r.time <= time[1]);
+
+      if (selectedDifficulty) {
+        filtered = filtered.filter((r) => r.difficulty === selectedDifficulty);
       }
 
-      setFilteredWainwrights(filtered);
+      setFilteredRoutes(filtered);
     }
 
     checkFilter();
-  }, [selectedArea, currentHeight]);
+  }, [
+    currentAscent,
+    currentDistance,
+    routes,
+    selectedDifficulty,
+    setFilteredRoutes,
+    time,
+  ]);
 
   function HandleReset() {
-    setSelectedArea(null);
-    setFilteredWainwrights(wainwrights);
-    setCurrentHeight([100, 1100]);
-    setCurrentLength([0, 37]);
+    setFilteredRoutes(routes);
+    setCurrentAscent([100, 1100]);
+    setCurrentDistance([0, 37]);
+    setSelectedDifficulty(null);
   }
 
-  const areas = [
-    "Southern",
-    "Northern",
-    "Eastern",
-    "Western",
-    "Central",
-    "Far Eastern",
-    "North Western",
-  ];
   return (
-    //Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
+    // Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
     <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double p-3">
       <h1 className="flex justify-center p-5 text-xl font-bold">
         Find your route!
       </h1>
       <div className="flex flex-wrap">
-        {areas.map((area) => (
-          <div key={area} className="mb-2 mr-4 flex items-center font-bold">
+        {difficulties.map((difficulty) => (
+          <div
+            key={difficulty}
+            className="mb-2 mr-4 flex items-center font-bold"
+          >
             <label className="flex items-center space-x-2">
               <input
                 type="radio"
                 name="areaFilter"
-                value={area}
-                checked={selectedArea === area}
-                onChange={(e) => setSelectedArea(e.target.value)}
+                value={difficulty}
+                checked={selectedDifficulty === difficulty}
+                onChange={(e) => setSelectedDifficulty(e.target.value)}
                 className="mr-2"
               />
-              {area}
+              {difficulty}
             </label>
           </div>
         ))}
@@ -66,23 +88,33 @@ function RouteFilters({ setFilteredWainwrights, wainwrights }) {
       <div className="flex flex-col justify-evenly">
         <div className="mb-10 flex flex-col justify-evenly py-4">
           <Slider
-            currentValue={currentHeight}
-            setCurrentValue={setCurrentHeight}
+            currentValue={currentAscent}
+            setCurrentValue={setCurrentAscent}
             unit="metres"
             min={100}
             max={1100}
           >
-            Height
+            Ascent
           </Slider>
 
           <Slider
-            currentValue={currentLength}
-            setCurrentValue={setCurrentLength}
+            currentValue={currentDistance}
+            setCurrentValue={setCurrentDistance}
             unit="km"
             min={0}
             max={37}
           >
             Length of walk
+          </Slider>
+
+          <Slider
+            currentValue={time}
+            setCurrentValue={setTime}
+            unit="hrs"
+            min={0}
+            max={15}
+          >
+            Duration
           </Slider>
         </div>
 

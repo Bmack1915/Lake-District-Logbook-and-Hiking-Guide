@@ -9,31 +9,17 @@ import { API_BASE_URL } from "../apiConfig.js";
 import WainwrightFilters from "./WainwrightFilters.js";
 import ToggleButton from "../ToggleSlider.js";
 
-function MapInfoPage() {
+function MapInfoPage({
+  wainwrights,
+  setWainwrights,
+  routes,
+  setRoutes,
+  isLoading,
+}) {
   const [errorMsg, setErrorMsg] = useState("");
-  const [wainwrights, setWainwrights] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [filteredWainwrights, setFilteredWainwrights] = useState(wainwrights);
+  const [filteredRoutes, setFilteredRoutes] = useState(routes);
   const [filterToggle, setFilterToggle] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${API_BASE_URL}Wainwrights`);
-        console.log(res);
-        setWainwrights(res.data);
-        setFilteredWainwrights(res.data);
-      } catch (err) {
-        setErrorMsg("Error found");
-        console.error("Error fetching data:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <div className="flex justify-evenly py-10">
@@ -57,10 +43,20 @@ function MapInfoPage() {
             )}
           </div>
         </>
-      ) : null}
-      {/* (
-        <RouteFilters />
-      )} */}
+      ) : (
+        <>
+          <RouteFilters routes={routes} setFilteredRoutes={setFilteredRoutes} />
+          <div className="m-3 overflow-hidden rounded-xl">
+            {!isLoading && routes.length > 0 ? (
+              <MapSummary wainwrights={filteredWainwrights} />
+            ) : (
+              <div>
+                <Loading />
+              </div>
+            )}
+          </div>
+        </>
+      )}
 
       {errorMsg && <p className="w-full text-center">{errorMsg}</p>}
     </div>
