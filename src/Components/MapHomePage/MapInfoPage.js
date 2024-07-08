@@ -1,42 +1,29 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../../App.css";
 import "../../index.css";
-import { Loading } from "../Loading.js";
+import { Loading } from "../Utilities/Loading.js";
 import { MapSummary } from "./MapSummary.js";
 import RouteFilters from "./RouteFilters.js";
-import { API_BASE_URL } from "../apiConfig.js";
 import WainwrightFilters from "./WainwrightFilters.js";
-import ToggleButton from "../ToggleSlider.js";
+import ToggleButton from "../Utilities/ToggleSlider.js";
 
-function MapInfoPage() {
+function MapInfoPage({
+  wainwrights,
+  setWainwrights,
+  routes,
+  setRoutes,
+  isLoading,
+}) {
   const [errorMsg, setErrorMsg] = useState("");
-  const [wainwrights, setWainwrights] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [filteredWainwrights, setFilteredWainwrights] = useState(wainwrights);
+  const [filteredRoutes, setFilteredRoutes] = useState(routes);
   const [filterToggle, setFilterToggle] = useState(true);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${API_BASE_URL}Wainwrights`);
-        console.log(res);
-        setWainwrights(res.data);
-        setFilteredWainwrights(res.data);
-      } catch (err) {
-        setErrorMsg("Error found");
-        console.error("Error fetching data:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
-    <div className="flex justify-evenly py-10">
+    <div
+      style={{ backgroundImage: "url('./edge.jpg')" }}
+      className="min-5-screen min-5-screen flex justify-evenly bg-cover py-10"
+    >
       <ToggleButton onToggle={filterToggle} setOnToggle={setFilterToggle}>
         {filterToggle ? "Wainwright Finder" : "Route Finder"}
       </ToggleButton>
@@ -49,7 +36,7 @@ function MapInfoPage() {
           />
           <div className="m-3 overflow-hidden rounded-xl">
             {!isLoading && wainwrights.length > 0 ? (
-              <MapSummary wainwrights={filteredWainwrights} />
+              <MapSummary data={filteredWainwrights} type="wainwright" />
             ) : (
               <div>
                 <Loading />
@@ -57,10 +44,20 @@ function MapInfoPage() {
             )}
           </div>
         </>
-      ) : null}
-      {/* (
-        <RouteFilters />
-      )} */}
+      ) : (
+        <>
+          <RouteFilters routes={routes} setFilteredRoutes={setFilteredRoutes} />
+          <div className="m-3 overflow-hidden rounded-xl">
+            {!isLoading && routes.length > 0 ? (
+              <MapSummary data={filteredRoutes} type="route" />
+            ) : (
+              <div>
+                <Loading />
+              </div>
+            )}
+          </div>
+        </>
+      )}
 
       {errorMsg && <p className="w-full text-center">{errorMsg}</p>}
     </div>

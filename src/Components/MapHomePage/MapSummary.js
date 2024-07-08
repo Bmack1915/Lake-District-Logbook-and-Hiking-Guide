@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
-import { API_KEY } from "../apiConfig";
-import MarkerWithInfoWindow from "./MarkerWithInfoWindow";
+import { API_KEY } from "../Utilities/apiConfig";
+import WainwrightMarker from "./WainwrightMarker";
+import RouteMarker from "./RouteMarker";
 
-export function MapSummary({ wainwrights }) {
+export function MapSummary({ data, type }) {
   const [selected, setSelected] = useState(null);
 
   const containerStyle = {
@@ -29,14 +30,23 @@ export function MapSummary({ wainwrights }) {
         gestureHandling={"greedy"}
         disableDefaultUI={true}
       >
-        {wainwrights.map((w) => (
-          <MarkerWithInfoWindow
-            setSelected={setSelected}
-            w={w}
-            key={w.wainwrightID}
-            selected={selected}
-          />
-        ))}
+        {type === "wainwright"
+          ? data.map((w) => (
+              <WainwrightMarker
+                setSelected={setSelected}
+                w={w}
+                key={w.wainwrightID}
+                selected={selected}
+              />
+            ))
+          : data.map((r) => (
+              <RouteMarker
+                setSelected={setSelected}
+                r={r}
+                key={r.routeID}
+                selected={selected}
+              />
+            ))}
       </Map>
     </APIProvider>
   );

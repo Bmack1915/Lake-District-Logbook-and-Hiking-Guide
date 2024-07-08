@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Slider from "../Slider";
-import MultiRangeSlider from "../../MultiEndSlider";
-import ToggleButton from "../ToggleSlider";
+import Slider from "../Utilities/Slider";
+import ToggleButton from "../Utilities/ToggleSlider";
 
 function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
   const [selectedArea, setSelectedArea] = useState(null);
@@ -43,7 +42,7 @@ function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
   ];
   return (
     //Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
-    <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double p-3">
+    <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double bg-white p-3">
       <h1 className="flex justify-center p-5 text-xl font-bold">
         Wainwright Finder
       </h1>
@@ -82,14 +81,14 @@ function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
           </ToggleButton>
         </div>
 
-        <div className="flex justify-center">
-          <button
-            onClick={HandleReset}
-            className="mb-2 me-2 flex inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
-          >
-            Reset Filters
-          </button>
-        </div>
+        {/* <div className="flex justify-center"> */}
+        <button
+          onClick={HandleReset}
+          className="mb-2 me-2 flex inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
+        >
+          Reset Filters
+        </button>
+        {/* </div> */}
       </div>
     </div>
   );

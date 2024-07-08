@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import { API_BASE_URL } from "../apiConfig";
+import { API_BASE_URL } from "../Utilities/apiConfig";
 import axios from "axios";
 import Cookies from "js-cookie";
 
