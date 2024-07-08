@@ -9,6 +9,7 @@ import LogbookHome from "./Components/Logbook/LogbookHome.js";
 // import RouteFilters from "./RouteFilters.js";
 import { API_BASE_URL } from "./Components/Utilities/apiConfig.js";
 import axios from "axios";
+import LogEntry from "./Components/Logbook/LogEntry.js";
 
 function App() {
   const [wainwrights, setWainwrights] = useState([]);
@@ -54,6 +55,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/logentry" element={<LogEntry />} />
           <Route
             path="/"
             element={

@@ -5,12 +5,14 @@ import {
   Pin,
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RouteMarker({ r, setSelected, selected }) {
   const [markerRef, marker] = useAdvancedMarkerRef();
   //Each marker has a routeID, when you click one selected === this route ID, therefore this is true and the window shows.
   const infoWindowShown = selected === r.routeID;
-
+  const navigate = useNavigate();
   const difficultyColours = {
     easy: "green",
     "Easy/Moderate": "green",
@@ -27,19 +29,17 @@ function RouteMarker({ r, setSelected, selected }) {
     setSelected(r.routeID);
   }
 
+  const handleMoreInfoClick = () => {
+    navigate("/logentry", { state: { r } });
+  };
+
   const handleClose = useCallback(() => setSelected(null), []);
 
   const customContent = (
     <div>
       <h3 className="flex align-text-top font-bold">{r.name}</h3>
       <p>
-        <a
-          href={`https://example.com/more-info/${r.routeID}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click here to find out more!
-        </a>
+        <button onClick={handleMoreInfoClick}>More Info</button>
       </p>
     </div>
   );
@@ -67,6 +67,7 @@ function RouteMarker({ r, setSelected, selected }) {
 
       {infoWindowShown && (
         <InfoWindow anchor={marker} onClose={handleClose}>
+          <button></button>
           {customContent}
         </InfoWindow>
       )}
