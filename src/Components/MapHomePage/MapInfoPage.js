@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../../App.css";
 import "../../index.css";
-import { Loading } from "../Loading.js";
+import { Loading } from "../Utilities/Loading.js";
 import { MapSummary } from "./MapSummary.js";
 import RouteFilters from "./RouteFilters.js";
-import { API_BASE_URL } from "../apiConfig.js";
 import WainwrightFilters from "./WainwrightFilters.js";
-import ToggleButton from "../ToggleSlider.js";
+import ToggleButton from "../Utilities/ToggleSlider.js";
 
 function MapInfoPage({
   wainwrights,
@@ -22,7 +20,10 @@ function MapInfoPage({
   const [filterToggle, setFilterToggle] = useState(true);
 
   return (
-    <div className="flex justify-evenly py-10">
+    <div
+      style={{ backgroundImage: "url('./edge.jpg')" }}
+      className="min-5-screen min-5-screen flex justify-evenly bg-cover py-10"
+    >
       <ToggleButton onToggle={filterToggle} setOnToggle={setFilterToggle}>
         {filterToggle ? "Wainwright Finder" : "Route Finder"}
       </ToggleButton>
@@ -35,7 +36,7 @@ function MapInfoPage({
           />
           <div className="m-3 overflow-hidden rounded-xl">
             {!isLoading && wainwrights.length > 0 ? (
-              <MapSummary wainwrights={filteredWainwrights} />
+              <MapSummary data={filteredWainwrights} type="wainwright" />
             ) : (
               <div>
                 <Loading />
@@ -48,7 +49,7 @@ function MapInfoPage({
           <RouteFilters routes={routes} setFilteredRoutes={setFilteredRoutes} />
           <div className="m-3 overflow-hidden rounded-xl">
             {!isLoading && routes.length > 0 ? (
-              <MapSummary wainwrights={filteredWainwrights} />
+              <MapSummary data={filteredRoutes} type="route" />
             ) : (
               <div>
                 <Loading />

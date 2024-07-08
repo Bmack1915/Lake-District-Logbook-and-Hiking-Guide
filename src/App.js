@@ -7,7 +7,7 @@ import Navbar from "./Components/NavBar.js";
 import Login from "./Components/Authorization/Login.js";
 import LogbookHome from "./Components/Logbook/LogbookHome.js";
 // import RouteFilters from "./RouteFilters.js";
-import { API_BASE_URL } from "./Components/apiConfig.js";
+import { API_BASE_URL } from "./Components/Utilities/apiConfig.js";
 import axios from "axios";
 
 function App() {
@@ -36,7 +36,6 @@ function App() {
       try {
         const res = await axios.get(`${API_BASE_URL}Routes`);
         setRoutes(res.data);
-        console.log(res.data);
       } catch (err) {
         setErrorMsg("Error found");
         console.error("Error fetching data:", err);

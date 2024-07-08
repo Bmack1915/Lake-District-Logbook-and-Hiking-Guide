@@ -8,7 +8,20 @@ import {
 
 function RouteMarker({ r, setSelected, selected }) {
   const [markerRef, marker] = useAdvancedMarkerRef();
+  //Each marker has a routeID, when you click one selected === this route ID, therefore this is true and the window shows.
   const infoWindowShown = selected === r.routeID;
+
+  const difficultyColours = {
+    easy: "green",
+    "Easy/Moderate": "green",
+    Moderate: "yellow",
+    "Moderate/Hard": "orange",
+    Hard: "red",
+    "Very Hard": "dark-red",
+    Severe: "black",
+  };
+
+  const background = difficultyColours[r.difficulty];
 
   function handleMarkerClick() {
     setSelected(r.routeID);
@@ -18,11 +31,10 @@ function RouteMarker({ r, setSelected, selected }) {
 
   const customContent = (
     <div>
-      <h3>{r.name}</h3>``
-      {/* <p>Area: {w.area}</p> */}
+      <h3 className="flex align-text-top font-bold">{r.name}</h3>
       <p>
         <a
-          href={`https://example.com/more-info/${w.wainwrightID}`}
+          href={`https://example.com/more-info/${r.routeID}`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -45,11 +57,11 @@ function RouteMarker({ r, setSelected, selected }) {
       >
         <Pin
           // src="/mountain.png"
-          scale={0.5}
-          // style={{ opacity: 0.5 }}
-          //   background={background}
+          scale={1}
+          style={{ opacity: 0.5 }}
+          background={background}
           borderColor={"black"}
-          //   glyphColor={background}
+          glyphColor={background}
         />
       </AdvancedMarker>
 

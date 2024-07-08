@@ -6,7 +6,7 @@ import {
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
 
-function MarkerWithInfoWindow({ w, setSelected, selected }) {
+function WainwrightMarker({ w, setSelected, selected }) {
   const [markerRef, marker] = useAdvancedMarkerRef();
   const infoWindowShown = selected === w.wainwrightID;
 
@@ -74,4 +74,4 @@ function MarkerWithInfoWindow({ w, setSelected, selected }) {
   );
 }
 
-export default MarkerWithInfoWindow;
+export default WainwrightMarker;

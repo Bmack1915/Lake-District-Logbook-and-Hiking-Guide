@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Slider from "../Slider";
+import Slider from "../Utilities/Slider";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
 function RouteFilters({ setFilteredRoutes, routes }) {
-  const [currentAscent, setCurrentAscent] = useState([100, 1100]);
+  const [currentAscent, setCurrentAscent] = useState([0, 1100]);
   const [currentDistance, setCurrentDistance] = useState([0, 37]);
   const [selectedDifficulty, setSelectedDifficulty] = useState();
-  const [time, setTime] = useState([0, 15]);
+  const [time, setTime] = useState([0, 600]);
 
   const difficulties = [
     "Easy",
     "Easy/Moderate",
-    "Moderate",
     "Moderate",
     "Moderate/Hard",
     "Hard",
@@ -24,12 +23,13 @@ function RouteFilters({ setFilteredRoutes, routes }) {
       let filtered = routes;
 
       filtered = filtered.filter(
-        (r) => r.ascentM >= currentAscent[0] && r.ascentM >= currentAscent[1],
+        (r) => r.ascentM >= currentAscent[0] && r.ascentM <= currentAscent[1],
       );
 
       filtered = filtered.filter(
         (r) =>
-          r.distanceKm >= currentAscent[0] && r.distanceKm >= currentAscent[1],
+          r.distanceKm >= currentDistance[0] &&
+          r.distanceKm <= currentDistance[1],
       );
 
       filtered = filtered.filter((r) => r.time >= time[0] && r.time <= time[1]);
@@ -55,14 +55,15 @@ function RouteFilters({ setFilteredRoutes, routes }) {
     setFilteredRoutes(routes);
     setCurrentAscent([100, 1100]);
     setCurrentDistance([0, 37]);
+    setTime([0, 600]);
     setSelectedDifficulty(null);
   }
 
   return (
     // Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
-    <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double p-3">
+    <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double bg-white p-3">
       <h1 className="flex justify-center p-5 text-xl font-bold">
-        Find your route!
+        Route Finder
       </h1>
       <div className="flex flex-wrap">
         {difficulties.map((difficulty) => (
