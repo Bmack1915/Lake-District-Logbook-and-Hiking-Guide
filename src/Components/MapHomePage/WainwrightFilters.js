@@ -9,7 +9,7 @@ function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
 
   useEffect(() => {
     function checkFilter() {
-      let filtered = wainwrights;
+      let filtered = Array.isArray(wainwrights) ? wainwrights : [];
 
       filtered = filtered.filter(
         (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],

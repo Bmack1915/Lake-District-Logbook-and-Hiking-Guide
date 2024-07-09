@@ -20,7 +20,7 @@ function RouteFilters({ setFilteredRoutes, routes }) {
 
   useEffect(() => {
     function checkFilter() {
-      let filtered = routes;
+      let filtered = Array.isArray(routes) ? routes : [];
 
       filtered = filtered.filter(
         (r) => r.ascentM >= currentAscent[0] && r.ascentM <= currentAscent[1],

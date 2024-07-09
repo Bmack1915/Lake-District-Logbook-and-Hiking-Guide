@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Components/NavBar.js";
 import Login from "./Components/Authorization/Login.js";
 import LogbookHome from "./Components/Logbook/LogbookHome.js";
-// import RouteFilters from "./RouteFilters.js";
 import { API_BASE_URL } from "./Components/Utilities/apiConfig.js";
 import axios from "axios";
+import LogEntry from "./Components/Logbook/LogEntry.js";
 
 function App() {
   const [wainwrights, setWainwrights] = useState([]);
@@ -22,7 +22,7 @@ function App() {
     const fetchWainwrightData = async () => {
       try {
         const res = await axios.get(`${API_BASE_URL}Wainwrights`);
-        setWainwrights(res.data);
+        setWainwrights(res.data.$values);
         //setFilteredWainwrights(res.data);
       } catch (err) {
         setErrorMsg("Error found");
@@ -35,7 +35,7 @@ function App() {
     const fetchRouteData = async () => {
       try {
         const res = await axios.get(`${API_BASE_URL}Routes`);
-        setRoutes(res.data);
+        setRoutes(res.data.$values);
       } catch (err) {
         setErrorMsg("Error found");
         console.error("Error fetching data:", err);
@@ -54,6 +54,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/logentry" element={<LogEntry />} />
           <Route
             path="/"
             element={
