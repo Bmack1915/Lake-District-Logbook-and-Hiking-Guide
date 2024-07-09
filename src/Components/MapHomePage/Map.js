@@ -4,7 +4,7 @@ import { API_KEY } from "../Utilities/apiConfig";
 import WainwrightMarker from "./WainwrightMarker";
 import RouteMarker from "./RouteMarker";
 
-export function MapSummary({ data, type }) {
+export function TheMap({ data, type }) {
   const [selected, setSelected] = useState(null);
 
   const containerStyle = {
@@ -16,6 +16,27 @@ export function MapSummary({ data, type }) {
     setSelected(null);
   }
 
+  function renderMarkers() {
+    if (type === "wainwright") {
+      return data.map((w) => (
+        <WainwrightMarker
+          setSelected={setSelected}
+          w={w}
+          key={w.wainwrightID}
+          selected={selected}
+        />
+      ));
+    } else {
+      return data.map((r) => (
+        <RouteMarker
+          setSelected={setSelected}
+          r={r}
+          key={r.routeID}
+          selected={selected}
+        />
+      ));
+    }
+  }
   return (
     <APIProvider apiKey={API_KEY}>
       <Map
@@ -26,27 +47,12 @@ export function MapSummary({ data, type }) {
           lat: 54.460861,
           lng: -3.08875,
         }}
+        //mapTypeId="satellite"
         defaultZoom={10}
         gestureHandling={"greedy"}
         disableDefaultUI={true}
       >
-        {type === "wainwright"
-          ? data.map((w) => (
-              <WainwrightMarker
-                setSelected={setSelected}
-                w={w}
-                key={w.wainwrightID}
-                selected={selected}
-              />
-            ))
-          : data.map((r) => (
-              <RouteMarker
-                setSelected={setSelected}
-                r={r}
-                key={r.routeID}
-                selected={selected}
-              />
-            ))}
+        {renderMarkers()}
       </Map>
     </APIProvider>
   );
