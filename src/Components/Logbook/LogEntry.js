@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import axios from "axios";
+import { gpx } from "@tmcw/togeojson";
+import { bind } from "leaflet";
+import LeafletGPXMap from "../LeafletMapDev/LeafletGPXMap";
+import decodeBase64 from "../Utilities/Decode64";
 
 export default function LogEntry() {
-  //Receieve r object from the navigated from page (Route marker containing this route info).
-  const passedState = useLocation();
-  const route = passedState.state.r;
-
+  const [gpxFile, setGpxFile] = useState();
+  const [gpxFileUrl, setGpxFileUrl] = useState();
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
   const [description, setDescription] = useState("");
   const [associatedWainwrights, setAssociatedWainwrights] = useState([]);
+
+  //Receieve r object from the navigated from page (Route marker containing this route info).
+  const passedState = useLocation();
+  const route = passedState.state.r;
 
   useEffect(() => {
     async function getAssociatedWainwrights() {
@@ -25,6 +31,23 @@ export default function LogEntry() {
 
     getAssociatedWainwrights();
   }, [route.routeID]);
+
+  useEffect(() => {
+    async function getGpxFile() {
+      const res = await axios.get(
+        `${API_BASE_URL}Routes/gpxfile/${route.routeID}`,
+      );
+      setGpxFile(res.data.gpxFile);
+    }
+    getGpxFile();
+  }, [route.routeID]);
+
+  useEffect(() => {
+    if (gpxFile) {
+      const url = decodeBase64(gpxFile);
+      setGpxFileUrl(url);
+    }
+  }, [gpxFile]);
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -54,6 +77,7 @@ export default function LogEntry() {
             ⛰️ {w.name}, {w.heightM}m
           </h3>
         ))}
+
         <ul>
           <li>
             <input
@@ -73,6 +97,9 @@ export default function LogEntry() {
         </ul>
         <button type="submit">Submit Log</button>
       </form>
+      <div className="w-1/2 p-4">
+        <LeafletGPXMap url={gpxFileUrl} />
+      </div>
     </div>
   );
 }
