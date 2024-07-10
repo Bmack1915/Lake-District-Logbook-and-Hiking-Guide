@@ -7,6 +7,7 @@ import RouteFilters from "./RouteFilters.js";
 import WainwrightFilters from "./WainwrightFilters.js";
 import ToggleButton from "../Utilities/ToggleSlider.js";
 import WainwrightViewCard from "./WainwrightViewCard.js";
+import CompletedWainwrights from "../CompletedWainwrights.js";
 
 function MapInfoPage({
   wainwrights,
@@ -22,6 +23,7 @@ function MapInfoPage({
 
   return (
     <div>
+      <CompletedWainwrights></CompletedWainwrights>
       <div
         style={{ backgroundImage: "url('./edge.jpg')" }}
         className="min-5-screen min-5-screen flex justify-evenly bg-cover py-10"
