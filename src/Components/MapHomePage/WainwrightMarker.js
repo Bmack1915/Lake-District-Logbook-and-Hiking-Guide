@@ -27,19 +27,14 @@ function WainwrightMarker({ w, setSelected, selected }) {
   }
 
   const handleClose = useCallback(() => setSelected(null), []);
+  function handleMarkComplete() {}
 
   const customContent = (
     <div>
       <h3>{w.name}</h3>``
       <p>Area: {w.area}</p>
       <p>
-        <a
-          href={`https://example.com/more-info/${w.wainwrightID}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click here to find out more!
-        </a>
+        <button onClick={handleMarkComplete}>✅ Mark Complete</button>
       </p>
     </div>
   );
