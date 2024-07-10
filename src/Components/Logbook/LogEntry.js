@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import axios from "axios";
-import { gpx } from "@tmcw/togeojson";
-import { bind } from "leaflet";
 import LeafletGPXMap from "../LeafletMapDev/LeafletGPXMap";
 import decodeBase64 from "../Utilities/Decode64";
 
 export default function LogEntry() {
-  const [gpxFile, setGpxFile] = useState();
   const [gpxFileUrl, setGpxFileUrl] = useState();
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
@@ -19,6 +16,7 @@ export default function LogEntry() {
   const passedState = useLocation();
   const route = passedState.state.r;
 
+  //Get Wainwright info from backend
   useEffect(() => {
     async function getAssociatedWainwrights() {
       const res = await axios.get(
@@ -32,22 +30,17 @@ export default function LogEntry() {
     getAssociatedWainwrights();
   }, [route.routeID]);
 
+  //Get GpX file from backend and decode & set as URL.
   useEffect(() => {
     async function getGpxFile() {
       const res = await axios.get(
         `${API_BASE_URL}Routes/gpxfile/${route.routeID}`,
       );
-      setGpxFile(res.data.gpxFile);
+      const url = decodeBase64(res.data.gpxFile);
+      setGpxFileUrl(url);
     }
     getGpxFile();
   }, [route.routeID]);
-
-  useEffect(() => {
-    if (gpxFile) {
-      const url = decodeBase64(gpxFile);
-      setGpxFileUrl(url);
-    }
-  }, [gpxFile]);
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -56,7 +49,7 @@ export default function LogEntry() {
       date: date,
       route: route.routeID,
     };
-    console.log(newLog); // You can replace this with any action you want to perform with newLog
+    console.log(newLog);
 
     alert("Log added to logbook!");
     setDate(today);
