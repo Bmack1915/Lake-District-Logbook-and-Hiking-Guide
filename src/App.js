@@ -9,6 +9,8 @@ import LogbookHome from "./Components/Logbook/LogbookHome.js";
 import { API_BASE_URL } from "./Components/Utilities/apiConfig.js";
 import axios from "axios";
 import LogEntry from "./Components/Logbook/LogEntry.js";
+import LeafletGPXMap from "./Components/LeafletMapDev/LeafletGPXMap.js";
+import WainwrightsLeafletMap from "./Components/LeafletMapDev/WainwrightsLeafletMap.js";
 
 function App() {
   const [wainwrights, setWainwrights] = useState([]);
@@ -50,6 +52,8 @@ function App() {
 
   return (
     <div>
+      {/* <WainwrightsLeafletMap wainwrights={wainwrights}></WainwrightsLeafletMap> */}
+      {/* <LeafletGPXMap></LeafletGPXMap> */}
       <Router>
         <Navbar />
         <Routes>

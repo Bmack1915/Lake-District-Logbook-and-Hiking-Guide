@@ -1,10 +1,21 @@
-import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import Logout from "./Logout";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      setAuthenticated(false);
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -19,14 +30,21 @@ export default function Login() {
 
       const { token } = response.data;
       Cookies.set("token", token, { expires: 1 });
-      console.log(token);
-      window.location.reload();
+      const decoded = jwtDecode(token);
+      console.log("User ID for querying link table is: ", decoded.nameid);
+
       alert("Login successful!");
+      setAuthenticated(true);
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed. Please check your credentials and try again.");
     }
   };
+
+  if (authenticated) {
+    return navigate("/"); // Redirect if already authenticated
+  }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

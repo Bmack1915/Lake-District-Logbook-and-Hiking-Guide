@@ -37,7 +37,6 @@ function RouteFilters({ setFilteredRoutes, routes }) {
       if (selectedDifficulty) {
         filtered = filtered.filter((r) => r.difficulty === selectedDifficulty);
       }
-
       setFilteredRoutes(filtered);
     }
 
