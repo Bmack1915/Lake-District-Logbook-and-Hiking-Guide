@@ -7,6 +7,7 @@ import decodeBase64 from "../Utilities/Decode64";
 
 export default function LogEntry() {
   const [gpxFileUrl, setGpxFileUrl] = useState();
+  //Date.now()? This is used in the react udemy course
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
   const [description, setDescription] = useState("");
