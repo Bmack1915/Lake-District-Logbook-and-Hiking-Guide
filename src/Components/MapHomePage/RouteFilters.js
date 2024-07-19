@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Slider from "../Utilities/Slider";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { setFilteredRoutes } from "../../redux/routeSlice";
+import Slider from "../Slider";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
-function RouteFilters({ setFilteredRoutes, routes }) {
+function RouteFilters() {
+  const dispatch = useDispatch();
+  const routes = useSelector((state) => state.route.routes);
+
   const [currentAscent, setCurrentAscent] = useState([0, 1100]);
   const [currentDistance, setCurrentDistance] = useState([0, 37]);
   const [selectedDifficulty, setSelectedDifficulty] = useState();
@@ -37,21 +43,21 @@ function RouteFilters({ setFilteredRoutes, routes }) {
       if (selectedDifficulty) {
         filtered = filtered.filter((r) => r.difficulty === selectedDifficulty);
       }
-      setFilteredRoutes(filtered);
+      dispatch(setFilteredRoutes(filtered));
     }
 
     checkFilter();
   }, [
     currentAscent,
     currentDistance,
+    dispatch,
     routes,
     selectedDifficulty,
-    setFilteredRoutes,
     time,
   ]);
 
   function HandleReset() {
-    setFilteredRoutes(routes);
+    dispatch(setFilteredRoutes(routes));
     setCurrentAscent([100, 1100]);
     setCurrentDistance([0, 37]);
     setTime([0, 600]);
