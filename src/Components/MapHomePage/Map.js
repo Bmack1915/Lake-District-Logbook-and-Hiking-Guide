@@ -3,8 +3,14 @@ import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { API_KEY } from "../Utilities/apiConfig";
 import WainwrightMarker from "./WainwrightMarker";
 import RouteMarker from "./RouteMarker";
+import { useSelector } from "react-redux";
 
-export function TheMap({ data, type }) {
+export function TheMap({ type }) {
+  const filteredRoutes = useSelector((state) => state.route.filteredRoutes);
+  const filteredWainwrights = useSelector(
+    (state) => state.wainwright.filteredWainwrights,
+  );
+
   const [selected, setSelected] = useState(null);
 
   const containerStyle = {
@@ -18,7 +24,7 @@ export function TheMap({ data, type }) {
 
   function renderMarkers() {
     if (type === "wainwright") {
-      return data.map((w) => (
+      return filteredWainwrights.map((w) => (
         <WainwrightMarker
           setSelected={setSelected}
           w={w}
@@ -27,7 +33,7 @@ export function TheMap({ data, type }) {
         />
       ));
     } else {
-      return data.map((r) => (
+      return filteredRoutes.map((r) => (
         <RouteMarker
           setSelected={setSelected}
           r={r}
@@ -47,7 +53,7 @@ export function TheMap({ data, type }) {
           lat: 54.460861,
           lng: -3.08875,
         }}
-        //mapTypeId="satellite"
+        mapTypeId="satellite"
         defaultZoom={10}
         gestureHandling={"greedy"}
         disableDefaultUI={true}

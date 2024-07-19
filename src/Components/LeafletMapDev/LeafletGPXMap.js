@@ -30,7 +30,7 @@ export default function LeafletGPXMap({ url }) {
     if (map) {
       // Function to add GPX files
       function addGPX(url) {
-        var gpx = new L.GPX(gpxFileUrl, {
+        var gpx = new L.GPX(url, {
           async: true,
           marker_options: {
             startIconUrl: "./mountain.png",
@@ -48,10 +48,10 @@ export default function LeafletGPXMap({ url }) {
       }
 
       // Example GPX file URL
-      const gpxFileUrl = `${process.env.PUBLIC_URL}/Walking Britain Walk_1023.gpx`;
-      addGPX(gpxFileUrl);
+      // const gpxFileUrl = `${process.env.PUBLIC_URL}/Walking Britain Walk_1023.gpx`;
+      addGPX(url);
     }
-  }, [map]);
+  }, [map, url]);
 
-  return <div id="map" style={{ height: "100vh" }}></div>;
+  return <div id="map" className="w-1/2 p-4" style={{ height: "100vh" }}></div>;
 }

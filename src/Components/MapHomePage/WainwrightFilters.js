@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Slider from "../Utilities/Slider";
-import ToggleButton from "../Utilities/ToggleSlider";
+import Slider from "../Slider";
+import ToggleButton from "../ToggleSlider";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilteredWainwrights } from "../../redux/wainwrightSlice";
 
-function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
+function WainwrightFilters() {
+  const dispatch = useDispatch();
+  const wainwrights = useSelector((state) => state.wainwright.wainwrights);
+
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentHeight, setCurrentHeight] = useState([265, 1200]);
   const [completed, setCompleted] = useState(false);
@@ -19,15 +24,15 @@ function WainwrightFilters({ setFilteredWainwrights, wainwrights }) {
         filtered = filtered.filter((w) => w.area === selectedArea);
       }
 
-      setFilteredWainwrights(filtered);
+      dispatch(setFilteredWainwrights(filtered));
     }
 
     checkFilter();
-  }, [selectedArea, currentHeight, wainwrights, setFilteredWainwrights]);
+  }, [selectedArea, currentHeight, wainwrights, dispatch]);
 
   function HandleReset() {
     setSelectedArea(null);
-    setFilteredWainwrights(wainwrights);
+    dispatch(setFilteredWainwrights(wainwrights));
     setCurrentHeight([265, 1200]);
   }
 

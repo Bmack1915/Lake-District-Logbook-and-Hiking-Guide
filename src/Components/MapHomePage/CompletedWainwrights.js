@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "./Utilities/apiConfig";
+import { API_BASE_URL } from "../Utilities/apiConfig";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
@@ -15,6 +15,7 @@ export default function CompletedWainwrights() {
       try {
         const res = await axios.get(`${API_BASE_URL}UserWainwrights/${id}`);
         setCompleted(res.data.$values);
+        console.log("Completed", res.data.$values);
       } catch (err) {
         console.error("Error fetching data:", err);
       } finally {

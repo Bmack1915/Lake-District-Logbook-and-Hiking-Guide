@@ -5,7 +5,6 @@ import {
   Pin,
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function RouteMarker({ r, setSelected, selected }) {
@@ -30,7 +29,7 @@ function RouteMarker({ r, setSelected, selected }) {
   }
 
   const handleMoreInfoClick = () => {
-    navigate("/logentry", { state: { r } });
+    navigate("/routeinfo", { state: { r } });
   };
 
   const handleClose = useCallback(() => setSelected(null), []);
