@@ -7,10 +7,11 @@ import axios from "axios";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import decodeBase64 from "../Utilities/Decode64";
 
-export default function RouteInfo({ r }) {
+export default function RouteHomePage({ r }) {
   const [associatedWainwrights, setAssociatedWainwrights] = useState([]);
   const [gpxFileUrl, setGpxFileUrl] = useState("");
   const passedState = useLocation();
+  console.log(passedState);
   const route = passedState.state.r;
   //Get Wainwright info from backend
 
@@ -40,7 +41,7 @@ export default function RouteInfo({ r }) {
   }, [route.routeID]);
 
   return (
-    <div className="flex justify-between">
+    <div className="flex h-screen w-full justify-evenly">
       <RouteLogForm route={route} />
       <LeafletGPXMap url={gpxFileUrl} />
     </div>
