@@ -13,7 +13,6 @@ function MapInfoPageGlobal() {
 
   return (
     <div>
-      <CompletedWainwrights />
       <div
         style={{ backgroundImage: "url('./edge.jpg')" }}
         className="min-5-screen min-5-screen flex justify-evenly bg-cover py-10"

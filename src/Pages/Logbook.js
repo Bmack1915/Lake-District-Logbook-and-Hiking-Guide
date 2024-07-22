@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import CompletedItems from "../Components/CompletedItems";
+import LogbookWheel from "../Components/Logging/LogbookWheel";
 
 function Logbook() {
   const completedWainwrights = useSelector(
@@ -9,6 +10,7 @@ function Logbook() {
 
   return (
     <div className="flex items-center justify-evenly">
+      <LogbookWheel />
       <CompletedItems items={completedWainwrights} itemType="wainwrights" />
       <CompletedItems items={completedRoutes} itemType="routes" />
     </div>
