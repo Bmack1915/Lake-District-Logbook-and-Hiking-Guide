@@ -1,14 +1,28 @@
-import { configureStore } from "@reduxjs/toolkit";
+// store.js
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import wainwrightReducer from "./wainwrightSlice";
 import routeReducer from "./routeSlice";
 import userReducer from "./userSlice";
 
-const store = configureStore({
-  reducer: {
-    wainwright: wainwrightReducer,
-    route: routeReducer,
-    user: userReducer,
-  },
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const rootReducer = combineReducers({
+  wainwright: wainwrightReducer,
+  route: routeReducer,
+  user: userReducer,
 });
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+});
+
+const persistor = persistStore(store);
+
+export { store, persistor };

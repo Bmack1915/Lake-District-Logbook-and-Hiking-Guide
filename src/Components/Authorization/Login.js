@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginAndFetchUserInfo } from "../../redux/userSlice";
 
 export default function Login() {
+  const state = useSelector((state) => state.user);
+  console.log(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -12,10 +14,8 @@ export default function Login() {
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
-    const success = dispatch(LoginAndFetchUserInfo(email, password));
-    if (success) {
-      navigate("/"); // Navigate to the desired route after successful login
-    }
+    dispatch(LoginAndFetchUserInfo(email, password));
+    navigate("/");
   };
 
   return (
