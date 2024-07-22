@@ -8,11 +8,11 @@ import { useEffect } from "react";
 import { fetchRoutes } from "./redux/routeSlice.js";
 
 import Login from "./Components/Authorization/Login.js";
-import LogbookHome from "./Components/Logging/myLogBook.js";
 import Navbar from "./Components/NavBar.js";
 import MapInfoPageGlobal from "./Components/MapHomePage/MapInfoPageGlobal.js";
 import RouteHomePage from "./Components/Logging/RouteHomePage.js";
 import AuthCheck from "./Components/Authorization/AuthCheck.js";
+import Logbook from "./Pages/Logbook.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function App() {
             path="/logbook"
             element={
               <AuthCheck>
-                <LogbookHome />
+                <Logbook />
               </AuthCheck>
             }
           />
