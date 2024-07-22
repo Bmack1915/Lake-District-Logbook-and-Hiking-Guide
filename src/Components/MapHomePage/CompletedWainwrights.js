@@ -1,38 +1,26 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../Utilities/apiConfig";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import React from "react";
+import { useSelector } from "react-redux";
 
 export default function CompletedWainwrights() {
-  const [completed, setCompleted] = useState([]);
-
-  const decoded = jwtDecode(Cookies.get("token"));
-  const id = decoded.nameid;
-
-  useEffect(() => {
-    const fetchCompleted = async () => {
-      try {
-        const res = await axios.get(`${API_BASE_URL}UserWainwrights/${id}`);
-        setCompleted(res.data.$values);
-        console.log("Completed", res.data.$values);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      } finally {
-      }
-    };
-
-    fetchCompleted();
-  }, [id]);
+  const completed = useSelector((state) => state.user.userWainwrights);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   return (
     <div>
-      <h1>You have completed: </h1>
-      {completed.map((w) => (
-        <h1>
-          ⛰️ {w.name} - {w.heightM}m
-        </h1>
-      ))}
+      {isAuthenticated ? (
+        completed && completed.length > 0 ? (
+          <>
+            <h1>You have completed:</h1>
+            {completed.map((w) => (
+              <h1 key={w.wainwrightID}>
+                ⛰️ {w.name} - {w.heightM}m
+              </h1>
+            ))}
+          </>
+        ) : (
+          <p>You haven't completed any Wainwrights</p>
+        )
+      ) : null}
     </div>
   );
 }

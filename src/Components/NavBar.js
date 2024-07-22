@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logout from "./Authorization/Logout";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 const Navbar = () => {
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   return (
     <nav className="border-gray-200 bg-white text-xl dark:bg-gray-900">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
@@ -58,7 +60,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              {!Cookies.get("token") ? (
+              {!isAuthenticated ? (
                 <Link
                   to="/login"
                   className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"

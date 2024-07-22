@@ -5,16 +5,22 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import Logout from "./Logout";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  LoginAndFetchUserInfo,
+  fetchUserInfo,
+  login,
+} from "../../redux/userSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [authenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
-    if (!Cookies.get("token")) {
-      setAuthenticated(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!Cookies.get("token")) {
+  //     setAuthenticated(false);
+  //   }
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,29 +28,11 @@ export default function Login() {
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
-    try {
-      const response = await axios.post(`${API_BASE_URL}account/login`, {
-        Email: email,
-        Password: password,
-      });
-
-      const { token } = response.data;
-      Cookies.set("token", token, { expires: 1 });
-      const decoded = jwtDecode(token);
-      console.log("User ID for querying link table is: ", decoded.nameid);
-
-      alert("Login successful!");
-      setAuthenticated(true);
-      navigate("/");
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Login failed. Please check your credentials and try again.");
+    const success = dispatch(LoginAndFetchUserInfo(email, password));
+    if (success) {
+      navigate("/"); // Navigate to the desired route after successful login
     }
   };
-
-  if (authenticated) {
-    return navigate("/"); // Redirect if already authenticated
-  }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
