@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-export default function CompletedWainwrights() {
+export default function CompletedWainwrights({ data }) {
   const completed = useSelector((state) => state.user.userWainwrights);
   const routes = useSelector((state) => state.user.userRoutes);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);

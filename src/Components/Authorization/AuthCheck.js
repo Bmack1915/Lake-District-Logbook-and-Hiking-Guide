@@ -1,16 +1,28 @@
-import React from "react";
-import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Loading } from "../Utilities/Loading";
 
 export default function AuthCheck({ children }) {
   const navigate = useNavigate();
-  if (!Cookies.get("token")) navigate("/login");
-  if (Cookies.get("token")) {
-    return children;
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isAuthenticated) {
+        navigate("/login");
+      } else {
+        setLoading(false);
+      }
+    }, 500); // Adjust the delay as needed
+
+    return () => clearTimeout(timer);
+  }, [isAuthenticated, navigate]);
+
+  if (loading) {
+    return <Loading />;
   }
-  return (
-    <div>
-      <h1>Please login to access your logbook!</h1>
-    </div>
-  );
+
+  return <div>{children}</div>;
 }
