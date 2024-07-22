@@ -28,14 +28,17 @@ const userSlice = createSlice({
       reducer(state, action) {
         state.email = action.payload.email;
         state.id = action.payload.id;
-        state.isAuthenticated = true;
+        if (Cookies.get("token")) state.isAuthenticated = true;
       },
     },
     logout(state) {
       return initialState;
     },
-    setInfo(state, action) {
+    setUserWainwrights(state, action) {
       state.userWainwrights = action.payload;
+    },
+    setUserRoutes(state, action) {
+      state.userRoutes = action.payload;
     },
   },
 });
@@ -58,14 +61,14 @@ export function LoginAndFetchUserInfo(email, password) {
       try {
         const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
         const userWainwrights = res.data.$values;
-        dispatch(setInfo(userWainwrights));
+        dispatch(setUserWainwrights(userWainwrights));
       } catch (error) {
         console.error("Failed to fetch wainwrights:", error);
       }
       try {
-        const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
+        const res = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
         const userRoutes = res.data.$values;
-        dispatch(setInfo(userWainwrights));
+        dispatch(setUserRoutes(userRoutes));
       } catch (error) {
         console.error("Failed to fetch routes:", error);
       }
@@ -77,4 +80,5 @@ export function LoginAndFetchUserInfo(email, password) {
 }
 
 export default userSlice.reducer;
-export const { login, logout, setInfo } = userSlice.actions;
+export const { login, logout, setUserWainwrights, setUserRoutes } =
+  userSlice.actions;

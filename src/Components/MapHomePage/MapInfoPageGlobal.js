@@ -6,7 +6,6 @@ import ToggleButton from "../ToggleSlider";
 import WainwrightSection from "./WainwrightSection";
 import RouteSection from "./RouteSection";
 import WainwrightViewCard from "./WainwrightViewCard";
-import { useSelector } from "react-redux";
 
 function MapInfoPageGlobal() {
   const [errorMsg, setErrorMsg] = useState("");

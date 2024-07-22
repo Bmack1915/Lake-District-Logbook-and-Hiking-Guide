@@ -1,26 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../Utilities/apiConfig";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-import Logout from "./Logout";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  LoginAndFetchUserInfo,
-  fetchUserInfo,
-  login,
-} from "../../redux/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { LoginAndFetchUserInfo } from "../../redux/userSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!Cookies.get("token")) {
-  //     setAuthenticated(false);
-  //   }
-  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
