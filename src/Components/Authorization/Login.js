@@ -4,7 +4,6 @@ import { LoginAndFetchUserInfo } from "../../redux/userSlice";
 
 export default function Login() {
   const state = useSelector((state) => state.user);
-  console.log(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,7 +14,7 @@ export default function Login() {
     const password = e.target.elements.password.value;
 
     dispatch(LoginAndFetchUserInfo(email, password));
-    navigate("/");
+    // navigate("/");
   };
 
   return (

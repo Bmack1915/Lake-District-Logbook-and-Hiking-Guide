@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { difficulties } from "../Utilities/difficulties";
+
 import {
   Button,
   FormControl,
@@ -7,34 +10,61 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { API_BASE_URL } from "../Utilities/apiConfig";
+import { UpdateUserInfo, addUserRoute } from "../../redux/userSlice";
 
 export default function RouteLogForm({ route }) {
-  //Date.now()? This is used in the react udemy course
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.user.id);
+  const routeID = route.routeID;
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("");
 
-  const difficulties = [
-    "Easy",
-    "Easy/Moderate",
-    "Moderate",
-    "Moderate/Hard",
-    "Hard",
-    "Very Hard",
-    "Severe",
-  ];
+  // async function CreateLog(log) {
+  //   try {
+  //     const response = await axios.post(`${API_BASE_URL}userroutes`, log);
+  //     console.log("Response", response);
+  //     if (response.status === 201 || response.state === 200) {
+  //       console.log("Log created successfully", response.data);
+  //       //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
+  //       //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
+  //       dispatch(addUserRoute(response.data));
+  //       dispatch(UpdateUserInfo());
+  //     } else {
+  //       console.error("Failed to create log");
+  //     }
+  //   } catch (error) {
+  //     alert("Error creating log");
+  //     console.error("Error creating log:", error.response);
+  //   }
+  // }
+
+  async function CreateLog(log) {
+    const response = await axios.post(`${API_BASE_URL}userroutes`, log);
+    // console.log("Response", response);
+    if (response.status === 201 || response.state === 200) {
+      // console.log("Log created successfully", response.data);
+      //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
+      //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
+    }
+    dispatch(addUserRoute(response.data));
+    dispatch(UpdateUserInfo());
+  }
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the default form submission behavior
     const newLog = {
+      id,
+      routeID,
       description,
-      date,
-      route: route.routeID,
-      difficulty,
+      date: new Date(date).toISOString(),
+      DifficultyRating: difficulty,
     };
 
-    alert("Log added to logbook!");
+    CreateLog(newLog);
     setDate(today);
     setDescription("");
     setDifficulty("");

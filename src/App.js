@@ -9,10 +9,10 @@ import { fetchRoutes } from "./redux/routeSlice.js";
 
 import Login from "./Components/Authorization/Login.js";
 import Navbar from "./Components/NavBar.js";
-import MapInfoPageGlobal from "./Components/MapHomePage/MapInfoPageGlobal.js";
-import RouteHomePage from "./Components/Logging/RouteHomePage.js";
+import MapInfoPage from "./Pages/MapInfoPage.js";
+import RouteHomePage from "./Pages/RouteHomePage.js";
 import AuthCheck from "./Components/Authorization/AuthCheck.js";
-import Logbook from "./Pages/Logbook.js";
+import Logbook from "./Pages/LogbookPage.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function App() {
             path="/"
             element={
               <AuthCheck>
-                <MapInfoPageGlobal />
+                <MapInfoPage />
               </AuthCheck>
             }
           />
