@@ -10,8 +10,7 @@ export function TheMap({ type }) {
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
   );
-
-  const [selected, setSelected] = useState(null);
+  const [selectedRoute, setSelectedRoute] = useState();
 
   const containerStyle = {
     width: "700px",
@@ -19,26 +18,26 @@ export function TheMap({ type }) {
   };
 
   function handleMapClick() {
-    setSelected(null);
+    setSelectedRoute(null);
   }
 
   function renderMarkers() {
     if (type === "wainwright") {
       return filteredWainwrights.map((w) => (
         <WainwrightMarker
-          setSelected={setSelected}
+          // setSelectedRoute={setSelectedRoute}
           w={w}
           key={w.wainwrightID}
-          selected={selected}
+          // selectedRoute={selectedRoute}
         />
       ));
     } else {
-      return filteredRoutes.map((r) => (
+      return filteredRoutes.map((route) => (
         <RouteMarker
-          setSelected={setSelected}
-          r={r}
-          key={r.routeID}
-          selected={selected}
+          selectedRoute={selectedRoute}
+          setSelectedRoute={setSelectedRoute}
+          route={route}
+          key={route.routeID}
         />
       ));
     }

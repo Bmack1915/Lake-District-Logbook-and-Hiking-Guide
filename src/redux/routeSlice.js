@@ -18,13 +18,15 @@ const routeSlice = createSlice({
     setFilteredRoutes(state, action) {
       state.filteredRoutes = action.payload;
     },
-    setSelectedRoute(state, action) {
-      state.selectedRoute = action.payload;
+    setSelectedRouteById(state, action) {
+      state.selectedRoute = state.routes.filter(
+        (r) => r.routeID === Number(action.payload),
+      )[0];
     },
   },
 });
 
-export const { setRoutes, setFilteredRoutes, setSelectedRoute } =
+export const { setRoutes, setFilteredRoutes, setSelectedRouteById } =
   routeSlice.actions;
 
 export function fetchRoutes() {

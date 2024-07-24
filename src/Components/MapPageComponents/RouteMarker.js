@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   AdvancedMarker,
   InfoWindow,
@@ -7,11 +7,13 @@ import {
 } from "@vis.gl/react-google-maps";
 import { useNavigate } from "react-router-dom";
 
-function RouteMarker({ r, setSelected, selected }) {
+function RouteMarker({ route, selectedRoute, setSelectedRoute }) {
   const [markerRef, marker] = useAdvancedMarkerRef();
+
   //Each marker has a routeID, when you click one selected === this route ID, therefore this is true and the window shows.
-  const infoWindowShown = selected === r.routeID;
+  const infoWindowShown = selectedRoute?.routeID === route.routeID;
   const navigate = useNavigate();
+
   const difficultyColours = {
     easy: "green",
     "Easy/Moderate": "green",
@@ -22,21 +24,25 @@ function RouteMarker({ r, setSelected, selected }) {
     Severe: "black",
   };
 
-  const background = difficultyColours[r.difficulty];
+  const background = difficultyColours[route.difficulty];
 
   function handleMarkerClick() {
-    setSelected(r.routeID);
+    setSelectedRoute(route);
   }
 
   const handleMoreInfoClick = () => {
-    navigate("/routeinfo", { state: { r } });
+    if (selectedRoute) {
+      navigate(`/routeinfo/${route.routeID}`);
+    }
   };
 
-  const handleClose = useCallback(() => setSelected(null), []);
+  const handleClose = () => {
+    setSelectedRoute(null);
+  };
 
   const customContent = (
     <div>
-      <h3 className="flex align-text-top font-bold">{r.name}</h3>
+      <h3 className="flex align-text-top font-bold">{route.name}</h3>
       <p>
         <button onClick={handleMoreInfoClick}>More Info</button>
       </p>
@@ -49,8 +55,8 @@ function RouteMarker({ r, setSelected, selected }) {
         ref={markerRef}
         onClick={handleMarkerClick}
         position={{
-          lat: r.latitude,
-          lng: r.longitude,
+          lat: route.latitude,
+          lng: route.longitude,
         }}
         style={{ transform: "translate(50%, 100%)" }}
       >
@@ -66,7 +72,6 @@ function RouteMarker({ r, setSelected, selected }) {
 
       {infoWindowShown && (
         <InfoWindow anchor={marker} onClose={handleClose}>
-          <button></button>
           {customContent}
         </InfoWindow>
       )}
