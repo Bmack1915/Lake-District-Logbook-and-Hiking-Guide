@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../Utilities/apiConfig";
 
 function AssociatedWainwrights({ route }) {
   const [associatedWainwrights, setAssociatedWainwrights] = useState([]);
+
   useEffect(() => {
     async function getAssociatedWainwrights() {
       const res = await axios.get(
@@ -16,15 +17,17 @@ function AssociatedWainwrights({ route }) {
 
     getAssociatedWainwrights();
   }, [route.routeID]);
+
   return (
-    <div>
-      <h1>This route conquers: </h1>
+    <div className="rounded-lg bg-white p-4 shadow-md">
+      <h1 className="mb-4 text-2xl font-bold">This route conquers:</h1>
       {associatedWainwrights.map((aw) => (
-        <p>
-          ⛰ {aw.name}, {aw.heightM}
+        <p key={aw.id} className="mb-2 flex items-center">
+          <span className="mr-2 text-xl">⛰</span>
+          <span className="font-semibold">{aw.name}</span>, {aw.heightM} meters
         </p>
       ))}
-      <p>
+      <p className="mt-4 text-gray-600">
         Logging this route will automatically add these to your completed
         Wainwrights!
       </p>

@@ -53,5 +53,5 @@ export default function LeafletGPXMap({ url }) {
     }
   }, [map, url]);
 
-  return <div id="map" className="w-1/2 p-4" style={{ height: "100vh" }}></div>;
+  return <div id="map" className="p-4" style={{ height: "100vh" }}></div>;
 }

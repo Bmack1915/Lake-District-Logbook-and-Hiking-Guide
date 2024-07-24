@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import { UpdateUserInfo, addUserRoute } from "../../redux/userSlice";
+import StarRating from "../StarRating";
 
 export default function RouteLogForm({ route }) {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export default function RouteLogForm({ route }) {
   const [date, setDate] = useState(today);
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [rating, setRating] = useState("");
 
   // async function CreateLog(log) {
   //   try {
@@ -106,11 +108,16 @@ export default function RouteLogForm({ route }) {
           </li>
 
           <li>
+            <h2>When did you complete this walk?</h2>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
+          </li>
+          <li>
+            <h2>How would you rate this walk? </h2>
+            <StarRating onSetRating={setRating} />
           </li>
           <li>
             <Button variant="contained" type="submit">
