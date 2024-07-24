@@ -6,14 +6,16 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import MyButton from "./myButton";
+import MyButton from "../materialUI/myButton";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { difficulties } from "../Utilities/difficulties";
 import axios from "axios";
 import { API_BASE_URL } from "../Utilities/apiConfig";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { UpdateUserInfo } from "../../redux/userSlice";
 
-export default function FormDialog({ children, userRoute }) {
+export default function EditRouteDialog({ userRoute }) {
+  const dispatch = useDispatch();
   const id = useSelector((state) => state.user.id);
   const routeID = userRoute.route.routeID;
   const [difficulty, setDifficulty] = React.useState(
@@ -22,6 +24,7 @@ export default function FormDialog({ children, userRoute }) {
   const [date, setDate] = React.useState(userRoute.date);
   const [description, setDescription] = React.useState(userRoute.description);
   const [open, setOpen] = React.useState(false);
+  console.log(date);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,23 +34,30 @@ export default function FormDialog({ children, userRoute }) {
     setOpen(false);
   };
 
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   async function EditLog(log) {
     const response = await axios.put(
       `${API_BASE_URL}userroutes/${id}?routeID=${routeID}`,
       log,
     );
     console.log("Response", response);
-    // console.log("Response", response);
+    alert("Log successfully updated!");
+    dispatch(UpdateUserInfo());
+
     if (response.status === 201 || response.state === 200) {
-      // console.log("Log created successfully", response.data);
-      //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
-      //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the default form submission behavior
-    const newLog = {
+    const updatedLog = {
       id,
       routeID,
       description,
@@ -55,7 +65,11 @@ export default function FormDialog({ children, userRoute }) {
       DifficultyRating: difficulty,
     };
 
-    EditLog(newLog);
+    EditLog(updatedLog);
+    setDate(() => date);
+    setDescription(() => description);
+    setDifficulty(() => difficulty);
+    setOpen(false);
   }
 
   return (
@@ -119,7 +133,7 @@ export default function FormDialog({ children, userRoute }) {
             <li className="mt-5 flex">
               <input
                 type="date"
-                value={date}
+                value={formatDate(date)}
                 onChange={(e) => setDate(e.target.value)}
               />
             </li>
@@ -130,7 +144,6 @@ export default function FormDialog({ children, userRoute }) {
           <MyButton
             handleSubmit={handleSubmit}
             variant="contained"
-            color="success"
             type="submit"
           >
             Save

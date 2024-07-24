@@ -5,6 +5,7 @@ import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 const initialState = {
   routes: [],
   filteredRoutes: [],
+  selectedRoute: null,
 };
 
 const routeSlice = createSlice({
@@ -17,10 +18,14 @@ const routeSlice = createSlice({
     setFilteredRoutes(state, action) {
       state.filteredRoutes = action.payload;
     },
+    setSelectedRoute(state, action) {
+      state.selectedRoute = action.payload;
+    },
   },
 });
 
-export const { setRoutes, setFilteredRoutes } = routeSlice.actions;
+export const { setRoutes, setFilteredRoutes, setSelectedRoute } =
+  routeSlice.actions;
 
 export function fetchRoutes() {
   return async function (dispatch) {

@@ -1,6 +1,6 @@
 import CompletedWainwrights from "../Components/LogbookComponents/CompletedWainwrights";
 import LogbookWheel from "../Components/LogbookComponents/LogbookWheel";
-import CompletedRoutes from "../Components/LogbookComponents/CompletedRoutes";
+import CompletedRoutesList from "../Components/LogbookComponents/CompletedRoutesList";
 
 function Logbook() {
   return (
@@ -8,9 +8,8 @@ function Logbook() {
       <div className="flex items-center justify-evenly">
         <LogbookWheel />
         <CompletedWainwrights />
-        {/* <WainwrightViewCard /> */}
       </div>
-      <CompletedRoutes />
+      <CompletedRoutesList />
     </div>
   );
 }
