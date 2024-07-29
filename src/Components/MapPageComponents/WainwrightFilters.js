@@ -3,18 +3,34 @@ import Slider from "../Slider";
 import ToggleButton from "../ToggleSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilteredWainwrights } from "../../redux/wainwrightSlice";
+import { useCompletedWainwrights } from "../Utilities/useCompletedWainwrights";
+import { maxWHeight, minWHeight } from "../Utilities/Stats";
 
 function WainwrightFilters() {
   const dispatch = useDispatch();
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useCompletedWainwrights(id);
 
   const [selectedArea, setSelectedArea] = useState(null);
-  const [currentHeight, setCurrentHeight] = useState([265, 1200]);
+  const [currentHeight, setCurrentHeight] = useState([minWHeight, maxWHeight]);
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     function checkFilter() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
+
+      if (completed) {
+        filtered = userWainwrights;
+
+        filtered = filtered.filter(
+          (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
+        );
+
+        if (selectedArea) {
+          filtered = filtered.filter((w) => w.area === selectedArea);
+        }
+      }
 
       filtered = filtered.filter(
         (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
@@ -28,12 +44,20 @@ function WainwrightFilters() {
     }
 
     checkFilter();
-  }, [selectedArea, currentHeight, wainwrights, dispatch]);
+  }, [
+    selectedArea,
+    currentHeight,
+    wainwrights,
+    dispatch,
+    completed,
+    userWainwrights,
+  ]);
 
   function HandleReset() {
     setSelectedArea(null);
     dispatch(setFilteredWainwrights(wainwrights));
-    setCurrentHeight([265, 1200]);
+    setCurrentHeight([minWHeight, maxWHeight]);
+    setCompleted(false);
   }
 
   const areas = [
@@ -78,8 +102,8 @@ function WainwrightFilters() {
             currentValue={currentHeight}
             setCurrentValue={setCurrentHeight}
             unit="metres"
-            min={265}
-            max={1200}
+            min={minWHeight}
+            max={maxWHeight}
           >
             Height
           </Slider>

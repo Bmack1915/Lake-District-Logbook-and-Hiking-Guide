@@ -14,6 +14,8 @@ function DeleteRouteDialog({ userRoute }) {
   const [deleteAssociatedWainwrights, setDeleteAssociatedWainwrights] =
     useState(true);
 
+  console.log("UserRoute", userRoute);
+
   const handleDeleteClick = () => {
     setDialogOpen(true);
   };
@@ -24,9 +26,8 @@ function DeleteRouteDialog({ userRoute }) {
       : `${API_BASE_URL}userroutes/${userID}?routeID=${userRoute.route.routeID}`;
 
     try {
-      const response = await axios.delete(url);
-      console.log(response);
-      // dispatch(deleteUserRoute(userID, userRoute.route.id));
+      await axios.delete(url);
+
       dispatch(UpdateUserInfo());
     } catch (error) {
       console.error("Failed to delete the route:", error);

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logout from "./Authorization/Logout";
-import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 const Navbar = () => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -33,30 +32,6 @@ const Navbar = () => {
                 className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
               >
                 Logbook
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/route-finder"
-                className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              >
-                Route Finder
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/wainwrights"
-                className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              >
-                Wainwrights
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-              >
-                Contact
               </Link>
             </li>
             <li>

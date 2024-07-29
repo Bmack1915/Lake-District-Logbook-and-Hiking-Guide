@@ -2,7 +2,7 @@ import MyButton from "../materialUI/myButton";
 import EditRouteDialog from "./EditRouteDialog";
 import DeleteRouteDialog from "./DeleteRouteDialog";
 import UserRouteInfo from "./UserRouteInfo";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CompletedRouteCard({ userRoute }) {
   function handleViewClick() {

@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { LoginAndFetchUserInfo } from "../../redux/userSlice";
 
 export default function Login() {
-  const state = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,7 +13,7 @@ export default function Login() {
     const password = e.target.elements.password.value;
 
     dispatch(LoginAndFetchUserInfo(email, password));
-    // navigate("/");
+    navigate("/");
   };
 
   return (

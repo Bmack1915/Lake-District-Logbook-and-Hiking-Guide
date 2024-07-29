@@ -3,6 +3,7 @@ import CompletedRouteCard from "./CompletedRouteCard";
 
 export default function CompletedRoutesList() {
   const completedRoutes = useSelector((state) => state.user.userRoutes) || [];
+  console.log("CUMPLETED", completedRoutes);
   return (
     <div className="my-4 flex flex-col items-center">
       {completedRoutes && completedRoutes.length > 0 ? (

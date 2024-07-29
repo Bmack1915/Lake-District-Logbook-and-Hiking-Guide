@@ -5,7 +5,7 @@ import CompletedRoutesList from "../Components/LogbookComponents/CompletedRoutes
 function Logbook() {
   return (
     <div>
-      <div className="flex items-center justify-evenly">
+      <div className="flex justify-evenly">
         <LogbookWheel />
         <CompletedWainwrights />
       </div>
