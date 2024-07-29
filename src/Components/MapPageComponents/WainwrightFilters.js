@@ -53,8 +53,11 @@ function WainwrightFilters() {
       </h1>
       <div className="flex flex-wrap">
         {areas.map((area) => (
-          <div key={area} className="mb-2 mr-4 flex items-center font-bold">
-            <label className="flex items-center space-x-2">
+          <div
+            key={area}
+            className="mb-2 mr-4 flex items-center border border-black font-bold"
+          >
+            <label className="flex items-center space-x-2 p-5">
               <input
                 type="radio"
                 name="areaFilter"

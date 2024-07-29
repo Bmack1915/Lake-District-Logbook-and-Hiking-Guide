@@ -9,8 +9,8 @@ function RouteFilters() {
   const dispatch = useDispatch();
   const routes = useSelector((state) => state.route.routes);
 
-  const [currentAscent, setCurrentAscent] = useState([0, 1100]);
-  const [currentDistance, setCurrentDistance] = useState([0, 37]);
+  const [currentAscent, setCurrentAscent] = useState([0, 1200]);
+  const [currentDistance, setCurrentDistance] = useState([0, 50]);
   const [selectedDifficulty, setSelectedDifficulty] = useState();
   const [time, setTime] = useState([0, 600]);
 
@@ -58,9 +58,9 @@ function RouteFilters() {
 
   function HandleReset() {
     dispatch(setFilteredRoutes(routes));
-    setCurrentAscent([100, 1100]);
-    setCurrentDistance([0, 37]);
-    setTime([0, 600]);
+    setCurrentAscent([0, 11000]);
+    setCurrentDistance([0, 60]);
+    setTime([0, 900]);
     setSelectedDifficulty(null);
   }
 
@@ -97,8 +97,8 @@ function RouteFilters() {
             currentValue={currentAscent}
             setCurrentValue={setCurrentAscent}
             unit="metres"
-            min={100}
-            max={1100}
+            min={0}
+            max={11000}
           >
             Ascent
           </Slider>
@@ -108,7 +108,7 @@ function RouteFilters() {
             setCurrentValue={setCurrentDistance}
             unit="km"
             min={0}
-            max={37}
+            max={100}
           >
             Length of walk
           </Slider>
@@ -118,7 +118,7 @@ function RouteFilters() {
             setCurrentValue={setTime}
             unit="hrs"
             min={0}
-            max={15}
+            max={1000}
           >
             Duration
           </Slider>

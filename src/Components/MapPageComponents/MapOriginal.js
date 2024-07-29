@@ -5,7 +5,7 @@ import WainwrightMarker from "./WainwrightMarker";
 import RouteMarker from "./RouteMarker";
 import { useSelector } from "react-redux";
 
-export function TheMap({ type }) {
+export function TheMap2({ type }) {
   const filteredRoutes = useSelector((state) => state.route.filteredRoutes);
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
@@ -52,7 +52,7 @@ export function TheMap({ type }) {
           lat: 54.460861,
           lng: -3.08875,
         }}
-        mapTypeId="satellite"
+        //mapTypeId="satellite"
         defaultZoom={10}
         gestureHandling={"greedy"}
         disableDefaultUI={true}

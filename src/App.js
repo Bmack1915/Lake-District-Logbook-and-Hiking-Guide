@@ -23,6 +23,7 @@ function App() {
 
   return (
     <div>
+      {/* <LEAFLETMAP wainwrights={wainwrights} routes={routes} type="routes" /> */}
       <Router>
         <Navbar />
         <Routes>
