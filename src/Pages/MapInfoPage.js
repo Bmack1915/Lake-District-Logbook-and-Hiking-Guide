@@ -7,6 +7,7 @@ import WainwrightFilters from "../Components/MapPageComponents/WainwrightFilters
 import RouteFilters from "../Components/MapPageComponents/RouteFilters";
 import { Button } from "@mui/material";
 import RouteViewCard from "../Components/MapPageComponents/RouteViewCard";
+import SuggestedRoutes from "../Components/MapPageComponents/SuggestedRoutes";
 
 function MapInfoPage() {
   const [errorMsg, setErrorMsg] = useState("");
@@ -19,7 +20,8 @@ function MapInfoPage() {
   return (
     <div className="flex min-h-screen">
       <div style={{ flex: 1 }}>
-        <LEAFLETMAP type={type ? `wainwrights` : `routes`} />
+        {/* <LEAFLETMAP type={type ? `wainwrights` : `routes`} /> */}
+        <SuggestedRoutes />
       </div>
       <div
         style={{ backgroundImage: "url('./edge.jpg')" }}
@@ -31,8 +33,8 @@ function MapInfoPage() {
           </Button>
         </div>
         {type ? <WainwrightFilters /> : <RouteFilters />}
+
         {errorMsg && <p className="w-full text-center">{errorMsg}</p>}
-        <WainwrightViewCard />
       </div>
     </div>
   );

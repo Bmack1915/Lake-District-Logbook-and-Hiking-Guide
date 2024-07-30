@@ -3,38 +3,48 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea } from "@mui/material";
+import { Box, Button, CardActionArea } from "@mui/material";
 import { useSelector } from "react-redux";
+import theme from "../../theme";
+import SendIcon from "@mui/icons-material/Send";
 
-export default function RouteViewCard() {
-  const filteredRoutes = useSelector((state) => state.route.routes);
-  const route = filteredRoutes[0];
-
+export default function RouteViewCard({ route }) {
   if (route)
     return (
-      <Card sx={{ maxWidth: 6000, maxHeight: 600 }}>
+      <Card sx={{ maxWidth: 700, maxHeight: 300 }}>
         <CardActionArea>
           <CardMedia
             component="img"
             height="100"
             image="lakes.png"
-            alt="green iguana"
-            sx={{ objectFit: "cover", maxHeight: 120 }}
+            alt="lake"
+            sx={{ objectFit: "cover", maxHeight: 150 }}
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+          <CardContent sx={{ backgroundColor: theme.palette.four.main }}>
+            <Typography gutterBottom variant="h5" component="div" color="one">
               {route.name}
             </Typography>
-            <Typography variant="body3" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               {route.description}
             </Typography>
-            <div className="flex items-center justify-between">
-              <h2>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography variant="body1">
                 {route.distanceKm} km ({route.distanceM} miles),{" "}
                 {route.difficulty}
-              </h2>
-              <Button>Hello</Button>
-            </div>
+              </Typography>
+              <Button
+                variant="contained"
+                color="one"
+                sx={{ textTransform: "none" }}
+                endIcon={<SendIcon />}
+              >
+                More info
+              </Button>
+            </Box>
           </CardContent>
         </CardActionArea>
       </Card>

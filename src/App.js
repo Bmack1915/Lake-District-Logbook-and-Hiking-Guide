@@ -51,10 +51,10 @@ function App() {
           <Route
             path="/"
             element={
-              // <AuthCheck>
-              <RouteViewCard />
-              // <MapInfoPage />
-              // </AuthCheck>
+              <AuthCheck>
+                {/* <RouteViewCard /> */}
+                <MapInfoPage />
+              </AuthCheck>
             }
           />
           <Route
