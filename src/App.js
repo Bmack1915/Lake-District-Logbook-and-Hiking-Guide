@@ -15,6 +15,7 @@ import AuthCheck from "./Components/Authorization/AuthCheck.js";
 import Logbook from "./Pages/LogbookPage.js";
 import WainwrightInfoPage from "./Pages/WainwrightInfoPage.js";
 import RouteViewCard from "./Components/MapPageComponents/RouteViewCard.js";
+import SuggestedRoutes from "./Components/MapPageComponents/SuggestedRoutes.js";
 
 function App() {
   localStorage.clear();
@@ -53,6 +54,7 @@ function App() {
             element={
               <AuthCheck>
                 {/* <RouteViewCard /> */}
+                {/* <SuggestedRoutes /> */}
                 <MapInfoPage />
               </AuthCheck>
             }
