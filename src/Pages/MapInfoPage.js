@@ -6,6 +6,7 @@ import LEAFLETMAP from "../Components/MapPageComponents/LEAFLETMAP";
 import WainwrightFilters from "../Components/MapPageComponents/WainwrightFilters";
 import RouteFilters from "../Components/MapPageComponents/RouteFilters";
 import { Button } from "@mui/material";
+import RouteViewCard from "../Components/MapPageComponents/RouteViewCard";
 
 function MapInfoPage() {
   const [errorMsg, setErrorMsg] = useState("");

@@ -14,6 +14,7 @@ import RouteHomePage from "./Pages/RouteHomePage.js";
 import AuthCheck from "./Components/Authorization/AuthCheck.js";
 import Logbook from "./Pages/LogbookPage.js";
 import WainwrightInfoPage from "./Pages/WainwrightInfoPage.js";
+import RouteViewCard from "./Components/MapPageComponents/RouteViewCard.js";
 
 function App() {
   localStorage.clear();
@@ -50,9 +51,10 @@ function App() {
           <Route
             path="/"
             element={
-              <AuthCheck>
-                <MapInfoPage />
-              </AuthCheck>
+              // <AuthCheck>
+              <RouteViewCard />
+              // <MapInfoPage />
+              // </AuthCheck>
             }
           />
           <Route

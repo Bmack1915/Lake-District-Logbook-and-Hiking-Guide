@@ -21,7 +21,7 @@ function WainwrightFilters() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
 
       if (completed) {
-        filtered = userWainwrights;
+        filtered = Array.isArray(userWainwrights) ? userWainwrights : [];
 
         filtered = filtered.filter(
           (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
@@ -113,14 +113,12 @@ function WainwrightFilters() {
           </ToggleButton>
         </div>
 
-        {/* <div className="flex justify-center"> */}
         <button
           onClick={HandleReset}
           className="mb-2 me-2 flex inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
         >
           Reset Filters
         </button>
-        {/* </div> */}
       </div>
     </div>
   );
