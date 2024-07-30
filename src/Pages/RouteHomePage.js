@@ -1,20 +1,15 @@
 import LeafletGPXMap from "../Components/LeafletMapDev/LeafletGPXMap";
 import RouteLogForm from "../Components/RouteLogging/RouteLogForm";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_BASE_URL } from "../Components/Utilities/apiConfig";
-import decodeBase64 from "../Components/Utilities/Decode64";
 import AssociatedWainwrights from "../Components/RouteLogging/AssociatedWainwrights";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Loading } from "../Components/Utilities/Loading";
 import { useParams } from "react-router-dom";
-import { setSelectedRouteById } from "../redux/routeSlice";
 import useFetchGpxFile from "../Components/Utilities/useFetchGpxFile";
+import { useRoute } from "../Components/Utilities/useRoute";
 
 export default function RouteHomePage() {
-  const dispatch = useDispatch();
   const { id } = useParams();
-  const route = useSelector((state) => state.route.selectedRoute);
+  const { route } = useRoute(id);
   const gpxFileUrl = useFetchGpxFile(route);
 
   const userRoutes = useSelector((state) => state.user.userRoutes);
@@ -22,9 +17,9 @@ export default function RouteHomePage() {
     (userRoute) => userRoute.routeID === Number(id),
   );
 
-  useEffect(() => {
-    dispatch(setSelectedRouteById(id));
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //   dispatch(setSelectedRouteById(id));
+  // }, [dispatch, id]);
 
   if (!route) {
     return <Loading />;

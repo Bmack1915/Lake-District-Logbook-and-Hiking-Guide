@@ -3,7 +3,6 @@ import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
 
 const initialState = {
   email: "",
@@ -74,6 +73,7 @@ export function UpdateUserInfo() {
         `${API_BASE_URL}userwainwrights/${userId}`,
       );
       const userWainwrights = resWainwrights.data.$values;
+
       dispatch(setUserWainwrights(userWainwrights));
     } catch (error) {
       console.error("Failed to fetch wainwrights:", error);
@@ -103,6 +103,7 @@ export function LoginAndFetchUserInfo(email, password) {
       const userId = decodedToken.nameid;
 
       dispatch(login(email, userId));
+      console.log("user logged in");
 
       try {
         const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);

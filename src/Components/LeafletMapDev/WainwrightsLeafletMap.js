@@ -2,18 +2,29 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 
-var greenIcon = L.icon({
-  iconUrl: "leaf-green.png",
-  shadowUrl: "leaf-shadow.png",
-
-  //iconUrl: "./mountain.png",
-
-  iconSize: [38, 95], // size of the icon
-  shadowSize: [50, 64], // size of the shadow
-  iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-  shadowAnchor: [4, 62], // the same for the shadow
-  popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+var RouteIcon = L.Icon.extend({
+  options: {
+    shadowUrl: "leaf-shadow.png",
+    iconSize: [38, 95],
+    shadowSize: [50, 64],
+    iconAnchor: [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor: [-3, -76],
+  },
 });
+
+var WainwrightIcon = L.Icon.extend({
+  options: {
+    shadowUrl: "leaf-shadow.png",
+    iconSize: [38, 95],
+    shadowSize: [50, 64],
+    iconAnchor: [22, 94],
+    shadowAnchor: [4, 62],
+    popupAnchor: [-3, -76],
+  },
+});
+
+var wainwrightIcon = new WainwrightIcon({ iconUrl: "logo192.png" });
 
 export default function WainwrightsLeafletMap({ wainwrights }) {
   useEffect(() => {
@@ -31,7 +42,7 @@ export default function WainwrightsLeafletMap({ wainwrights }) {
       if (wainwrights.length > 0) {
         wainwrights.map((w) => {
           const marker = L.marker([w.latitude, w.longitude], {
-            icon: greenIcon,
+            icon: wainwrightIcon,
           }).addTo(map);
           marker.bindPopup(`<b>${w.name}</b><br>I am a popup.`);
         });

@@ -3,26 +3,28 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setFilteredRoutes } from "../../redux/routeSlice";
 import Slider from "../Slider";
+import { difficulties } from "../Utilities/difficulties";
+import {
+  maxRascent,
+  maxRdistance,
+  maxRouteTime,
+  minRascent,
+  minRdistance,
+  minRouteTime,
+} from "../Utilities/Stats";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
 function RouteFilters() {
   const dispatch = useDispatch();
   const routes = useSelector((state) => state.route.routes);
 
-  const [currentAscent, setCurrentAscent] = useState([0, 1100]);
-  const [currentDistance, setCurrentDistance] = useState([0, 37]);
+  const [currentAscent, setCurrentAscent] = useState([minRascent, maxRascent]);
+  const [currentDistance, setCurrentDistance] = useState([
+    minRdistance,
+    maxRdistance,
+  ]);
   const [selectedDifficulty, setSelectedDifficulty] = useState();
-  const [time, setTime] = useState([0, 600]);
-
-  const difficulties = [
-    "Easy",
-    "Easy/Moderate",
-    "Moderate",
-    "Moderate/Hard",
-    "Hard",
-    "Very Hard",
-    "Severe",
-  ];
+  const [time, setTime] = useState([minRouteTime, maxRouteTime]);
 
   useEffect(() => {
     function checkFilter() {
@@ -38,7 +40,11 @@ function RouteFilters() {
           r.distanceKm <= currentDistance[1],
       );
 
-      filtered = filtered.filter((r) => r.time >= time[0] && r.time <= time[1]);
+      filtered = filtered.filter(
+        (r) =>
+          Math.ceil(r.time / 60) >= time[0] &&
+          Math.ceil(r.time / 60) <= time[1],
+      );
 
       if (selectedDifficulty) {
         filtered = filtered.filter((r) => r.difficulty === selectedDifficulty);
@@ -58,9 +64,9 @@ function RouteFilters() {
 
   function HandleReset() {
     dispatch(setFilteredRoutes(routes));
-    setCurrentAscent([100, 1100]);
-    setCurrentDistance([0, 37]);
-    setTime([0, 600]);
+    setCurrentAscent([minRascent, maxRascent]);
+    setCurrentDistance([minRdistance, maxRdistance]);
+    setTime([minRouteTime, maxRouteTime]);
     setSelectedDifficulty(null);
   }
 
@@ -97,8 +103,8 @@ function RouteFilters() {
             currentValue={currentAscent}
             setCurrentValue={setCurrentAscent}
             unit="metres"
-            min={100}
-            max={1100}
+            min={minRascent}
+            max={maxRascent}
           >
             Ascent
           </Slider>
@@ -107,8 +113,8 @@ function RouteFilters() {
             currentValue={currentDistance}
             setCurrentValue={setCurrentDistance}
             unit="km"
-            min={0}
-            max={37}
+            min={minRdistance}
+            max={maxRdistance}
           >
             Length of walk
           </Slider>
@@ -117,8 +123,8 @@ function RouteFilters() {
             currentValue={time}
             setCurrentValue={setTime}
             unit="hrs"
-            min={0}
-            max={15}
+            min={minRouteTime}
+            max={maxRouteTime}
           >
             Duration
           </Slider>
@@ -127,7 +133,7 @@ function RouteFilters() {
         <div className="flex justify-center">
           <button
             onClick={HandleReset}
-            className="mb-2 me-2 flex inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
+            className="mb-2 me-2 inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
           >
             Reset Filters
           </button>

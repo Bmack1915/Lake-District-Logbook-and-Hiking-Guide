@@ -9,6 +9,7 @@ import userReducer from "./userSlice";
 const persistConfig = {
   key: "root",
   storage,
+  // whitelist: ["user"],
 };
 
 const rootReducer = combineReducers({

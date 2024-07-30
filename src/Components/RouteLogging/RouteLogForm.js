@@ -13,7 +13,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import { UpdateUserInfo, addUserRoute } from "../../redux/userSlice";
-import StarRating from "../StarRating";
+import StarRating from "../Utilities/StarRating";
 
 export default function RouteLogForm({ route }) {
   const dispatch = useDispatch();

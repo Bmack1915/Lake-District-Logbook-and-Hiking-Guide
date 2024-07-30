@@ -128,13 +128,13 @@ input:checked + .slider:before {
 }
 
 .customSlider-track.customSlider-track-1 {
-  background: #b90bd0; /* Color for the highlighted selected range */
+  background: #23c25d; /* Color for the highlighted selected range */
 }
 
 .customSlider-thumb {
   height: 20px;
   width: 20px;
-  background-color: #b90bd0;
+  background-color: #23c25d;
   border-radius: 50%;
   cursor: grab;
   position: absolute;

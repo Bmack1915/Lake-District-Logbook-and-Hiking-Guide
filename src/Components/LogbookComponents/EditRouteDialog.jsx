@@ -24,7 +24,6 @@ export default function EditRouteDialog({ userRoute }) {
   const [date, setDate] = React.useState(userRoute.date);
   const [description, setDescription] = React.useState(userRoute.description);
   const [open, setOpen] = React.useState(false);
-  console.log(date);
 
   const handleClickOpen = () => {
     setOpen(true);

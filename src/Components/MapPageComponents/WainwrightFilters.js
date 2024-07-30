@@ -3,18 +3,34 @@ import Slider from "../Slider";
 import ToggleButton from "../ToggleSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilteredWainwrights } from "../../redux/wainwrightSlice";
+import { useCompletedWainwrights } from "../Utilities/useCompletedWainwrights";
+import { maxWHeight, minWHeight } from "../Utilities/Stats";
 
 function WainwrightFilters() {
   const dispatch = useDispatch();
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useCompletedWainwrights(id);
 
   const [selectedArea, setSelectedArea] = useState(null);
-  const [currentHeight, setCurrentHeight] = useState([265, 1200]);
+  const [currentHeight, setCurrentHeight] = useState([minWHeight, maxWHeight]);
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
     function checkFilter() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
+
+      if (completed) {
+        filtered = Array.isArray(userWainwrights) ? userWainwrights : [];
+
+        filtered = filtered.filter(
+          (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
+        );
+
+        if (selectedArea) {
+          filtered = filtered.filter((w) => w.area === selectedArea);
+        }
+      }
 
       filtered = filtered.filter(
         (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
@@ -28,12 +44,20 @@ function WainwrightFilters() {
     }
 
     checkFilter();
-  }, [selectedArea, currentHeight, wainwrights, dispatch]);
+  }, [
+    selectedArea,
+    currentHeight,
+    wainwrights,
+    dispatch,
+    completed,
+    userWainwrights,
+  ]);
 
   function HandleReset() {
     setSelectedArea(null);
     dispatch(setFilteredWainwrights(wainwrights));
-    setCurrentHeight([265, 1200]);
+    setCurrentHeight([minWHeight, maxWHeight]);
+    setCompleted(false);
   }
 
   const areas = [
@@ -53,8 +77,11 @@ function WainwrightFilters() {
       </h1>
       <div className="flex flex-wrap">
         {areas.map((area) => (
-          <div key={area} className="mb-2 mr-4 flex items-center font-bold">
-            <label className="flex items-center space-x-2">
+          <div
+            key={area}
+            className="mb-2 mr-4 flex items-center border border-black font-bold"
+          >
+            <label className="flex items-center space-x-2 p-5">
               <input
                 type="radio"
                 name="areaFilter"
@@ -75,8 +102,8 @@ function WainwrightFilters() {
             currentValue={currentHeight}
             setCurrentValue={setCurrentHeight}
             unit="metres"
-            min={265}
-            max={1200}
+            min={minWHeight}
+            max={maxWHeight}
           >
             Height
           </Slider>
@@ -86,14 +113,12 @@ function WainwrightFilters() {
           </ToggleButton>
         </div>
 
-        {/* <div className="flex justify-center"> */}
         <button
           onClick={HandleReset}
           className="mb-2 me-2 flex inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
         >
           Reset Filters
         </button>
-        {/* </div> */}
       </div>
     </div>
   );

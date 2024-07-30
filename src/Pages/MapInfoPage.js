@@ -1,29 +1,39 @@
 import React, { useState } from "react";
 import "../App.css";
 import "../index.css";
-import ToggleButton from "../Components/ToggleSlider";
-import WainwrightSection from "../Components/MapPageComponents/WainwrightSection";
-import RouteSection from "../Components/MapPageComponents/RouteSection";
 import WainwrightViewCard from "../Components/MapPageComponents/WainwrightViewCard";
+import LEAFLETMAP from "../Components/MapPageComponents/LEAFLETMAP";
+import WainwrightFilters from "../Components/MapPageComponents/WainwrightFilters";
+import RouteFilters from "../Components/MapPageComponents/RouteFilters";
+import { Button } from "@mui/material";
+import RouteViewCard from "../Components/MapPageComponents/RouteViewCard";
 
 function MapInfoPage() {
   const [errorMsg, setErrorMsg] = useState("");
-  const [filterToggle, setFilterToggle] = useState(false);
+  const [type, setType] = useState(true);
+
+  function handlePress() {
+    setType((type) => !type);
+  }
 
   return (
-    <div>
+    <div className="flex min-h-screen">
+      <div style={{ flex: 1 }}>
+        <LEAFLETMAP type={type ? `wainwrights` : `routes`} />
+      </div>
       <div
         style={{ backgroundImage: "url('./edge.jpg')" }}
-        className="min-5-screen min-5-screen flex justify-evenly bg-cover py-10"
+        className="flex w-full max-w-lg flex-col justify-evenly bg-cover py-10"
       >
-        <ToggleButton onToggle={filterToggle} setOnToggle={setFilterToggle}>
-          {filterToggle ? "Wainwright Finder" : "Route Finder"}
-        </ToggleButton>
-
-        {filterToggle ? <WainwrightSection /> : <RouteSection />}
+        <div className="mb-4 flex justify-center">
+          <Button variant="contained" onClick={handlePress}>
+            Toggle to {type ? "Routes" : "Wainwrights"}
+          </Button>
+        </div>
+        {type ? <WainwrightFilters /> : <RouteFilters />}
         {errorMsg && <p className="w-full text-center">{errorMsg}</p>}
+        <WainwrightViewCard />
       </div>
-      <WainwrightViewCard />
     </div>
   );
 }

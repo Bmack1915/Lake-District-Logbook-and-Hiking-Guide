@@ -2,7 +2,7 @@ import "./App.css";
 import "./index.css";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchWainwrights } from "./redux/wainwrightSlice.js";
 import { useEffect } from "react";
 import { fetchRoutes } from "./redux/routeSlice.js";
@@ -13,8 +13,11 @@ import MapInfoPage from "./Pages/MapInfoPage.js";
 import RouteHomePage from "./Pages/RouteHomePage.js";
 import AuthCheck from "./Components/Authorization/AuthCheck.js";
 import Logbook from "./Pages/LogbookPage.js";
+import WainwrightInfoPage from "./Pages/WainwrightInfoPage.js";
+import RouteViewCard from "./Components/MapPageComponents/RouteViewCard.js";
 
 function App() {
+  localStorage.clear();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchWainwrights());
@@ -36,12 +39,22 @@ function App() {
               </AuthCheck>
             }
           />
+
+          <Route
+            path="/wainwrightinfo/:id"
+            element={
+              <AuthCheck>
+                <WainwrightInfoPage />
+              </AuthCheck>
+            }
+          />
           <Route
             path="/"
             element={
-              <AuthCheck>
-                <MapInfoPage />
-              </AuthCheck>
+              // <AuthCheck>
+              <RouteViewCard />
+              // <MapInfoPage />
+              // </AuthCheck>
             }
           />
           <Route
