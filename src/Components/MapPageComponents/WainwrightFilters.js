@@ -1,127 +1,76 @@
-import React, { useEffect, useState } from "react";
-import Slider from "../Slider";
-import ToggleButton from "../ToggleSlider";
-import { useDispatch, useSelector } from "react-redux";
-import { setFilteredWainwrights } from "../../redux/wainwrightSlice";
+import Slider from "../Utilities/Slider";
+import { useSelector } from "react-redux";
+import useWainwrightFilters from "../Utilities/useWainwrightFilters";
+import { areas } from "../Utilities/areas";
 import { useCompletedWainwrights } from "../Utilities/useCompletedWainwrights";
+import { Button, Select, SelectItem, Switch } from "@nextui-org/react";
 import { maxWHeight, minWHeight } from "../Utilities/Stats";
+import { PiPersonSimpleHikeDuotone } from "react-icons/pi";
 
-function WainwrightFilters() {
-  const dispatch = useDispatch();
-  const wainwrights = useSelector((state) => state.wainwright.wainwrights);
+function WainwrightFilters({ handlePress }) {
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useCompletedWainwrights(id);
 
-  const [selectedArea, setSelectedArea] = useState(null);
-  const [currentHeight, setCurrentHeight] = useState([minWHeight, maxWHeight]);
-  const [completed, setCompleted] = useState(false);
-
-  useEffect(() => {
-    function checkFilter() {
-      let filtered = Array.isArray(wainwrights) ? wainwrights : [];
-
-      if (completed) {
-        filtered = Array.isArray(userWainwrights) ? userWainwrights : [];
-
-        filtered = filtered.filter(
-          (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
-        );
-
-        if (selectedArea) {
-          filtered = filtered.filter((w) => w.area === selectedArea);
-        }
-      }
-
-      filtered = filtered.filter(
-        (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
-      );
-
-      if (selectedArea) {
-        filtered = filtered.filter((w) => w.area === selectedArea);
-      }
-
-      dispatch(setFilteredWainwrights(filtered));
-    }
-
-    checkFilter();
-  }, [
+  const {
     selectedArea,
+    setSelectedArea,
     currentHeight,
-    wainwrights,
-    dispatch,
+    setCurrentHeight,
     completed,
-    userWainwrights,
-  ]);
-
-  function HandleReset() {
-    setSelectedArea(null);
-    dispatch(setFilteredWainwrights(wainwrights));
-    setCurrentHeight([minWHeight, maxWHeight]);
-    setCompleted(false);
-  }
-
-  const areas = [
-    "Southern",
-    "Northern",
-    "Eastern",
-    "Western",
-    "Central",
-    "Far Eastern",
-    "North Western",
-  ];
+    setCompleted,
+    handleReset,
+  } = useWainwrightFilters(userWainwrights);
   return (
-    //Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
-    <div className="spacing-5 m-3 overflow-hidden rounded-xl border-8 border-double bg-white p-3">
-      <h1 className="flex justify-center p-5 text-xl font-bold">
-        Wainwright Finder
-      </h1>
-      <div className="flex flex-wrap">
-        {areas.map((area) => (
-          <div
-            key={area}
-            className="mb-2 mr-4 flex items-center border border-black font-bold"
-          >
-            <label className="flex items-center space-x-2 p-5">
-              <input
-                type="radio"
-                name="areaFilter"
-                value={area}
-                checked={selectedArea === area}
-                onChange={(e) => setSelectedArea(e.target.value)}
-                className="mr-2"
-              />
-              {area}
-            </label>
-          </div>
-        ))}
+    <div>
+      <div className="grid grid-cols-2 items-center">
+        <h1 className="flex justify-center p-5 text-xl font-bold">
+          Route Finder
+        </h1>
+        <div className="flex justify-center">
+          <Button color="black" variant="bordered" onPress={handlePress}>
+            <PiPersonSimpleHikeDuotone />
+            Browse Routes
+          </Button>
+        </div>
       </div>
-
-      <div className="flex flex-col justify-evenly">
-        <div className="mb-10 flex flex-col justify-evenly py-4">
+      <div className="flex grid-cols-1 flex-col items-center justify-evenly">
+        <Select label="Area" onChange={(e) => setSelectedArea(e.target.value)}>
+          {areas.map((area) => (
+            <SelectItem key={area}>{area}</SelectItem>
+          ))}
+        </Select>
+        <div className="grid w-full border-spacing-8 grid-cols-2 justify-between rounded-lg">
           <Slider
             currentValue={currentHeight}
             setCurrentValue={setCurrentHeight}
-            unit="metres"
+            unit="m"
             min={minWHeight}
             max={maxWHeight}
           >
             Height
           </Slider>
 
-          <ToggleButton onToggle={completed} setOnToggle={setCompleted}>
-            {completed ? "Completed" : "Uncompleted"}
-          </ToggleButton>
+          <div className="mb-8 flex items-center justify-center">
+            <Switch
+              checked={completed}
+              onChange={() => setCompleted(!completed)}
+              color="primary"
+            >
+              {completed ? "Completed" : "Uncompleted"}
+            </Switch>
+          </div>
         </div>
 
-        <button
-          onClick={HandleReset}
-          className="mb-2 me-2 flex inline-flex w-full justify-center rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50 dark:focus:ring-[#4285F4]/55"
+        <Button
+          className="p-7"
+          onPress={handleReset}
+          variant="bordered"
+          radius="half"
         >
           Reset Filters
-        </button>
+        </Button>
       </div>
     </div>
   );
 }
-
 export default WainwrightFilters;

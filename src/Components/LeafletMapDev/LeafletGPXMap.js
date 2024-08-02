@@ -38,8 +38,8 @@ export default function LeafletGPXMap({ url }) {
   return (
     <MapContainer
       center={[54.460861, -3.08875]}
-      zoom={10}
-      style={{ height: "100vh" }}
+      zoom={13}
+      style={{ height: "100%", width: "100%" }}
     >
       <MapBaseLayer />
       <TileLayer

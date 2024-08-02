@@ -4,8 +4,20 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family:
+    "Inter",
+    "Poppins",
+    "Lato",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -79,7 +91,7 @@ code {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #ffffff;
 }
 
 input:focus + .slider {
@@ -128,13 +140,13 @@ input:checked + .slider:before {
 }
 
 .customSlider-track.customSlider-track-1 {
-  background: #23c25d; /* Color for the highlighted selected range */
+  background: #000000; /* Color for the highlighted selected range */
 }
 
 .customSlider-thumb {
   height: 20px;
   width: 20px;
-  background-color: #23c25d;
+  background-color: #000000;
   border-radius: 50%;
   cursor: grab;
   position: absolute;

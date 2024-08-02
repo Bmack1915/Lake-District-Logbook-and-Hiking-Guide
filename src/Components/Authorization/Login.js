@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginAndFetchUserInfo } from "../../redux/userSlice";
+import { Loading } from "../Utilities/Loading";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -11,9 +12,12 @@ export default function Login() {
 
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
-
-    dispatch(LoginAndFetchUserInfo(email, password));
-    navigate("/");
+    try {
+      await dispatch(LoginAndFetchUserInfo(email, password));
+      navigate("/routeFinder");
+    } catch {
+      <Loading />;
+    }
   };
 
   return (

@@ -7,10 +7,10 @@ export default function Logout() {
   const dispatch = useDispatch();
 
   function handleLogOut() {
-    Cookies.remove("token");
+    sessionStorage.removeItem("token");
     dispatch(logout());
     alert("User logged out!");
-    window.location.href = "/";
+    window.location.href = "/landing";
   }
 
   return (

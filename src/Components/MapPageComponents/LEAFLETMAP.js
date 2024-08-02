@@ -17,7 +17,7 @@ export default function LEAFLETMAP({ type }) {
     <MapContainer
       center={[54.5522, -3.1038704]}
       zoom={10.5}
-      style={{ height: "100vh" }}
+      style={{ height: "80vh", borderRadius: "5vh" }}
     >
       <MapBaseLayer />
       {type === "wainwrights" && <WainwirightLeafletMarkers />}

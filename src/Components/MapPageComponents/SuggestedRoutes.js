@@ -1,28 +1,27 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import RouteViewCard from "./RouteViewCard";
-import { List, ListItem, Box, Grid } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { ScrollShadow } from "@nextui-org/react";
+import { Loading } from "../Utilities/Loading";
 
 export default function SuggestedRoutes() {
-  const routes = useSelector((state) => state.route.routes);
+  const filteredRoutes = useSelector((state) => state.route.filteredRoutes);
 
   return (
-    <Box sx={{ maxHeight: "70vh", overflow: "auto", padding: "16px" }}>
-      <Grid spacing={2}>
-        {routes.map((route) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            key={route.id}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <RouteViewCard route={route} />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+    <div className="container">
+      <div className="grid grid-flow-col" spacing={2}>
+        {filteredRoutes.length > 10 ? (
+          "Search some routes boi"
+        ) : (
+          <ScrollShadow className="w-[4 00px] h-[400px]">
+            {filteredRoutes.map((route) => (
+              <div className="grid justify-center p-2" key={route.id}>
+                <RouteViewCard route={route} />
+              </div>
+            ))}
+          </ScrollShadow>
+        )}
+      </div>
+    </div>
   );
 }

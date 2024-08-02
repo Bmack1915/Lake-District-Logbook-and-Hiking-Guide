@@ -74,8 +74,8 @@ export default function RouteLogForm({ route }) {
 
   return (
     <div className="s-justify-between flex flex-col items-center">
-      <h1 className="mb-5 w-full text-center text-3xl font-bold text-gray-800">
-        Route: {route.name}
+      <h1 className="mb-5 mt-5 w-full text-center text-3xl font-bold text-gray-800">
+        Want to log this route?
       </h1>
       <form onSubmit={handleSubmit}>
         <ul className="space-y-8">

@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 const initialState = {
   email: "",
-  isAuthenticated: false,
+  // isAuthenticated: false,
   //Individual Wainwrights, the GET from the API gets just the wainwrights
   userWainwrights: [],
   //The GET from the api returns the UserRoute Object which contains the route info, as we need the description etc.
@@ -30,7 +30,7 @@ const userSlice = createSlice({
       reducer(state, action) {
         state.email = action.payload.email;
         state.id = action.payload.id;
-        if (Cookies.get("token")) state.isAuthenticated = true;
+        // if (Cookies.get("token")) state.isAuthenticated = true;
       },
     },
     logout(state) {
@@ -98,12 +98,11 @@ export function LoginAndFetchUserInfo(email, password) {
       });
 
       const { token } = response.data;
-      Cookies.set("token", token, { expires: 1 });
+      sessionStorage.setItem("token", token);
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.nameid;
 
       dispatch(login(email, userId));
-      console.log("user logged in");
 
       try {
         const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
