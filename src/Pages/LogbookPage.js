@@ -1,15 +1,12 @@
 import CompletedWainwrights from "../Components/LogbookComponents/CompletedWainwrights";
-import LogbookWheel from "../Components/LogbookComponents/LogbookWheel";
 import CompletedRoutesList from "../Components/LogbookComponents/CompletedRoutesList";
+import ProgressWheel from "../Components/LogbookComponents/LogbookWheel";
 
 function Logbook() {
   return (
     <div>
-      <div className="flex justify-evenly">
-        <LogbookWheel />
-        <CompletedWainwrights />
-      </div>
-      <CompletedRoutesList />
+      <h1 className="flex justify-center text-3xl">My Wainwrights</h1>
+      <ProgressWheel />;
     </div>
   );
 }

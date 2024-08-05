@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import L from "leaflet";
 
 const RouteIcon = new L.Icon({
-  iconUrl: "hiking.png",
+  iconUrl: "assets/hiking.png",
   iconSize: [24, 35],
   iconAnchor: [22, 94],
   popupAnchor: [-3, -76],
 });
 
-function RouteLeafletMarkers() {
+function RouteMarkers() {
   const navigate = useNavigate();
   const filteredRoutes = useSelector((state) => state.route.filteredRoutes);
 
@@ -45,4 +45,4 @@ function RouteLeafletMarkers() {
   );
 }
 
-export default RouteLeafletMarkers;
+export default RouteMarkers;

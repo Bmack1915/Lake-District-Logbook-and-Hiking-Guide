@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
 import L from "leaflet";
-import MapBaseLayer from "../MapPageComponents/MapBaseLayer";
+import MapBaseLayer from "../MapComponents/Map/MapBaseLayer";
 
 function GPXLayer({ url }) {
   const map = useMap();
@@ -12,8 +12,8 @@ function GPXLayer({ url }) {
     const gpx = new L.GPX(url, {
       async: true,
       marker_options: {
-        startIconUrl: "/greenPin.png", // Ensure the path is correct
-        endIconUrl: "/redPin.png", // Ensure the path is correct
+        startIconUrl: "/assets/greenPin.png", // Make sure this path is correct
+        endIconUrl: "/assets/redPin.png", // Make sure this path is correct
         shadowUrl: null,
       },
     })
@@ -34,7 +34,7 @@ function GPXLayer({ url }) {
   return null;
 }
 
-export default function LeafletGPXMap({ url }) {
+export default function RouteMap({ url }) {
   return (
     <MapContainer
       center={[54.460861, -3.08875]}

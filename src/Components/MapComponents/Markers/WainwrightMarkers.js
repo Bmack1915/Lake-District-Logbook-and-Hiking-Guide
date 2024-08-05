@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 function createWainwrightIcon(area) {
   return new L.Icon({
-    iconUrl: `mountain${area}.png`,
+    iconUrl: `assets/mountain${area}.png`,
     iconSize: [30, 35],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
   });
 }
 
-function WainwirightLeafletMarkers() {
+function WainwrightMarkers() {
   const navigate = useNavigate();
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
@@ -63,4 +63,4 @@ function WainwirightLeafletMarkers() {
   );
 }
 
-export default WainwirightLeafletMarkers;
+export default WainwrightMarkers;

@@ -1,10 +1,10 @@
-import Slider from "../Utilities/Slider";
+import Slider from "../../Utilities/Slider";
 import { useSelector } from "react-redux";
-import useWainwrightFilters from "../Utilities/useWainwrightFilters";
-import { areas } from "../Utilities/areas";
-import { useCompletedWainwrights } from "../Utilities/useCompletedWainwrights";
+import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
+import { areas } from "../../Utilities/areas";
+import { useCompletedWainwrights } from "../../Utilities/useCompletedWainwrights";
 import { Button, Select, SelectItem, Switch } from "@nextui-org/react";
-import { maxWHeight, minWHeight } from "../Utilities/Stats";
+import { maxWHeight, minWHeight } from "../../Utilities/Stats";
 import { PiPersonSimpleHikeDuotone } from "react-icons/pi";
 
 function WainwrightFilters({ handlePress }) {

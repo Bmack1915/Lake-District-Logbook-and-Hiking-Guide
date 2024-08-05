@@ -8,7 +8,7 @@ export default function NavBar2() {
   const location = useLocation();
 
   const links = [
-    { to: "/landing", label: "Home" },
+    { to: "/", label: "Home" },
     { to: "/routeFinder", label: "Route Finder" },
     { to: "/wainwrightFinder", label: "Wainwright Finder" },
     { to: "/logbook", label: "My Logbook" },
@@ -18,15 +18,15 @@ export default function NavBar2() {
 
   return (
     <nav className="pb-5">
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <Image
-          src="wainwrightLogbook.png"
+          src="Assets/wainwrightLogbook.png"
           alt="Wainwright Logbook"
           height={100}
           width={200}
         />
-      </div>
-      <div className="font-inconsolata flex flex-row justify-center p-1">
+      </div> */}
+      <div className="flex flex-row justify-center p-1 font-inconsolata">
         {links.map((link) => (
           <Link
             className={

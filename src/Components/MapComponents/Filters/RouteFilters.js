@@ -1,6 +1,6 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
-import Slider from "../Utilities/Slider";
-import { difficulties } from "../Utilities/difficulties";
+import Slider from "../../Utilities/Slider";
+import { difficulties } from "../../Utilities/difficulties";
 import {
   maxRascent,
   maxRdistance,
@@ -8,8 +8,8 @@ import {
   minRascent,
   minRdistance,
   minRouteTime,
-} from "../Utilities/Stats";
-import useRouteFilters from "../Utilities/useRouteFilters";
+} from "../../Utilities/Stats";
+import useRouteFilters from "../../Utilities/useRouteFilters";
 import { LuMountainSnow } from "react-icons/lu";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes

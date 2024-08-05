@@ -3,13 +3,13 @@ import { LiaHikingSolid } from "react-icons/lia";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function LandingPage2() {
+function LandingPage() {
   return (
-    <div className="grid h-screen grid-cols-5 grid-rows-5 gap-4">
+    <div className="grid h-screen grid-cols-5 grid-rows-5 gap-4 sm:h-full">
       <div
         className="col-span-2 col-start-4 row-span-5 row-start-1 h-auto bg-cover bg-center"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}/stonecircle.jpg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}assets/stonecircle.jpg)`,
         }}
       ></div>
       <div className="col-span-3 col-start-1 row-span-2 row-start-1 border-b-4 p-5">
@@ -34,7 +34,7 @@ function LandingPage2() {
               key="1"
               aria-label="Accordion 1"
               title={
-                <p className="text-3xl font-bold text-black">
+                <p className="text-black text-3xl font-bold">
                   1. Finding and Marking Wainwrights
                 </p>
               }
@@ -49,7 +49,7 @@ function LandingPage2() {
               key="2"
               aria-label="Accordion 2"
               title={
-                <p className="text-3xl font-bold text-black">
+                <p className="text-black text-3xl font-bold">
                   2. Use Our Route Finder to Help Guide You
                 </p>
               }
@@ -68,7 +68,7 @@ function LandingPage2() {
               key="3"
               aria-label="Accordion 3"
               title={
-                <p className="text-3xl font-bold text-black">
+                <p className="text-black text-3xl font-bold">
                   3. Track your progress
                 </p>
               }
@@ -85,7 +85,7 @@ function LandingPage2() {
             </AccordionItem>
           </Accordion>
         </div>
-        <div className="w-144 flex justify-start p-16">
+        <div className="flex w-144 justify-start p-16">
           <Link to="/routeFinder">
             <Button color="primary" size="lg">
               Get Started <LiaHikingSolid />
@@ -98,4 +98,4 @@ function LandingPage2() {
   );
 }
 
-export default LandingPage2;
+export default LandingPage;
