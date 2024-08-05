@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Slider from "../Slider";
+import Slider from "../Utilities/Slider";
 import ToggleButton from "../ToggleSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilteredWainwrights } from "../../redux/wainwrightSlice";

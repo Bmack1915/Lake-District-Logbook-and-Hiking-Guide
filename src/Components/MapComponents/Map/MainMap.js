@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { MapContainer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MapBaseLayer from "./MapBaseLayer";
-import WainwirightLeafletMarkers from "./WainwirightLeafletMarkers";
-import RouteLeafletMarkers from "./RouteLeafletMarkers";
+import WainwrightMarkers from "../Markers/WainwrightMarkers";
+import RouteMarkers from "../Markers/RouteMarkers";
 
-export default function LEAFLETMAP({ type }) {
+export default function MainMap({ type }) {
   const markersRef = useRef([]);
 
   useEffect(() => {
@@ -17,11 +17,11 @@ export default function LEAFLETMAP({ type }) {
     <MapContainer
       center={[54.5522, -3.1038704]}
       zoom={10.5}
-      style={{ height: "100vh" }}
+      style={{ height: "80vh", borderRadius: "5vh" }}
     >
       <MapBaseLayer />
-      {type === "wainwrights" && <WainwirightLeafletMarkers />}
-      {type === "routes" && <RouteLeafletMarkers />}
+      {type === "wainwrights" && <WainwrightMarkers />}
+      {type === "routes" && <RouteMarkers />}
     </MapContainer>
   );
 }

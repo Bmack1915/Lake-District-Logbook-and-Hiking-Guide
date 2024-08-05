@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setFilteredRoutes } from "../../redux/routeSlice";
-import Slider from "../Slider";
+import Slider from "../Utilities/Slider";
 import { difficulties } from "../Utilities/difficulties";
 import {
   maxRascent,

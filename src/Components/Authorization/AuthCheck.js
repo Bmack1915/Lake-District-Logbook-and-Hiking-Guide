@@ -5,20 +5,15 @@ import { Loading } from "../Utilities/Loading";
 
 export default function AuthCheck({ children }) {
   const navigate = useNavigate();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isAuthenticated) {
-        navigate("/login");
-      } else {
-        setLoading(false);
-      }
-    }, 500); // Adjust the delay as needed
-
-    return () => clearTimeout(timer);
-  }, [isAuthenticated, navigate]);
+    if (!sessionStorage.getItem("token")) {
+      navigate("/login");
+    } else {
+      setLoading(false);
+    }
+  }, [navigate]);
 
   if (loading) {
     return <Loading />;
