@@ -7,6 +7,7 @@ import RouteFilters from "../Components/MapComponents/Filters/RouteFilters";
 import { Button } from "@nextui-org/react";
 import RouteViewCard from "../Components/MapComponents/RouteViewCard";
 import SuggestedRoutes from "../Components/MapComponents/SuggestedRoutes";
+import FilterBar from "../Components/MapComponents/Filters/FilterBar";
 
 function MapInfoPage({ initialState }) {
   const [errorMsg, setErrorMsg] = useState("");
@@ -17,22 +18,22 @@ function MapInfoPage({ initialState }) {
   }
 
   return (
-    <div className="grid grid-cols-5 grid-rows-5 gap-4">
-      <div className="col-span-3 col-start-3 row-span-3 row-start-1">
-        {" "}
-        <MainMap type={type ? `routes` : `wainwrights`} />
-      </div>
-      <div className="col-span-2 col-start-1 row-start-1">
-        {" "}
-        {type ? (
-          <RouteFilters handlePress={handlePress} />
-        ) : (
-          <WainwrightFilters handlePress={handlePress} />
-        )}
-      </div>
-      <div className="col-span-2 row-span-2 row-start-2">
-        {" "}
-        <SuggestedRoutes />
+    <div>
+      <FilterBar />
+      <div className="grid grid-cols-5 grid-rows-5 gap-4">
+        <div className="col-span-3 col-start-3 row-span-3 row-start-1">
+          <MainMap type={type ? `routes` : `wainwrights`} />
+        </div>
+        <div className="col-span-2 col-start-1 row-start-1">
+          {type ? (
+            <RouteFilters handlePress={handlePress} />
+          ) : (
+            <WainwrightFilters handlePress={handlePress} />
+          )}
+        </div>
+        <div className="col-span-2 row-span-2 row-start-2">
+          <SuggestedRoutes />
+        </div>
       </div>
     </div>
   );

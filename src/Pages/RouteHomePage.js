@@ -8,6 +8,7 @@ import useFetchGpxFile from "../Components/Utilities/useFetchGpxFile";
 import { useRoute } from "../Components/Utilities/useRoute";
 import RouteInfo from "../Components/RouteLogging/RouteInfo";
 import WeatherBar from "../Components/weatherBar";
+import FilterBar from "../Components/MapComponents/Filters/FilterBar";
 
 export default function RouteHomePage() {
   const { id } = useParams();
