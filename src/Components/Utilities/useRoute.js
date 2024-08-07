@@ -23,12 +23,10 @@ export function useRoute(id) {
 
     if (id) {
       fetchRouteData();
+    } else {
+      setIsLoading(true);
     }
   }, [id]);
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return { route, isLoading };
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { Image } from "@nextui-org/react";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import Logout from "../Components/Authorization/Logout";
 
@@ -8,12 +7,10 @@ export default function NavBar() {
   const location = useLocation();
 
   const links = [
-    { to: "/", label: "Home" },
+    { to: "/home", label: "Home" },
+    { to: "/wainwrightFinder", label: "Wainwrights" },
     { to: "/routeFinder", label: "Route Finder" },
-    { to: "/wainwrightFinder", label: "Wainwright Finder" },
     { to: "/logbook", label: "My Logbook" },
-    { to: "/profile", label: "Profile" },
-    { to: "/about", label: "About" },
   ];
 
   return (

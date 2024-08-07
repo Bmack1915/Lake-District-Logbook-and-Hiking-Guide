@@ -1,20 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import { useState } from "react";
 import axios from "axios";
-import { UpdateUserInfo, deleteUserRoute } from "../../redux/userSlice";
 import MyButton from "../materialUI/myButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AlertDialog from "../materialUI/alertDialog";
 
-function DeleteRouteDialog({ userRoute }) {
-  const dispatch = useDispatch();
+function DeleteRouteDialog({ userRoute, fetchUserRouteData }) {
   const userID = useSelector((state) => state.user.id);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteAssociatedWainwrights, setDeleteAssociatedWainwrights] =
     useState(true);
-
-  console.log("UserRoute", userRoute);
 
   const handleDeleteClick = () => {
     setDialogOpen(true);
@@ -27,8 +23,7 @@ function DeleteRouteDialog({ userRoute }) {
 
     try {
       await axios.delete(url);
-
-      dispatch(UpdateUserInfo());
+      fetchUserRouteData();
     } catch (error) {
       console.error("Failed to delete the route:", error);
     } finally {

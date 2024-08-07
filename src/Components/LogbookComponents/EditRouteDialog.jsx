@@ -11,11 +11,9 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { difficulties } from "../Utilities/difficulties";
 import axios from "axios";
 import { API_BASE_URL } from "../Utilities/apiConfig";
-import { useDispatch, useSelector } from "react-redux";
-import { UpdateUserInfo } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
 
-export default function EditRouteDialog({ userRoute }) {
-  const dispatch = useDispatch();
+export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
   const id = useSelector((state) => state.user.id);
   const routeID = userRoute.route.routeID;
   const [difficulty, setDifficulty] = React.useState(
@@ -47,8 +45,8 @@ export default function EditRouteDialog({ userRoute }) {
       log,
     );
     console.log("Response", response);
+    fetchUserRouteData();
     alert("Log successfully updated!");
-    dispatch(UpdateUserInfo());
 
     if (response.status === 201 || response.state === 200) {
     }

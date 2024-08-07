@@ -28,8 +28,6 @@ function WainwrightInfoPage() {
       console.error("Error logging Wainwright:", err);
     } finally {
     }
-
-    dispatch(UpdateUserInfo());
   }
 
   function handleMarkComplete() {
@@ -37,14 +35,13 @@ function WainwrightInfoPage() {
       Id: userId,
       WainwrightID: wainwright.wainwrightID,
     };
-    console.log(userWainwright);
     postUserWainwright(userWainwright);
   }
 
   return (
     <div className="mx-auto max-w-4xl p-5">
       <h1 className="mb-4 text-center text-4xl font-bold">{wainwright.name}</h1>
-      <div className="bg-white rounded-lg p-6 shadow-md">
+      <div className="rounded-lg bg-white p-6 shadow-md">
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
             <h2 className="mb-2 text-2xl font-semibold">Height</h2>

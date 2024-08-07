@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
-import { Loading } from "./Loading";
 
 export function useWainwright(id) {
   const [wainwright, setWainwright] = useState();
@@ -22,12 +21,10 @@ export function useWainwright(id) {
 
     if (id) {
       fetchWainwrightData();
+    } else {
+      setIsLoading(true);
     }
   }, [id]);
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return { wainwright, isLoading };
 }

@@ -4,13 +4,8 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const initialState = {
-  email: "",
-  // isAuthenticated: false,
-  //Individual Wainwrights, the GET from the API gets just the wainwrights
-  userWainwrights: [],
-  //The GET from the api returns the UserRoute Object which contains the route info, as we need the description etc.
-  userRoutes: [],
-  id: "",
+  email: sessionStorage.getItem("userEmail") || "",
+  id: sessionStorage.getItem("userId") || "",
 };
 
 const userSlice = createSlice({
@@ -29,20 +24,13 @@ const userSlice = createSlice({
       reducer(state, action) {
         state.email = action.payload.email;
         state.id = action.payload.id;
-        // if (Cookies.get("token")) state.isAuthenticated = true;
       },
     },
     logout(state) {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("userEmail");
+      sessionStorage.removeItem("userId");
       return initialState;
-    },
-    setUserWainwrights(state, action) {
-      state.userWainwrights = action.payload;
-    },
-    setUserRoutes(state, action) {
-      state.userRoutes = action.payload;
-    },
-    addUserRoute(state, action) {
-      state.userRoutes = [...state.userRoutes, action.payload];
     },
 
     deleteUserRoute: {
@@ -64,28 +52,28 @@ const userSlice = createSlice({
     },
   },
 });
-export function UpdateUserInfo() {
-  return async (dispatch, getState) => {
-    const userId = getState().user.id;
-    try {
-      const resWainwrights = await axios.get(
-        `${API_BASE_URL}userwainwrights/${userId}`,
-      );
-      const userWainwrights = resWainwrights.data.$values;
+// export function UpdateUserInfo() {
+//   return async (dispatch, getState) => {
+//     const userId = getState().user.id;
+//     try {
+//       const resWainwrights = await axios.get(
+//         `${API_BASE_URL}userwainwrights/${userId}`,
+//       );
+//       const userWainwrights = resWainwrights.data.$values;
 
-      dispatch(setUserWainwrights(userWainwrights));
-    } catch (error) {
-      console.error("Failed to fetch wainwrights:", error);
-    }
-    try {
-      const resRoutes = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
-      const userRoutes = resRoutes.data.$values;
-      dispatch(setUserRoutes(userRoutes));
-    } catch (error) {
-      console.error("Failed to fetch routes:", error);
-    }
-  };
-}
+//       dispatch(setUserWainwrights(userWainwrights));
+//     } catch (error) {
+//       console.error("Failed to fetch wainwrights:", error);
+//     }
+//     try {
+//       const resRoutes = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
+//       const userRoutes = resRoutes.data.$values;
+//       dispatch(setUserRoutes(userRoutes));
+//     } catch (error) {
+//       console.error("Failed to fetch routes:", error);
+//     }
+//   };
+// }
 
 export function LoginAndFetchUserInfo(email, password) {
   return async function (dispatch) {
@@ -100,24 +88,28 @@ export function LoginAndFetchUserInfo(email, password) {
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.nameid;
 
+      // Save email and id to sessionStorage
+      sessionStorage.setItem("userEmail", email);
+      sessionStorage.setItem("userId", userId);
+
       dispatch(login(email, userId));
 
-      try {
-        const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
-        const userWainwrights = res.data.$values;
-        console.log("userwainrights are:", userWainwrights);
-        dispatch(setUserWainwrights(userWainwrights));
-      } catch (error) {
-        console.error("Failed to fetch wainwrights:", error);
-      }
-      try {
-        const res = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
-        const userRoutes = res.data.$values;
-        console.log("User routes are,", userRoutes);
-        dispatch(setUserRoutes(userRoutes));
-      } catch (error) {
-        console.error("Failed to fetch routes:", error);
-      }
+      // try {
+      //   const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
+      //   const userWainwrights = res.data.$values;
+      //   console.log("userwainrights are:", userWainwrights);
+      //   dispatch(setUserWainwrights(userWainwrights));
+      // } catch (error) {
+      //   console.error("Failed to fetch wainwrights:", error);
+      // }
+      // try {
+      //   const res = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
+      //   const userRoutes = res.data.$values;
+      //   console.log("User routes are,", userRoutes);
+      //   dispatch(setUserRoutes(userRoutes));
+      // } catch (error) {
+      //   console.error("Failed to fetch routes:", error);
+      // }
     } catch (error) {
       console.error("Login error:", error);
       alert("Login failed. Please check your credentials and try again.");
@@ -126,11 +118,4 @@ export function LoginAndFetchUserInfo(email, password) {
 }
 
 export default userSlice.reducer;
-export const {
-  login,
-  logout,
-  setUserWainwrights,
-  setUserRoutes,
-  addUserRoute,
-  deleteUserRoute,
-} = userSlice.actions;
+export const { login, logout } = userSlice.actions;

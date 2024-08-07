@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
+import SessionChecker from "../Components/Authorization/SessionChecker";
 
 function AppLayout() {
   return (
     <div>
       <NavBar />
-      <div></div>
-      <Outlet />
+      <SessionChecker>
+        <Outlet />
+      </SessionChecker>
     </div>
   );
 }

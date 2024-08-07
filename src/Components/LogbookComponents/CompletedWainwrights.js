@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import useDeleteWainwright from "./DeleteWainwright";
+import useDeleteWainwright from "../Utilities/useDeleteWainwright";
 import { useSelector } from "react-redux";
 
 const CompletedWainwrights = () => {

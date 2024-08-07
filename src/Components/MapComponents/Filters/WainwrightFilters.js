@@ -4,9 +4,12 @@ import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
 import { areas } from "../../Utilities/areas";
 import { Button, Select, SelectItem, Switch } from "@nextui-org/react";
 import { maxWHeight, minWHeight } from "../../Utilities/Stats";
+import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 
 function WainwrightFilters({ handlePress }) {
-  const userWainwrights = useSelector((state) => state.user.userWainwrights);
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useUserWainwrights(id);
+
   const {
     selectedArea,
     setSelectedArea,

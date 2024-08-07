@@ -4,11 +4,12 @@ import DeleteRouteDialog from "./DeleteRouteDialog";
 import UserRouteInfo from "./UserRouteInfo";
 import { useNavigate } from "react-router-dom";
 
-function CompletedRouteCard({ userRoute }) {
+function CompletedRouteCard({ userRoute, fetchUserRouteData }) {
+  const navigate = useNavigate();
+
   function handleViewClick() {
     navigate(`/routeinfo/${userRoute.routeID}`);
   }
-  const navigate = useNavigate();
   return (
     <div className="flex space-x-4 overflow-x-auto">
       <UserRouteInfo userRoute={userRoute} />
@@ -20,8 +21,18 @@ function CompletedRouteCard({ userRoute }) {
         >
           View
         </MyButton>
-        <EditRouteDialog userRoute={userRoute}>Edit</EditRouteDialog>
-        <DeleteRouteDialog userRoute={userRoute}>Delete</DeleteRouteDialog>
+        <EditRouteDialog
+          fetchUserRouteData={fetchUserRouteData}
+          userRoute={userRoute}
+        >
+          Edit
+        </EditRouteDialog>
+        <DeleteRouteDialog
+          userRoute={userRoute}
+          fetchUserRouteData={fetchUserRouteData}
+        >
+          Delete
+        </DeleteRouteDialog>
       </div>
     </div>
   );

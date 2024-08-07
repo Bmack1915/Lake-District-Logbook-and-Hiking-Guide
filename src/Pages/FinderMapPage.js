@@ -7,7 +7,7 @@ import ResultsTypeBar from "../Components/MapComponents/Filters/List-MapTabs";
 import ListView from "../Components/MapComponents/ListView";
 
 function FinderMapPage({ type }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [viewType, setViewType] = useState("map");
 
   const toggleSidebar = () => {
