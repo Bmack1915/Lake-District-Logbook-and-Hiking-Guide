@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Loading } from "../Utilities/Loading";
 
 export default function AuthCheck({ children }) {

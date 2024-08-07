@@ -16,48 +16,32 @@ import { UpdateUserInfo, addUserRoute } from "../../redux/userSlice";
 import StarRating from "../Utilities/StarRating";
 
 export default function RouteLogForm({ route }) {
-  const dispatch = useDispatch();
   const id = useSelector((state) => state.user.id);
   const routeID = route.routeID;
+  const [message, setMessage] = useState();
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [rating, setRating] = useState("");
 
-  // async function CreateLog(log) {
-  //   try {
-  //     const response = await axios.post(`${API_BASE_URL}userroutes`, log);
-  //     console.log("Response", response);
-  //     if (response.status === 201 || response.state === 200) {
-  //       console.log("Log created successfully", response.data);
-  //       //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
-  //       //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
-  //       dispatch(addUserRoute(response.data));
-  //       dispatch(UpdateUserInfo());
-  //     } else {
-  //       console.error("Failed to create log");
-  //     }
-  //   } catch (error) {
-  //     alert("Error creating log");
-  //     console.error("Error creating log:", error.response);
-  //   }
-  // }
-
   async function CreateLog(log) {
-    const response = await axios.post(`${API_BASE_URL}userroutes`, log);
-    // console.log("Response", response);
-    if (response.status === 201 || response.state === 200) {
-      // console.log("Log created successfully", response.data);
-      //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
-      //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
+    try {
+      const response = await axios.post(`${API_BASE_URL}userroutes`, log);
+      if (response.status === 201 || response.state === 200) {
+        // console.log("Log created successfully", response.data);
+        //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
+        //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
+      }
+    } catch (error) {
+      alert("Error", error);
+      console.log("Response", error);
     }
-    dispatch(addUserRoute(response.data));
-    dispatch(UpdateUserInfo());
   }
 
   function handleSubmit(e) {
     e.preventDefault(); // Prevent the default form submission behavior
+
     const newLog = {
       id,
       routeID,
@@ -74,7 +58,7 @@ export default function RouteLogForm({ route }) {
 
   return (
     <div className="s-justify-between flex flex-col items-center">
-      <h1 className="mb-5 mt-5 w-full text-center text-3xl font-bold text-gray-800">
+      <h1 className="text-gray-800 mb-5 mt-5 w-full text-center text-3xl font-bold">
         Want to log this route?
       </h1>
       <form onSubmit={handleSubmit}>

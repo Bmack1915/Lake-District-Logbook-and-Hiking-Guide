@@ -1,16 +1,24 @@
 import { useSelector } from "react-redux";
 import CompletedRouteCard from "./CompletedRouteCard";
+import { useUserRoutes } from "../Utilities/useUserRoutes";
+import { Loading } from "../Utilities/Loading";
 
 export default function CompletedRoutesList() {
-  const completedRoutes = useSelector((state) => state.user.userRoutes) || [];
-  console.log("CUMPLETED", completedRoutes);
+  const id = useSelector((state) => state.user.id);
+  //FetchUserRoutesData method needed to be called after deletion/edit etc to ensure it causes a re-render after CRUD operation
+  const { userRoutes, isLoading, fetchUserRouteData } = useUserRoutes(id);
+
   return (
-    <div className="my-4 flex flex-col items-center">
-      {completedRoutes && completedRoutes.length > 0 ? (
+    <div className="my-4 flex items-center">
+      {userRoutes && userRoutes.length > 0 ? (
         <>
           <h1 className="mb-4 text-xl font-bold">Hikes Completed 🥾</h1>
-          {completedRoutes.map((userRoute) => (
-            <CompletedRouteCard key={userRoute.routeID} userRoute={userRoute} />
+          {userRoutes.map((userRoute) => (
+            <CompletedRouteCard
+              fetchUserRouteData={fetchUserRouteData}
+              key={userRoutes.routeID}
+              userRoute={userRoute}
+            />
           ))}
         </>
       ) : (

@@ -8,14 +8,15 @@ import useFetchGpxFile from "../Components/Utilities/useFetchGpxFile";
 import { useRoute } from "../Components/Utilities/useRoute";
 import RouteInfo from "../Components/RouteLogging/RouteInfo";
 import WeatherBar from "../Components/weatherBar";
-import ResultsTypeBar from "../Components/MapComponents/Filters/List-MapTabs";
+import { useUserRoutes } from "../Components/Utilities/useUserRoutes";
 
 export default function RouteHomePage() {
   const { id } = useParams();
   const { route } = useRoute(id);
   const gpxFileUrl = useFetchGpxFile(route);
+  const userID = useSelector((state) => state.user.id);
+  const { userRoutes } = useUserRoutes(userID);
 
-  const userRoutes = useSelector((state) => state.user.userRoutes);
   const completed = userRoutes.some(
     (userRoute) => userRoute.routeID === Number(id),
   );
