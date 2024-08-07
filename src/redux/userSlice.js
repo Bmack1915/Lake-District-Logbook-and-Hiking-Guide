@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
 
 const initialState = {
   email: "",
@@ -81,7 +80,6 @@ export function UpdateUserInfo() {
     try {
       const resRoutes = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
       const userRoutes = resRoutes.data.$values;
-      console.log("User routes fetched:", userRoutes);
       dispatch(setUserRoutes(userRoutes));
     } catch (error) {
       console.error("Failed to fetch routes:", error);

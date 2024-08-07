@@ -1,5 +1,6 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import Slider from "../../Utilities/Slider";
+import { FaMountain, FaHiking, FaClock } from "react-icons/fa";
 import { difficulties } from "../../Utilities/difficulties";
 import {
   maxRascent,
@@ -10,8 +11,6 @@ import {
   minRouteTime,
 } from "../../Utilities/Stats";
 import useRouteFilters from "../../Utilities/useRouteFilters";
-import { LuMountainSnow } from "react-icons/lu";
-import FilterBar from "./FilterBar";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
 function RouteFilters({ handlePress }) {
@@ -29,20 +28,17 @@ function RouteFilters({ handlePress }) {
 
   return (
     // Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
-    <div className="flex w-1/2 flex-col items-center justify-evenly">
-      <h1 className="text-xl font-bold">Route Finder</h1>
-
-      <Button color="black" variant="bordered" onPress={handlePress}>
-        <LuMountainSnow /> Browse Wainwrights
-      </Button>
-
+    <div className="flex flex-col items-center justify-between space-y-6">
       <div className="flex w-48 justify-center">
         <Select
           label="Difficulty"
+          placeholder="All"
           onChange={(e) => setSelectedDifficulty(e.target.value)}
         >
           {difficulties.map((difficulty) => (
-            <SelectItem key={difficulty}>{difficulty}</SelectItem>
+            <SelectItem key={difficulty} value={difficulty}>
+              {difficulty}
+            </SelectItem>
           ))}
         </Select>
       </div>
@@ -54,7 +50,9 @@ function RouteFilters({ handlePress }) {
         min={minRascent}
         max={maxRascent}
       >
-        🧗🏻‍♂️ Ascent
+        <div className="flex items-center">
+          <FaMountain size={36} /> Ascent
+        </div>
       </Slider>
 
       <Slider
@@ -64,7 +62,9 @@ function RouteFilters({ handlePress }) {
         min={minRdistance}
         max={maxRdistance}
       >
-        🥾 Length of walk
+        <div className="flex items-center">
+          <FaHiking size={36} /> Length of Walk
+        </div>
       </Slider>
 
       <Slider
@@ -74,7 +74,9 @@ function RouteFilters({ handlePress }) {
         min={minRouteTime}
         max={maxRouteTime}
       >
-        ⏱️ Duration
+        <div className="flex items-center">
+          <FaClock size={36} /> Estimated Time
+        </div>
       </Slider>
 
       <Button

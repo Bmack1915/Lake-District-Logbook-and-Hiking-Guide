@@ -1,18 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const ProgressWheel = () => {
   // Hard-coded value for completed
-  const completed = 4;
+  const completed = useSelector((state) => state.user.userWainwrights);
   const total = 214;
-  const percentage = ((completed / total) * 100).toFixed();
+  const percentage = ((completed.length / total) * 100).toFixed();
 
   // Create the data array with the completed count
   const data = [
-    { name: "Completed", value: completed, fill: "#0088FE" },
-    { name: "Remaining", value: total - completed, fill: "#00C49F" },
+    { name: "Completed", value: completed.length, fill: "#0088FE" },
+    { name: "Remaining", value: total - completed.length, fill: "#00C49F" },
   ];
 
   const renderLegend = (props) => {
@@ -63,7 +64,7 @@ const ProgressWheel = () => {
           >
             {`${percentage}% Completed`}
             <tspan x="50%" y="50%" dy="1.2em" fontSize="24px">
-              {`${completed}/${total} Wainwrights`}
+              {`${completed.length}/${total} Wainwrights`}
             </tspan>
           </text>
         </PieChart>

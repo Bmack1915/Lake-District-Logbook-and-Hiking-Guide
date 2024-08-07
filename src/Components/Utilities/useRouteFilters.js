@@ -18,7 +18,7 @@ function useRouteFilters() {
     minRdistance,
     maxRdistance,
   ]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState();
+  const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [time, setTime] = useState([minRouteTime, maxRouteTime]);
 
   useEffect(() => {
@@ -41,7 +41,8 @@ function useRouteFilters() {
           Math.ceil(r.time / 60) <= time[1],
       );
 
-      if (selectedDifficulty) {
+      if (selectedDifficulty === "All");
+      else if (selectedDifficulty) {
         filtered = filtered.filter((r) => r.difficulty === selectedDifficulty);
       }
       dispatch(setFilteredRoutes(filtered));
@@ -62,7 +63,7 @@ function useRouteFilters() {
     setCurrentAscent([minRascent, maxRascent]);
     setCurrentDistance([minRdistance, maxRdistance]);
     setTime([minRouteTime, maxRouteTime]);
-    setSelectedDifficulty(null);
+    setSelectedDifficulty("");
   }
 
   return {
