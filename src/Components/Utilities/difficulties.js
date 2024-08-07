@@ -1,4 +1,5 @@
 export const difficulties = [
+  "All",
   "Easy",
   "Easy/Moderate",
   "Moderate",

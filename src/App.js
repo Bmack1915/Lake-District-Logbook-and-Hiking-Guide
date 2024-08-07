@@ -13,13 +13,14 @@ import { useEffect } from "react";
 import { fetchRoutes } from "./redux/routeSlice.js";
 
 import Login from "./Pages/LoginPage.js";
-import MapInfoPage from "./Pages/MapInfoPage.js";
+import FinderMapPage from "./Pages/FinderMapPage.js";
 import RouteHomePage from "./Pages/RouteHomePage.js";
 import AuthCheck from "./Components/Authorization/AuthCheck.js";
 import Logbook from "./Pages/LogbookPage.js";
 import WainwrightInfoPage from "./Pages/WainwrightInfoPage.js";
 import LandingPage from "./Pages/LandingPage.js";
 import AppLayout from "./Pages/AppLayout.js";
+import Sidebar from "./Components/MapComponents/Map/Sidebar.js";
 
 function App() {
   localStorage.clear();
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route element={<AppLayout />}>
+            <Route path="sidebar" element={<Sidebar />} />
             <Route
               path="/routeinfo/:id"
               element={
@@ -56,7 +58,16 @@ function App() {
               path="/routeFinder"
               element={
                 <AuthCheck>
-                  <MapInfoPage initialState={true} />
+                  <FinderMapPage key="routes" type="routes" />
+                </AuthCheck>
+              }
+            />
+
+            <Route
+              path="/wainwrightFinder"
+              element={
+                <AuthCheck>
+                  <FinderMapPage key="wainwrights" type="wainwrights" />
                 </AuthCheck>
               }
             />

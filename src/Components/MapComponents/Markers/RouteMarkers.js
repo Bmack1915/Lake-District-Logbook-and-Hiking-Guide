@@ -3,6 +3,7 @@ import { Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
+import { useEffect, useState } from "react";
 
 const RouteIcon = new L.Icon({
   iconUrl: "assets/hiking.png",
@@ -14,6 +15,16 @@ const RouteIcon = new L.Icon({
 function RouteMarkers() {
   const navigate = useNavigate();
   const filteredRoutes = useSelector((state) => state.route.filteredRoutes);
+  const routes = useSelector((state) => state.route.routes);
+  const [data, setData] = useState(routes);
+
+  useEffect(() => {
+    if (filteredRoutes.length > 0) {
+      setData(filteredRoutes);
+    } else {
+      setData(routes);
+    }
+  }, [filteredRoutes, routes]);
 
   function handleNavigate(r) {
     navigate(`/routeinfo/${r.routeID}`);
@@ -21,8 +32,8 @@ function RouteMarkers() {
 
   return (
     <div>
-      {filteredRoutes.length > 0 &&
-        filteredRoutes.map((r) => (
+      {data?.length > 0 &&
+        data.map((r) => (
           <Marker
             key={r.id}
             position={[r.latitude, r.longitude]}

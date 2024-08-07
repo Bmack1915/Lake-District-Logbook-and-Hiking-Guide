@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { useSelector } from "react-redux";
@@ -19,6 +19,16 @@ function WainwrightMarkers() {
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
   );
+  const wainwrights = useSelector((state) => state.wainwright.wainwrights);
+  const [data, setData] = useState(wainwrights);
+
+  useEffect(() => {
+    if (filteredWainwrights.length > 0) {
+      setData(filteredWainwrights);
+    } else {
+      setData(wainwrights);
+    }
+  }, [filteredWainwrights, wainwrights]);
 
   function handleNavigate(w) {
     navigate(`/wainwrightinfo/${w.wainwrightID}`);
@@ -27,18 +37,18 @@ function WainwrightMarkers() {
   //Create array of icons, one for each area. Icon url matches a image in the public folder.
   const wainwrightIcons = useMemo(() => {
     const icons = {};
-    filteredWainwrights.forEach((w) => {
+    data.forEach((w) => {
       if (!icons[w.area]) {
         icons[w.area] = createWainwrightIcon(w.area);
       }
     });
     return icons;
-  }, [filteredWainwrights]);
+  }, [data]);
 
   return (
     <div>
-      {filteredWainwrights.length > 0 &&
-        filteredWainwrights.map((w) => (
+      {data.length > 0 &&
+        data.map((w) => (
           <Marker
             key={w.id}
             position={[w.latitude, w.longitude]}

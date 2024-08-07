@@ -8,7 +8,9 @@ import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import { UpdateUserInfo } from "../redux/userSlice";
 
 function WainwrightInfoPage() {
+  //Get wainwright ID from URL
   const { id } = useParams();
+  //Custom hook to fetch Wainwright
   const { wainwright } = useWainwright(id);
   const userId = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
@@ -35,13 +37,14 @@ function WainwrightInfoPage() {
       Id: userId,
       WainwrightID: wainwright.wainwrightID,
     };
+    console.log(userWainwright);
     postUserWainwright(userWainwright);
   }
 
   return (
     <div className="mx-auto max-w-4xl p-5">
       <h1 className="mb-4 text-center text-4xl font-bold">{wainwright.name}</h1>
-      <div className="rounded-lg bg-white p-6 shadow-md">
+      <div className="bg-white rounded-lg p-6 shadow-md">
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2 sm:col-span-1">
             <h2 className="mb-2 text-2xl font-semibold">Height</h2>
