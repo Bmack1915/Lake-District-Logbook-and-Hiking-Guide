@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "./apiConfig";
-import axios from "axios";
 import { useCallback } from "react";
+import apiClient from "./axiosInterceptor";
+import { AddToQueueSharp } from "@mui/icons-material";
+import { toast } from "react-toastify";
 
 function useDeleteWainwright() {
   const userId = useSelector((state) => state.user.id);
@@ -9,10 +11,12 @@ function useDeleteWainwright() {
   const handleRemoveWainwright = useCallback(
     async (id) => {
       try {
-        await axios.delete(`${API_BASE_URL}userwainwrights/${userId}/${id}`);
-        alert("Wainwright successfully removed!");
+        await apiClient.delete(
+          `${API_BASE_URL}userwainwrights/${userId}/${id}`,
+        );
+        toast.success("Wainwright successfully removed!");
       } catch (err) {
-        alert(`${err.response?.data || "Error removing Wainwright"}!!!`);
+        toast.error(`${err.response?.data || "Error removing Wainwright"}!!!`);
         console.error("Error removing Wainwright:", err);
       }
     },

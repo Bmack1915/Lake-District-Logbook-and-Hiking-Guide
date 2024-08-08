@@ -10,15 +10,13 @@ import { NextUIProvider } from "@nextui-org/react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NextUIProvider>
-          <main className="font bg-background text-foreground light">
-            <App />
-          </main>
-        </NextUIProvider>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <NextUIProvider>
+        <main className="font bg-mint min-h-screen light">
+          <App />
+        </main>
+      </NextUIProvider>
+    </PersistGate>
+  </Provider>,
 );

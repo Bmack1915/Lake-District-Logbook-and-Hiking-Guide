@@ -7,16 +7,17 @@ export default function ResultsTypeBar({ viewType, setViewType }) {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="bg-mint flex w-full flex-col">
       <Tabs
+        variant="solid"
         fullWidth
         aria-label="Options"
-        className="mb-5 w-full"
+        className="bg-mint mb-5 w-full"
         onSelectionChange={handleTabChange}
         value={viewType}
       >
-        <Tab key="map" title="Map View" className="w-full" />
-        <Tab key="list" title="List View" className="w-full" />
+        <Tab key="map" title="Map View" className="bg-mint w-full text-blue" />
+        <Tab key="list" title="List View" className="bg-mint w-full" />
       </Tabs>
     </div>
   );

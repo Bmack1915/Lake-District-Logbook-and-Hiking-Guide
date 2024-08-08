@@ -12,6 +12,7 @@ export default function SuggestedRoutes({ type }) {
 
   // Conditionally assign data based on the type prop
   const data = type === "routes" ? routesData : wainwrightsData;
+  console.log("Data", data);
 
   return (
     <div>

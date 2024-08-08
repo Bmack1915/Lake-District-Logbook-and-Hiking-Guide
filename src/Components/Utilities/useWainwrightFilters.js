@@ -8,13 +8,13 @@ function useWainwrightFilters(userWainwrights) {
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentHeight, setCurrentHeight] = useState([minWHeight, maxWHeight]);
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState("all");
 
   useEffect(() => {
     function checkFilter() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
 
-      if (completed) {
+      if (completed === "completed") {
         filtered = Array.isArray(userWainwrights) ? userWainwrights : [];
 
         filtered = filtered.filter(

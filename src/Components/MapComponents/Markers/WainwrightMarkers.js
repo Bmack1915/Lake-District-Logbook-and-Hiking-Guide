@@ -4,10 +4,13 @@ import L from "leaflet";
 import { useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 
-function createWainwrightIcon(area) {
+function createWainwrightIcon(area, completed) {
   return new L.Icon({
-    iconUrl: `assets/mountain${area}.png`,
+    iconUrl: completed
+      ? `assets/pins/pin${area}Complete.png`
+      : `assets/pins/pin${area}Uncomplete.svg`,
     iconSize: [30, 35],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
@@ -21,6 +24,9 @@ function WainwrightMarkers() {
   );
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
   const [data, setData] = useState(wainwrights);
+
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useUserWainwrights(id);
 
   useEffect(() => {
     if (filteredWainwrights.length > 0) {
@@ -39,11 +45,13 @@ function WainwrightMarkers() {
     const icons = {};
     data.forEach((w) => {
       if (!icons[w.area]) {
-        icons[w.area] = createWainwrightIcon(w.area);
+        const completed = userWainwrights.map((uw) => uw.name).includes(w.name);
+        console.log(completed);
+        icons[w.area] = createWainwrightIcon(w.area, completed);
       }
     });
     return icons;
-  }, [data]);
+  }, [data, userWainwrights]);
 
   return (
     <div>

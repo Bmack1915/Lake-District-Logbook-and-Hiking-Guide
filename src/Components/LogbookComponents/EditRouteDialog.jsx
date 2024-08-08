@@ -12,6 +12,7 @@ import { difficulties } from "../Utilities/difficulties";
 import axios from "axios";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
   const id = useSelector((state) => state.user.id);
@@ -46,7 +47,7 @@ export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
     );
     console.log("Response", response);
     fetchUserRouteData();
-    alert("Log successfully updated!");
+    toast.success("Log successfully updated!");
 
     if (response.status === 201 || response.state === 200) {
     }

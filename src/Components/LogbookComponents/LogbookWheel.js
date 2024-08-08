@@ -7,6 +7,7 @@ function ProgressWheel({
   isLoading,
   fetchUserWainwrightData,
 }) {
+  console.log(userWainwrights);
   if (isLoading) {
     return (
       <div>

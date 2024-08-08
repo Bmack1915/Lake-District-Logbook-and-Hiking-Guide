@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginAndFetchUserInfo } from "../redux/userSlice";
 import { Loading } from "../Components/Utilities/Loading";
+import { toast } from "react-toastify";
 
-export default function Login() {
+export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,6 +15,7 @@ export default function Login() {
     const password = e.target.elements.password.value;
     try {
       await dispatch(LoginAndFetchUserInfo(email, password));
+      toast.success("You are now logged in");
       navigate("/home");
     } catch {
       <Loading />;
