@@ -5,8 +5,16 @@ import MapView from "../Components/MapComponents/Map/MainView";
 import Sidebar from "../Components/MapComponents/Map/Sidebar";
 import ResultsTypeBar from "../Components/MapComponents/Filters/List-MapTabs";
 import ListView from "../Components/MapComponents/ListView";
+import useWainwrightFilters from "../Components/Utilities/useWainwrightFilters";
+import { useUserWainwrights } from "../Components/Utilities/useUserWainwrights";
+import { useSelector } from "react-redux";
 
 function FinderMapPage({ type }) {
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useUserWainwrights(id);
+  const { filterStatus, setFilterStatus } =
+    useWainwrightFilters(userWainwrights);
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [viewType, setViewType] = useState("map");
 
@@ -23,6 +31,8 @@ function FinderMapPage({ type }) {
             {isSidebarOpen && (
               <div className="col-span-1">
                 <Sidebar
+                  filterStatus={filterStatus}
+                  setFilterStatus={setFilterStatus}
                   type={type}
                   toggleSidebar={toggleSidebar}
                   isSidebarOpen={isSidebarOpen}
@@ -33,6 +43,7 @@ function FinderMapPage({ type }) {
             )}
             <div className={isSidebarOpen ? "col-span-4" : "col-span-5"}>
               <MapView
+                filterStatus={filterStatus}
                 toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
@@ -42,7 +53,11 @@ function FinderMapPage({ type }) {
           </>
         ) : (
           <div className="col-span-5">
-            <ListView type={type} />
+            <ListView
+              filterStatus={filterStatus}
+              setFilterStatus={setFilterStatus}
+              type={type}
+            />
           </div>
         )}
       </div>

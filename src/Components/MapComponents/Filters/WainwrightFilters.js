@@ -7,7 +7,7 @@ import { maxWHeight, minWHeight } from "../../Utilities/Stats";
 import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 import { RadioGroup, Radio } from "@nextui-org/react";
 
-function WainwrightFilters({ handlePress }) {
+function WainwrightFilters({ setFilterStatus, filterStatus }) {
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useUserWainwrights(id);
 
@@ -16,10 +16,9 @@ function WainwrightFilters({ handlePress }) {
     setSelectedArea,
     currentHeight,
     setCurrentHeight,
-    completed,
-    setCompleted,
     handleReset,
   } = useWainwrightFilters(userWainwrights);
+
   return (
     <div className="flex flex-col items-center justify-between space-y-6">
       <div className="flex w-48 justify-center">
@@ -41,12 +40,14 @@ function WainwrightFilters({ handlePress }) {
       </Slider>
 
       <div className="mb-8 flex items-center justify-center">
-        <RadioGroup>
-          <Radio onChange={() => setCompleted("all")}>All</Radio>
-          <Radio onChange={() => setCompleted("completed")}>Completed</Radio>
-          <Radio onChange={() => setCompleted("uncompleted")}>
-            Uncompleted
-          </Radio>
+        <RadioGroup
+          value={filterStatus}
+          onValueChange={setFilterStatus}
+          defaultValue="all"
+        >
+          <Radio value="all">All</Radio>
+          <Radio value="completed">Completed</Radio>
+          <Radio value="uncompleted">Uncompleted</Radio>
         </RadioGroup>
         {/* <Switch checked={completed} color="primary">
         

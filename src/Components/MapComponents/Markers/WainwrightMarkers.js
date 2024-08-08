@@ -7,17 +7,19 @@ import { useNavigate } from "react-router-dom";
 import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 
 function createWainwrightIcon(area, completed) {
+  const iconUrl = completed
+    ? `assets/pins/pin${area}Complete.png`
+    : `assets/pins/pin${area}Uncomplete.svg`;
+
   return new L.Icon({
-    iconUrl: completed
-      ? `assets/pins/pin${area}Complete.png`
-      : `assets/pins/pin${area}Uncomplete.svg`,
+    iconUrl,
     iconSize: [30, 35],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
   });
 }
 
-function WainwrightMarkers() {
+function WainwrightMarkers({ filterStatus }) {
   const navigate = useNavigate();
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
@@ -28,6 +30,7 @@ function WainwrightMarkers() {
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useUserWainwrights(id);
 
+  //If no filtering on, the data set is just the original Wainwrights.
   useEffect(() => {
     if (filteredWainwrights.length > 0) {
       setData(filteredWainwrights);
@@ -40,27 +43,40 @@ function WainwrightMarkers() {
     navigate(`/wainwrightinfo/${w.wainwrightID}`);
   }
 
-  //Create array of icons, one for each area. Icon url matches a image in the public folder.
+  //Now mapping over all the data sets, all heights etc, create an icon for each data point. If completed, this icon will be a coloured one.
   const wainwrightIcons = useMemo(() => {
     const icons = {};
     data.forEach((w) => {
-      if (!icons[w.area]) {
-        const completed = userWainwrights.map((uw) => uw.name).includes(w.name);
-        console.log(completed);
-        icons[w.area] = createWainwrightIcon(w.area, completed);
-      }
+      //If a list of user wainwright names includes the current name of the filtered wainwright, return true
+      const completed = userWainwrights.map((uw) => uw.name).includes(w.name);
+
+      icons[w.wainwrightID] = createWainwrightIcon(w.area, completed);
     });
     return icons;
   }, [data, userWainwrights]);
 
+  const filteredData = useMemo(() => {
+    if (filterStatus === "completed") {
+      return data.filter((w) =>
+        userWainwrights.map((uw) => uw.name).includes(w.name),
+      );
+    } else if (filterStatus === "uncompleted") {
+      return data.filter(
+        (w) => !userWainwrights.map((uw) => uw.name).includes(w.name),
+      );
+    } else {
+      return data; // "all" status shows all data
+    }
+  }, [data, filterStatus, userWainwrights]);
+
   return (
     <div>
-      {data.length > 0 &&
-        data.map((w) => (
+      {filteredData.length > 0 &&
+        filteredData.map((w) => (
           <Marker
             key={w.id}
             position={[w.latitude, w.longitude]}
-            icon={wainwrightIcons[w.area]}
+            icon={wainwrightIcons[w.wainwrightID]}
           >
             <Popup>
               <b>{w.name}</b>

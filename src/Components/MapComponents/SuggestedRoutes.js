@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import RouteViewCard from "./RouteViewCard";
 import { ScrollShadow } from "@nextui-org/react";
 import WainwrightViewCard from "./WainwrightViewCard";
+import { useUserWainwrights } from "../Utilities/useUserWainwrights";
 
-export default function SuggestedRoutes({ type }) {
+export default function SuggestedRoutes({ type, filterStatus }) {
   const routesData = useSelector((state) => state.route.filteredRoutes);
-  const wainwrightsData = useSelector(
+  const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
   );
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useUserWainwrights(id);
+  const completed = userWainwrights.map((uw) => uw.name);
 
   // Conditionally assign data based on the type prop
-  const data = type === "routes" ? routesData : wainwrightsData;
-  console.log("Data", data);
+  const data = type === "routes" ? routesData : filteredWainwrights;
+
+  const filteredData = useMemo(() => {
+    if (type === "routes") {
+      return data;
+    }
+    if (filterStatus === "completed") {
+      return data.filter((w) => completed.includes(w.name));
+    } else if (filterStatus === "uncompleted") {
+      return data.filter((w) => !completed.includes(w.name));
+    } else {
+      return data; // "all" status shows all data
+    }
+  }, [data, filterStatus, type, completed]);
 
   return (
     <div>
@@ -23,9 +39,10 @@ export default function SuggestedRoutes({ type }) {
             "Search some routes boi"
           ) : (
             <ScrollShadow className="w-[4 00px] h-[500px]">
-              {data.map((dataPoint) => (
+              {filteredData.map((dataPoint) => (
                 <div className="grid justify-center p-2" key={data.id}>
                   {type === "routes" && <RouteViewCard route={dataPoint} />}
+
                   {type === "wainwrights" && (
                     <WainwrightViewCard wainwright={dataPoint} />
                   )}

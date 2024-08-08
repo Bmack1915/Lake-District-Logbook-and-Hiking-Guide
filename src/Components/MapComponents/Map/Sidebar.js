@@ -2,7 +2,13 @@ import React from "react";
 import RouteFilters from "../Filters/RouteFilters";
 import WainwrightFilters from "../Filters/WainwrightFilters";
 
-function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
+function Sidebar({
+  toggleSidebar,
+  isSidebarOpen,
+  type,
+  setFilterStatus,
+  filterStatus,
+}) {
   return (
     <div>
       <div
@@ -42,7 +48,12 @@ function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
           <span className="sr-only">Close menu</span>
         </button>
         {type === "routes" && <RouteFilters />}
-        {type === "wainwrights" && <WainwrightFilters />}
+        {type === "wainwrights" && (
+          <WainwrightFilters
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+          />
+        )}
       </div>
     </div>
   );

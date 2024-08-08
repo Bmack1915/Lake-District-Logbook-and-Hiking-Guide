@@ -8,13 +8,13 @@ function useWainwrightFilters(userWainwrights) {
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentHeight, setCurrentHeight] = useState([minWHeight, maxWHeight]);
-  const [completed, setCompleted] = useState("all");
+  const [filterStatus, setFilterStatus] = useState("all");
 
   useEffect(() => {
     function checkFilter() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
 
-      if (completed === "completed") {
+      if (filterStatus === "completed") {
         filtered = Array.isArray(userWainwrights) ? userWainwrights : [];
 
         filtered = filtered.filter(
@@ -43,7 +43,7 @@ function useWainwrightFilters(userWainwrights) {
     currentHeight,
     wainwrights,
     dispatch,
-    completed,
+    filterStatus,
     userWainwrights,
   ]);
 
@@ -51,7 +51,7 @@ function useWainwrightFilters(userWainwrights) {
     setSelectedArea(null);
     dispatch(setFilteredWainwrights(wainwrights));
     setCurrentHeight([minWHeight, maxWHeight]);
-    setCompleted(false);
+    setFilterStatus("all");
   }
 
   return {
@@ -59,8 +59,8 @@ function useWainwrightFilters(userWainwrights) {
     setSelectedArea,
     currentHeight,
     setCurrentHeight,
-    completed,
-    setCompleted,
+    filterStatus,
+    setFilterStatus,
     handleReset,
   };
 }
