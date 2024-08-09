@@ -4,7 +4,11 @@ import DeleteRouteDialog from "./DeleteRouteDialog";
 import UserRouteInfo from "./UserRouteInfo";
 import { useNavigate } from "react-router-dom";
 
-function CompletedRouteCard({ userRoute, fetchUserRouteData }) {
+function CompletedRouteCard({
+  userRoute,
+  fetchUserRouteData,
+  fetchUserWainwrightData,
+}) {
   const navigate = useNavigate();
 
   function handleViewClick() {
@@ -30,6 +34,7 @@ function CompletedRouteCard({ userRoute, fetchUserRouteData }) {
         <DeleteRouteDialog
           userRoute={userRoute}
           fetchUserRouteData={fetchUserRouteData}
+          fetchUserWainwrightData={fetchUserWainwrightData}
         >
           Delete
         </DeleteRouteDialog>

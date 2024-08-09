@@ -2,12 +2,13 @@ import Slider from "../../Utilities/Slider";
 import { useSelector } from "react-redux";
 import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
 import { areas } from "../../Utilities/areas";
-import { Button, Select, SelectItem, Switch } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import { maxWHeight, minWHeight } from "../../Utilities/Stats";
 import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 import { RadioGroup, Radio } from "@nextui-org/react";
+import Search from "./SearchBar";
 
-function WainwrightFilters({ setFilterStatus, filterStatus }) {
+function WainwrightFilters() {
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useUserWainwrights(id);
 
@@ -17,10 +18,15 @@ function WainwrightFilters({ setFilterStatus, filterStatus }) {
     currentHeight,
     setCurrentHeight,
     handleReset,
+    filterStatus,
+    setFilterStatus,
+    query,
+    setQuery,
   } = useWainwrightFilters(userWainwrights);
 
   return (
     <div className="flex flex-col items-center justify-between space-y-6">
+      <Search placeholder="Wainwrights" query={query} setQuery={setQuery} />
       <div className="flex w-48 justify-center">
         <Select label="Area" onChange={(e) => setSelectedArea(e.target.value)}>
           {areas.map((area) => (
@@ -49,10 +55,6 @@ function WainwrightFilters({ setFilterStatus, filterStatus }) {
           <Radio value="completed">Completed</Radio>
           <Radio value="uncompleted">Uncompleted</Radio>
         </RadioGroup>
-        {/* <Switch checked={completed} color="primary">
-        
-          {completed ? "Completed" : "Uncompleted"}
-        </Switch> */}
       </div>
 
       <Button

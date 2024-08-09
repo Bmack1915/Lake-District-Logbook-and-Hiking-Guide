@@ -11,9 +11,10 @@ import {
   minRouteTime,
 } from "../../Utilities/Stats";
 import useRouteFilters from "../../Utilities/useRouteFilters";
+import Search from "./SearchBar";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
-function RouteFilters({ handlePress }) {
+function RouteFilters() {
   const {
     currentAscent,
     setCurrentAscent,
@@ -24,11 +25,14 @@ function RouteFilters({ handlePress }) {
     time,
     setTime,
     HandleReset,
+    query,
+    setQuery,
   } = useRouteFilters();
 
   return (
     // Create a radio button for each area, and set the selected area to the selectedArea state via controlled inputs.
     <div className="flex flex-col items-center justify-between space-y-6">
+      <Search placeholder="Routes" query={query} setQuery={setQuery} />
       <div className="flex w-48 justify-center">
         <Select
           label="Difficulty"

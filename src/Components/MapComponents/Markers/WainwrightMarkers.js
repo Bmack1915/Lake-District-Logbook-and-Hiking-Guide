@@ -19,7 +19,7 @@ function createWainwrightIcon(area, completed) {
   });
 }
 
-function WainwrightMarkers({ filterStatus }) {
+function WainwrightMarkers() {
   const navigate = useNavigate();
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
@@ -27,6 +27,7 @@ function WainwrightMarkers({ filterStatus }) {
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
   const [data, setData] = useState(wainwrights);
 
+  //Used to check which are complete
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useUserWainwrights(id);
 
@@ -55,26 +56,12 @@ function WainwrightMarkers({ filterStatus }) {
     return icons;
   }, [data, userWainwrights]);
 
-  const filteredData = useMemo(() => {
-    if (filterStatus === "completed") {
-      return data.filter((w) =>
-        userWainwrights.map((uw) => uw.name).includes(w.name),
-      );
-    } else if (filterStatus === "uncompleted") {
-      return data.filter(
-        (w) => !userWainwrights.map((uw) => uw.name).includes(w.name),
-      );
-    } else {
-      return data; // "all" status shows all data
-    }
-  }, [data, filterStatus, userWainwrights]);
-
   return (
     <div>
-      {filteredData.length > 0 &&
-        filteredData.map((w) => (
+      {data.length > 0 &&
+        data.map((w) => (
           <Marker
-            key={w.id}
+            key={w.wainwrightID}
             position={[w.latitude, w.longitude]}
             icon={wainwrightIcons[w.wainwrightID]}
           >

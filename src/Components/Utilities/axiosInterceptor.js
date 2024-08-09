@@ -2,14 +2,16 @@ import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
 import { logout } from "../../redux/userSlice";
 import { store } from "../../redux/store";
-import { useNavigate } from "react-router-dom";
-import HandleNavigate from "./handleNavigate";
 import { toast } from "react-toastify";
+import handleHomeNavigate from "./handleHomeNavigate";
 
 // Create an instance of Axios
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
 });
+
+// Define a flag to track if the logout action has been triggered
+let isLoggingOut = false;
 
 // Request interceptor to add the token to the headers
 apiClient.interceptors.request.use(
@@ -28,18 +30,20 @@ apiClient.interceptors.request.use(
 // Response interceptor to handle token expiration
 apiClient.interceptors.response.use(
   (response) => {
+    console.log("Response", response);
     return response;
   },
   (error) => {
     console.log("Error", error);
     if (
-      (error.response && error.response.status === 401) ||
-      (error.response && error.response.status === 400)
+      error.response &&
+      (error.response.status === 401 || error.response.status === 400) &&
+      !isLoggingOut
     ) {
-      // If unauthorized, log out the user
+      isLoggingOut = true; // Set the flag to true
       toast.warning("Your session has expired");
       store.dispatch(logout());
-      HandleNavigate();
+      handleHomeNavigate();
     }
     return Promise.reject(error);
   },

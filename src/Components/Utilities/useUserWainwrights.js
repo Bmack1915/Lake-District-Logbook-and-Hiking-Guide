@@ -28,5 +28,10 @@ export function useUserWainwrights(userId) {
     }
   }, [userId]);
 
-  return { userWainwrights, isLoading, fetchUserWainwrightData };
+  return {
+    userWainwrights,
+    setUserWainwrights,
+    isLoading,
+    fetchUserWainwrightData,
+  };
 }

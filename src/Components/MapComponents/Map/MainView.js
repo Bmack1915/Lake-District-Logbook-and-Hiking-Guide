@@ -19,7 +19,7 @@ export default function MapView({ type, toggleSidebar, filterStatus }) {
   return (
     <MapContainer
       center={[54.5522, -3.1038704]}
-      zoom={10.5}
+      zoom={10}
       style={{ height: "75vh", borderRadius: "5vh" }}
     >
       <MapBaseLayer />

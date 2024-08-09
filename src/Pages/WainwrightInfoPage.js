@@ -2,10 +2,9 @@ import { useParams } from "react-router-dom";
 import { useWainwright } from "../Components/Utilities/useWainwright";
 import { Loading } from "../Components/Utilities/Loading";
 import { Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { API_BASE_URL } from "../Components/Utilities/apiConfig";
-import { UpdateUserInfo } from "../redux/userSlice";
 import { toast } from "react-toastify";
 
 function WainwrightInfoPage() {
@@ -14,7 +13,6 @@ function WainwrightInfoPage() {
   //Custom hook to fetch Wainwright
   const { wainwright } = useWainwright(id);
   const userId = useSelector((state) => state.user.id);
-  const dispatch = useDispatch();
 
   if (!wainwright) {
     return <Loading />;

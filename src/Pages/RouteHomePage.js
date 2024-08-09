@@ -40,7 +40,11 @@ export default function RouteHomePage() {
           <RouteMap url={gpxFileUrl} />
         </div>
         <div className="col-span-1 sm:col-span-2 md:col-span-1 lg:col-start-5 lg:row-span-4 lg:row-start-1">
-          {completed ? null : <RouteLogForm route={route} />}
+          {completed ? (
+            <p>You have completed this route!</p>
+          ) : (
+            <RouteLogForm route={route} />
+          )}
         </div>
       </div>
     </div>

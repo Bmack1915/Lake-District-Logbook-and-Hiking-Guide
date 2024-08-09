@@ -1,21 +1,16 @@
 import RouteFilters from "./Filters/RouteFilters";
 import WainwrightFilters from "./Filters/WainwrightFilters";
-import SuggestedRoutes from "./SuggestedRoutes";
+import Suggestions from "./Suggestions";
 
-function ListView({ type, filterStatus, setFilterStatus }) {
+function ListView({ type }) {
   return (
     <div className="grid grid-cols-4">
       <div className="col-span-1">
         {type === "routes" && <RouteFilters />}
-        {type === "wainwrights" && (
-          <WainwrightFilters
-            filterStatus={filterStatus}
-            setFilterStatus={setFilterStatus}
-          />
-        )}
+        {type === "wainwrights" && <WainwrightFilters />}
       </div>
       <div className="col-span-3">
-        <SuggestedRoutes filterStatus={filterStatus} type={type} />
+        <Suggestions type={type} />
       </div>
     </div>
   );

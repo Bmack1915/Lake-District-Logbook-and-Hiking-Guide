@@ -9,10 +9,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import MyButton from "../materialUI/myButton";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { difficulties } from "../Utilities/difficulties";
-import axios from "axios";
 import { API_BASE_URL } from "../Utilities/apiConfig";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import apiClient from "../Utilities/axiosInterceptor";
 
 export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
   const id = useSelector((state) => state.user.id);
@@ -41,7 +41,7 @@ export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
   }
 
   async function EditLog(log) {
-    const response = await axios.put(
+    const response = await apiClient.put(
       `${API_BASE_URL}userroutes/${id}?routeID=${routeID}`,
       log,
     );

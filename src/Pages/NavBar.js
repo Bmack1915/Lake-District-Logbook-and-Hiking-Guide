@@ -11,8 +11,8 @@ export default function NavBar() {
   const links = [
     { to: "/home", label: "Home" },
     { to: "/wainwrightFinder", label: "Wainwrights" },
-    { to: "/routeFinder", label: "Route Finder" },
     { to: "/logbook", label: "My Logbook" },
+    { to: "/routeFinder", label: "Route Finder" },
   ];
 
   return (

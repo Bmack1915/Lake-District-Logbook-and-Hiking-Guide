@@ -1,22 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../Utilities/apiConfig";
+import useAssociatedWainwrights from "../Utilities/useAssociatedWainwrights";
 
 function AssociatedWainwrights({ route }) {
-  const [associatedWainwrights, setAssociatedWainwrights] = useState([]);
-
-  useEffect(() => {
-    async function getAssociatedWainwrights() {
-      const res = await axios.get(
-        `${API_BASE_URL}WainwrightRoutes/wainwrights/fromRoute/${route.routeID}`,
-      );
-
-      const wainwrightObjs = await res.data.$values;
-      setAssociatedWainwrights(wainwrightObjs);
-    }
-
-    getAssociatedWainwrights();
-  }, [route.routeID]);
+  const { associatedWainwrights, isLoading } = useAssociatedWainwrights(route);
 
   return (
     <div className="rounded-lg bg-white p-1 shadow-md">

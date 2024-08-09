@@ -10,16 +10,15 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../Utilities/apiConfig";
-import { UpdateUserInfo, addUserRoute } from "../../redux/userSlice";
 import StarRating from "../Utilities/StarRating";
 import { toast } from "react-toastify";
+import apiClient from "../Utilities/axiosInterceptor";
 
 export default function RouteLogForm({ route }) {
   const id = useSelector((state) => state.user.id);
   const routeID = route.routeID;
-  const [message, setMessage] = useState();
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
   const [description, setDescription] = useState("");
@@ -28,15 +27,18 @@ export default function RouteLogForm({ route }) {
 
   async function CreateLog(log) {
     try {
-      const response = await axios.post(`${API_BASE_URL}userroutes`, log);
+      const response = await apiClient.post(`${API_BASE_URL}userroutes`, log);
       if (response.status === 201 || response.state === 200) {
         // console.log("Log created successfully", response.data);
         //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
         //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
       }
     } catch (error) {
-      toast.error("Error", error);
-      console.log("Response", error);
+      toast.error(
+        error.response.statusText,
+        "you must login to record routes.",
+      );
+      console.log("Error", error);
     }
   }
 
