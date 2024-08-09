@@ -3,7 +3,7 @@ import "../App.css";
 import "../index.css";
 import MapView from "../Components/MapComponents/Map/MainView";
 import Sidebar from "../Components/MapComponents/Map/Sidebar";
-import ResultsTypeBar from "../Components/MapComponents/Filters/List-MapTabs";
+import ViewSelector from "../Components/MapComponents/Filters/ViewSelector";
 import ListView from "../Components/MapComponents/ListView";
 
 function FinderMapPage({ type }) {
@@ -16,7 +16,7 @@ function FinderMapPage({ type }) {
 
   return (
     <div>
-      <ResultsTypeBar viewType={viewType} setViewType={setViewType} />
+      <ViewSelector viewType={viewType} setViewType={setViewType} />
       <div className="grid h-96 grid-cols-5">
         {viewType === "map" ? (
           <>
@@ -33,7 +33,6 @@ function FinderMapPage({ type }) {
             )}
             <div className={isSidebarOpen ? "col-span-4" : "col-span-5"}>
               <MapView
-                toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
                 type={type}

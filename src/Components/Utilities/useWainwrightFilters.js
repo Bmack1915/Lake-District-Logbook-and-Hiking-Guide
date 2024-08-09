@@ -8,22 +8,27 @@ function useWainwrightFilters(userWainwrights) {
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentHeight, setCurrentHeight] = useState([minWHeight, maxWHeight]);
-  const [completed, setCompleted] = useState(false);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     function checkFilter() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
 
-      if (completed) {
-        filtered = Array.isArray(userWainwrights) ? userWainwrights : [];
-
-        filtered = filtered.filter(
-          (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
+      if (filterStatus === "completed") {
+        filtered = filtered.filter((w) =>
+          userWainwrights.map((uw) => uw.name).includes(w.name),
         );
+      } else if (filterStatus === "uncompleted") {
+        filtered = filtered.filter(
+          (w) => !userWainwrights.map((uw) => uw.name).includes(w.name),
+        );
+      }
 
-        if (selectedArea) {
-          filtered = filtered.filter((w) => w.area === selectedArea);
-        }
+      if (query.length > 0) {
+        filtered = filtered.filter((w) =>
+          w.name.toLowerCase().includes(query.toLocaleLowerCase()),
+        );
       }
 
       filtered = filtered.filter(
@@ -43,15 +48,17 @@ function useWainwrightFilters(userWainwrights) {
     currentHeight,
     wainwrights,
     dispatch,
-    completed,
+    filterStatus,
     userWainwrights,
+    query,
   ]);
 
   function handleReset() {
     setSelectedArea(null);
     dispatch(setFilteredWainwrights(wainwrights));
     setCurrentHeight([minWHeight, maxWHeight]);
-    setCompleted(false);
+    setFilterStatus("all");
+    setQuery("");
   }
 
   return {
@@ -59,9 +66,11 @@ function useWainwrightFilters(userWainwrights) {
     setSelectedArea,
     currentHeight,
     setCurrentHeight,
-    completed,
-    setCompleted,
+    filterStatus,
+    setFilterStatus,
     handleReset,
+    query,
+    setQuery,
   };
 }
 

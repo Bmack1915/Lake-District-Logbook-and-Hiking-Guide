@@ -1,6 +1,6 @@
 import RouteFilters from "./Filters/RouteFilters";
 import WainwrightFilters from "./Filters/WainwrightFilters";
-import SuggestedRoutes from "./SuggestedRoutes";
+import Suggestions from "./Suggestions";
 
 function ListView({ type }) {
   return (
@@ -10,7 +10,7 @@ function ListView({ type }) {
         {type === "wainwrights" && <WainwrightFilters />}
       </div>
       <div className="col-span-3">
-        <SuggestedRoutes type={type} />
+        <Suggestions type={type} />
       </div>
     </div>
   );

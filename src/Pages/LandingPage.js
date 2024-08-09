@@ -86,7 +86,7 @@ function LandingPage() {
           </Accordion>
         </div>
         <div className="flex w-144 justify-start p-16">
-          <Link to="/routeFinder">
+          <Link to="/home">
             <Button color="primary" size="lg">
               Get Started <LiaHikingSolid />
               <FaLongArrowAltRight />

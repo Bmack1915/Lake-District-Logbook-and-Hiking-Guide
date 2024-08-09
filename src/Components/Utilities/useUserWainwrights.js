@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
+import apiClient from "./axiosInterceptor";
 
 export function useUserWainwrights(userId) {
   const [userWainwrights, setUserWainwrights] = useState([]);
@@ -9,7 +9,9 @@ export function useUserWainwrights(userId) {
   const fetchUserWainwrightData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
+      const res = await apiClient.get(
+        `${API_BASE_URL}userwainwrights/${userId}`,
+      );
       setUserWainwrights(res.data.$values);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -26,5 +28,10 @@ export function useUserWainwrights(userId) {
     }
   }, [userId]);
 
-  return { userWainwrights, isLoading, fetchUserWainwrightData };
+  return {
+    userWainwrights,
+    setUserWainwrights,
+    isLoading,
+    fetchUserWainwrightData,
+  };
 }

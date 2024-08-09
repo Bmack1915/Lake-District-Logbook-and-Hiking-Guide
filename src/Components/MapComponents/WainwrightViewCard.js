@@ -1,13 +1,14 @@
 import React from "react";
 import { Card, CardHeader, Image } from "@nextui-org/react";
 import { useSelector } from "react-redux";
+import { useUserWainwrights } from "../Utilities/useUserWainwrights";
 
 export default function WainwrightViewCard({ wainwright }) {
-  const userWainwrights = useSelector(
-    (state) => state.user.userWainwrights,
-  ).map((w) => w.name);
+  const id = useSelector((state) => state.user.id);
+  const { userWainwrights } = useUserWainwrights(id);
+  const wainwrightNames = userWainwrights.map((w) => w.name);
 
-  const completed = userWainwrights.includes(wainwright.name);
+  const completed = wainwrightNames.includes(wainwright.name);
 
   return (
     <Card className="p-2">

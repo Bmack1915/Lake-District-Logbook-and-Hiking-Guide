@@ -10,14 +10,17 @@ function Logbook() {
     useUserWainwrights(id);
   return (
     <div>
-      <h1 className="flex justify-center text-3xl">My Wainwrights</h1>
-      <ProgressWheel
-        userWainwrights={userWainwrights}
-        isLoading={isLoading}
-        fetchUserWainwrightData={fetchUserWainwrightData}
-      />
-      ;
-      <CompletedRoutesList />
+      <h1 className="flex justify-center p-5 text-3xl">My Wainwrights</h1>
+      <div className="flex">
+        <ProgressWheel
+          userWainwrights={userWainwrights}
+          isLoading={isLoading}
+          fetchUserWainwrightData={fetchUserWainwrightData}
+        />
+
+        {/* <CompletedRoutesList fetchUserWainwrightData={fetchUserWainwrightData} /> */}
+        <CompletedWainwrights userWainwrights={userWainwrights} />
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
     <div>
       <div
         id="drawer-navigation"
-        className={`bg-white dark:bg-gray-800 fixed left-0 top-0 z-40 mt-36 w-64 transform overflow-y-auto p-4 transition-transform ${
+        className={`dark:bg-gray-800 fixed left-0 top-0 z-40 mt-36 w-64 transform overflow-y-auto p-4 transition-transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         tabIndex="-1"
@@ -24,7 +24,7 @@ function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
           type="button"
           onClick={toggleSidebar}
           aria-controls="drawer-navigation"
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white absolute right-2.5 top-2.5 inline-flex items-center rounded-lg p-1.5 text-sm"
+          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 absolute right-2.5 top-2.5 inline-flex items-center rounded-lg p-1.5 text-sm dark:hover:text-white"
         >
           <svg
             aria-hidden="true"

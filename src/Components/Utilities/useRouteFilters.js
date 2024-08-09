@@ -20,6 +20,7 @@ function useRouteFilters() {
   ]);
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [time, setTime] = useState([minRouteTime, maxRouteTime]);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     function checkFilter() {
@@ -41,6 +42,12 @@ function useRouteFilters() {
           Math.ceil(r.time / 60) <= time[1],
       );
 
+      if (query.length > 0) {
+        filtered = filtered.filter((r) =>
+          r.name.toLowerCase().includes(query.toLowerCase()),
+        );
+      }
+
       if (selectedDifficulty === "All");
       else if (selectedDifficulty) {
         filtered = filtered.filter((r) => r.difficulty === selectedDifficulty);
@@ -56,6 +63,7 @@ function useRouteFilters() {
     routes,
     selectedDifficulty,
     time,
+    query,
   ]);
 
   function HandleReset() {
@@ -64,6 +72,7 @@ function useRouteFilters() {
     setCurrentDistance([minRdistance, maxRdistance]);
     setTime([minRouteTime, maxRouteTime]);
     setSelectedDifficulty("");
+    setQuery("");
   }
 
   return {
@@ -76,6 +85,8 @@ function useRouteFilters() {
     selectedDifficulty,
     time,
     setTime,
+    query,
+    setQuery,
   };
 }
 

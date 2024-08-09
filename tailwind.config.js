@@ -63,16 +63,17 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
-      blue: "#1fb6ff",
-      purple: "#7e5bef",
-      pink: "#ff49db",
-      orange: "#ff7849",
-      green: "#13ce66",
-      yellow: "#ffc82c",
-      "gray-dark": "#273444",
-      gray: "#8492a6",
-      "gray-light": "#d3dce6",
-      white: "#ffffff",
+      // purple: "#7e5bef",
+      // pink: "#ff49db",
+      // orange: "#ff7849",
+      // green: "#13ce66",
+      // yellow: "#ffc82c",
+      white: "#F6F9F4",
+      blue: "#145B9F",
+      lightblue: "#8EBCE5",
+      mint: "#E0ECE4",
+      slate: "#A59B89",
+      green: "#6B7B39",
     },
     fontFamily: {
       inconsolata: ["Inconsolata"],
@@ -90,5 +91,26 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [require("@tailwindcss/forms"), nextui()],
+  plugins: [
+    require("@tailwindcss/forms"),
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            white: "#F6F9F4",
+            blue: "#145B9F",
+            lightblue: "#8EBCE5",
+            mint: "#E0ECE4",
+            slate: "#A59B89",
+            green: "#6B7B39",
+          },
+        },
+        dark: {
+          // ...
+          colors: {},
+        },
+        // ... custom themes
+      },
+    }),
+  ],
 };

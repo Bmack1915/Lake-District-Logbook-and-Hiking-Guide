@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useWainwright } from "../Components/Utilities/useWainwright";
 import { Loading } from "../Components/Utilities/Loading";
 import { Button } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { API_BASE_URL } from "../Components/Utilities/apiConfig";
-import { UpdateUserInfo } from "../redux/userSlice";
+import { toast } from "react-toastify";
 
 function WainwrightInfoPage() {
   //Get wainwright ID from URL
@@ -13,7 +13,6 @@ function WainwrightInfoPage() {
   //Custom hook to fetch Wainwright
   const { wainwright } = useWainwright(id);
   const userId = useSelector((state) => state.user.id);
-  const dispatch = useDispatch();
 
   if (!wainwright) {
     return <Loading />;
@@ -22,9 +21,9 @@ function WainwrightInfoPage() {
   async function postUserWainwright(userWainwright) {
     try {
       await axios.post(`${API_BASE_URL}userwainwrights/`, userWainwright);
-      alert("Wainwright successfully logged!");
+      toast.success("Wainwright successfully logged!");
     } catch (err) {
-      alert(`${err.response.data}!!!`);
+      toast.error(`${err.response.data}!!!`);
       console.error("Error logging Wainwright:", err);
     } finally {
     }

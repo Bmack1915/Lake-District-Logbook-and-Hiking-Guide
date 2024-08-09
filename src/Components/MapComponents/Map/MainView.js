@@ -8,7 +8,7 @@ import { FiFilter } from "react-icons/fi";
 import Control from "react-leaflet-custom-control";
 import { Button } from "@nextui-org/react";
 
-export default function MapView({ type, toggleSidebar }) {
+export default function MapView({ type, toggleSidebar, filterStatus }) {
   const markersRef = useRef([]);
 
   useEffect(() => {
@@ -19,11 +19,13 @@ export default function MapView({ type, toggleSidebar }) {
   return (
     <MapContainer
       center={[54.5522, -3.1038704]}
-      zoom={10.5}
+      zoom={10}
       style={{ height: "75vh", borderRadius: "5vh" }}
     >
       <MapBaseLayer />
-      {type === "wainwrights" && <WainwrightMarkers />}
+      {type === "wainwrights" && (
+        <WainwrightMarkers filterStatus={filterStatus} />
+      )}
       {type === "routes" && <RouteMarkers />}
       <Control prepend position="topleft">
         <Button className="bg-white" onPress={toggleSidebar}>

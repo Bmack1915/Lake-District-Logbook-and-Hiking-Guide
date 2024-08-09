@@ -2,11 +2,13 @@ import Slider from "../../Utilities/Slider";
 import { useSelector } from "react-redux";
 import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
 import { areas } from "../../Utilities/areas";
-import { Button, Select, SelectItem, Switch } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import { maxWHeight, minWHeight } from "../../Utilities/Stats";
 import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
+import { RadioGroup, Radio } from "@nextui-org/react";
+import Search from "./SearchBar";
 
-function WainwrightFilters({ handlePress }) {
+function WainwrightFilters() {
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useUserWainwrights(id);
 
@@ -15,12 +17,16 @@ function WainwrightFilters({ handlePress }) {
     setSelectedArea,
     currentHeight,
     setCurrentHeight,
-    completed,
-    setCompleted,
     handleReset,
+    filterStatus,
+    setFilterStatus,
+    query,
+    setQuery,
   } = useWainwrightFilters(userWainwrights);
+
   return (
     <div className="flex flex-col items-center justify-between space-y-6">
+      <Search placeholder="Wainwrights" query={query} setQuery={setQuery} />
       <div className="flex w-48 justify-center">
         <Select label="Area" onChange={(e) => setSelectedArea(e.target.value)}>
           {areas.map((area) => (
@@ -40,13 +46,15 @@ function WainwrightFilters({ handlePress }) {
       </Slider>
 
       <div className="mb-8 flex items-center justify-center">
-        <Switch
-          checked={completed}
-          onChange={() => setCompleted(!completed)}
-          color="primary"
+        <RadioGroup
+          value={filterStatus}
+          onValueChange={setFilterStatus}
+          defaultValue="all"
         >
-          {completed ? "Completed" : "Uncompleted"}
-        </Switch>
+          <Radio value="all">All</Radio>
+          <Radio value="completed">Completed</Radio>
+          <Radio value="uncompleted">Uncompleted</Radio>
+        </RadioGroup>
       </div>
 
       <Button

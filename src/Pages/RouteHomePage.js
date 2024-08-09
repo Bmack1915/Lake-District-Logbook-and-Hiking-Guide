@@ -1,13 +1,13 @@
-import RouteMap from "../Components/RoutePageMapComponents/RouteMap";
-import RouteLogForm from "../Components/RouteLogging/RouteLogForm";
-import AssociatedWainwrights from "../Components/RouteLogging/AssociatedWainwrights";
+import RouteMap from "../Components/RoutePageComponents/RouteMap";
+import RouteLogForm from "../Components/RoutePageComponents/RouteLogForm";
+import AssociatedWainwrights from "../Components/RoutePageComponents/AssociatedWainwrights";
 import { useSelector } from "react-redux";
 import { Loading } from "../Components/Utilities/Loading";
 import { useParams } from "react-router-dom";
 import useFetchGpxFile from "../Components/Utilities/useFetchGpxFile";
 import { useRoute } from "../Components/Utilities/useRoute";
-import RouteInfo from "../Components/RouteLogging/RouteInfo";
-import WeatherBar from "../Components/weatherBar";
+import RouteInfo from "../Components/RoutePageComponents/RouteInfo";
+import WeatherBar from "../Components/RoutePageComponents/weatherBar";
 import { useUserRoutes } from "../Components/Utilities/useUserRoutes";
 
 export default function RouteHomePage() {
@@ -40,7 +40,11 @@ export default function RouteHomePage() {
           <RouteMap url={gpxFileUrl} />
         </div>
         <div className="col-span-1 sm:col-span-2 md:col-span-1 lg:col-start-5 lg:row-span-4 lg:row-start-1">
-          {completed ? null : <RouteLogForm route={route} />}
+          {completed ? (
+            <p>You have completed this route!</p>
+          ) : (
+            <RouteLogForm route={route} />
+          )}
         </div>
       </div>
     </div>

@@ -6,9 +6,7 @@ function AppLayout() {
   return (
     <div>
       <NavBar />
-      <SessionChecker>
-        <Outlet />
-      </SessionChecker>
+      <Outlet />
     </div>
   );
 }

@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: sessionStorage.getItem("userEmail") || "",
@@ -30,6 +32,7 @@ const userSlice = createSlice({
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userId");
+
       return initialState;
     },
 
@@ -52,28 +55,6 @@ const userSlice = createSlice({
     },
   },
 });
-// export function UpdateUserInfo() {
-//   return async (dispatch, getState) => {
-//     const userId = getState().user.id;
-//     try {
-//       const resWainwrights = await axios.get(
-//         `${API_BASE_URL}userwainwrights/${userId}`,
-//       );
-//       const userWainwrights = resWainwrights.data.$values;
-
-//       dispatch(setUserWainwrights(userWainwrights));
-//     } catch (error) {
-//       console.error("Failed to fetch wainwrights:", error);
-//     }
-//     try {
-//       const resRoutes = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
-//       const userRoutes = resRoutes.data.$values;
-//       dispatch(setUserRoutes(userRoutes));
-//     } catch (error) {
-//       console.error("Failed to fetch routes:", error);
-//     }
-//   };
-// }
 
 export function LoginAndFetchUserInfo(email, password) {
   return async function (dispatch) {
@@ -93,26 +74,9 @@ export function LoginAndFetchUserInfo(email, password) {
       sessionStorage.setItem("userId", userId);
 
       dispatch(login(email, userId));
-
-      // try {
-      //   const res = await axios.get(`${API_BASE_URL}userwainwrights/${userId}`);
-      //   const userWainwrights = res.data.$values;
-      //   console.log("userwainrights are:", userWainwrights);
-      //   dispatch(setUserWainwrights(userWainwrights));
-      // } catch (error) {
-      //   console.error("Failed to fetch wainwrights:", error);
-      // }
-      // try {
-      //   const res = await axios.get(`${API_BASE_URL}userroutes/${userId}`);
-      //   const userRoutes = res.data.$values;
-      //   console.log("User routes are,", userRoutes);
-      //   dispatch(setUserRoutes(userRoutes));
-      // } catch (error) {
-      //   console.error("Failed to fetch routes:", error);
-      // }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Login failed. Please check your credentials and try again.");
+      toast.error("Login failed. Please check your credentials and try again.");
     }
   };
 }
