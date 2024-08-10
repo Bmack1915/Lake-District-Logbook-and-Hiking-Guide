@@ -42,9 +42,20 @@ function App() {
 
             <Route
               path="/wainwrightinfo/:id"
-              element={<WainwrightInfoPage />}
+              element={
+                <ProtectedRoute>
+                  <WainwrightInfoPage />
+                </ProtectedRoute>
+              }
             />
-            <Route path="/routeinfo/:id" element={<RouteHomePage />} />
+            <Route
+              path="/routeinfo/:id"
+              element={
+                <ProtectedRoute>
+                  <RouteHomePage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/routeFinder"
               element={

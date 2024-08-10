@@ -12,9 +12,10 @@ export function useUserWainwrights(userId) {
       const res = await apiClient.get(
         `${API_BASE_URL}userwainwrights/${userId}`,
       );
-      setUserWainwrights(res.data.$values);
+      setUserWainwrights(res.data.$values || []);
     } catch (err) {
       console.error("Error fetching data:", err);
+      setUserWainwrights([]);
     } finally {
       setIsLoading(false);
     }

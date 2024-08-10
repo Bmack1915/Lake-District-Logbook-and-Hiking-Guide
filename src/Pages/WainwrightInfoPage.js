@@ -1,76 +1,55 @@
 import { useParams } from "react-router-dom";
 import { useWainwright } from "../Components/Utilities/useWainwright";
 import { Loading } from "../Components/Utilities/Loading";
-import { Button } from "@mui/material";
+
+import WainwrightMap from "../Components/WainwrightPageComponents/WainwrightMap";
+import WainwrightInfo from "../Components/WainwrightPageComponents/WainwrightInfo";
+import { useUserWainwrights } from "../Components/Utilities/useUserWainwrights";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { API_BASE_URL } from "../Components/Utilities/apiConfig";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import AssociatedRoutes from "../Components/WainwrightPageComponents/AssociatedRoutes";
 
 function WainwrightInfoPage() {
-  //Get wainwright ID from URL
+  const [completed, setCompleted] = useState(false);
+  // Get wainwright ID from URL
   const { id } = useParams();
-  //Custom hook to fetch Wainwright
+  // Custom hook to fetch Wainwright
   const { wainwright } = useWainwright(id);
+
   const userId = useSelector((state) => state.user.id);
+  const { userWainwrights, isLoading } = useUserWainwrights(userId);
+
+  if (isLoading) return <Loading />;
 
   if (!wainwright) {
     return <Loading />;
   }
+  const isCompleted = userWainwrights
+    .map((uw) => uw.name)
+    .includes(wainwright.name);
 
-  async function postUserWainwright(userWainwright) {
-    try {
-      await axios.post(`${API_BASE_URL}userwainwrights/`, userWainwright);
-      toast.success("Wainwright successfully logged!");
-    } catch (err) {
-      toast.error(`${err.response.data}!!!`);
-      console.error("Error logging Wainwright:", err);
-    } finally {
-    }
-  }
-
-  function handleMarkComplete() {
-    const userWainwright = {
-      Id: userId,
-      WainwrightID: wainwright.wainwrightID,
-    };
-    postUserWainwright(userWainwright);
+  if (isCompleted) {
+    setCompleted(true);
   }
 
   return (
-    <div className="mx-auto max-w-4xl p-5">
-      <h1 className="mb-4 text-center text-4xl font-bold">{wainwright.name}</h1>
-      <div className="rounded-lg bg-white p-6 shadow-md">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2 sm:col-span-1">
-            <h2 className="mb-2 text-2xl font-semibold">Height</h2>
-            <p className="text-lg">{wainwright.heightM} meters</p>
-          </div>
-          <div className="col-span-2 sm:col-span-1">
-            <h2 className="mb-2 text-2xl font-semibold">Rank in Height</h2>
-            <p className="text-lg">{wainwright.rankByHeight}</p>
-          </div>
-          <div className="col-span-2 sm:col-span-1">
-            <h2 className="mb-2 text-2xl font-semibold">Latitude</h2>
-            <p className="text-lg">{wainwright.latitude}</p>
-          </div>
-          <div className="col-span-2 sm:col-span-1">
-            <h2 className="mb-2 text-2xl font-semibold">Longitude</h2>
-            <p className="text-lg">{wainwright.longitude}</p>
-          </div>
-          <div className="col-span-2">
-            <h2 className="mb-2 text-2xl font-semibold">Area</h2>
-            <p className="text-lg">{wainwright.area}</p>
-          </div>
-          <div className="col-span-2">
-            <Button
-              onClick={handleMarkComplete}
-              color="success"
-              variant="contained"
-            >
-              Mark Complete
-            </Button>
-          </div>
+    <div>
+      <h1 className="mb-4 px-5 text-start text-4xl font-bold">
+        {wainwright.name}
+      </h1>
+      <div className="grid grid-cols-5 grid-rows-5 gap-4">
+        <div className="col-span-3 col-start-3 row-span-3 row-start-1">
+          <WainwrightMap wainwright={wainwright} />
+        </div>
+        <div className="col-span-2 col-start-1 row-span-2 row-start-1">
+          <WainwrightInfo
+            completed={completed}
+            setCompleted={setCompleted}
+            wainwright={wainwright}
+          />
+        </div>
+        <div className="col-span-4 col-start-3 row-span-2 row-start-3">
+          <AssociatedRoutes wainwright={wainwright} />
         </div>
       </div>
     </div>

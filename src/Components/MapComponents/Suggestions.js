@@ -5,13 +5,13 @@ import { ScrollShadow } from "@nextui-org/react";
 import WainwrightViewCard from "./WainwrightViewCard";
 
 export default function Suggestions({ type }) {
-  const routesData = useSelector((state) => state.route.filteredRoutes);
+  const filteredRoutes = useSelector((state) => state.route.filteredRoutes);
   const filteredWainwrights = useSelector(
     (state) => state.wainwright.filteredWainwrights,
   );
 
   // Conditionally assign data based on the type prop
-  const data = type === "routes" ? routesData : filteredWainwrights;
+  const data = type === "routes" ? filteredRoutes : filteredWainwrights;
 
   return (
     <div>

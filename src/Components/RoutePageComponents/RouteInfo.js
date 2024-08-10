@@ -20,11 +20,11 @@ function RouteInfo({ route }) {
       </p>
       <ul className="mb-5 mt-5 space-y-5">
         <li className="flex items-center">
-          <FaMountain className="mr-3" /> {route.distanceKm} kM (
+          <FaMountain className="mr-3" /> {route.distanceKm} kM ( Distance:{" "}
           {route.distanceM} miles)
         </li>
         <li className="flex items-center">
-          <FaTachometerAlt className="mr-3" /> {route.difficulty}
+          <FaTachometerAlt className="mr-3" /> Difficulty: {route.difficulty}
         </li>
         <li className="flex items-center">
           <FaRegClock className="mr-3" /> Estimated time: {route.time} minutes
@@ -34,8 +34,8 @@ function RouteInfo({ route }) {
           {route.longitude} Lng
         </li>
         <li className="flex items-center">
-          <FaHiking className="mr-3" /> {route.ascentM} m ({route.ascentF})
-          climb
+          <FaHiking className="mr-3" />
+          Total elevation climbed {route.ascentM} m, ({route.ascentF} ft)
         </li>
         <li>
           <Button color="primary" size="md" className="flex items-center">
