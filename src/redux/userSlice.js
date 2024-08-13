@@ -3,11 +3,11 @@ import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const initialState = {
   email: sessionStorage.getItem("userEmail") || "",
   id: sessionStorage.getItem("userId") || "",
+  token: sessionStorage.getItem("token") || "",
 };
 
 const userSlice = createSlice({
@@ -15,24 +15,22 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: {
-      prepare(email, id) {
+      prepare(email, id, token) {
         return {
           payload: {
             email,
             id,
+            token,
           },
         };
       },
       reducer(state, action) {
         state.email = action.payload.email;
         state.id = action.payload.id;
+        state.token = action.payload.token;
       },
     },
     logout(state) {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("userEmail");
-      sessionStorage.removeItem("userId");
-
       return initialState;
     },
 
@@ -65,18 +63,36 @@ export function LoginAndFetchUserInfo(email, password) {
       });
 
       const { token } = response.data;
-      sessionStorage.setItem("token", token);
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.nameid;
 
-      // Save email and id to sessionStorage
+      // Save email, id, token to sessionStorage
+      sessionStorage.setItem("token", token);
       sessionStorage.setItem("userEmail", email);
       sessionStorage.setItem("userId", userId);
 
-      dispatch(login(email, userId));
+      dispatch(login(email, userId, token));
+    } catch (response) {
+      console.error("Login error:", response);
+      toast.error("Login failed. Please check your credentials and try again.");
+    }
+  };
+}
+
+export function Logout() {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(`${API_BASE_URL}account/logout`);
+      console.log("Logout Response", response);
+
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("userEmail");
+      sessionStorage.removeItem("userId");
+
+      dispatch(logout());
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Login failed. Please check your credentials and try again.");
+      toast.error("Logout failed. Please try again.");
     }
   };
 }

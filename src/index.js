@@ -13,7 +13,7 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <NextUIProvider>
-        <main className="font bg-mint min-h-screen light">
+        <main className="font min-h-screen light">
           <App />
         </main>
       </NextUIProvider>

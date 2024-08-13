@@ -5,20 +5,25 @@ import apiClient from "./axiosInterceptor";
 export function useUserWainwrights(userId) {
   const [userWainwrights, setUserWainwrights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const fetchUserWainwrightData = async () => {
+  const controller = new AbortController();
+  async function fetchUserWainwrightData() {
     setIsLoading(true);
     try {
       const res = await apiClient.get(
         `${API_BASE_URL}userwainwrights/${userId}`,
+        { signal: controller.signal },
       );
-      setUserWainwrights(res.data.$values);
+      setUserWainwrights(res.data.$values || []);
     } catch (err) {
-      console.error("Error fetching data:", err);
+      if (err.name !== "AbortError") console.error("Error fetching data:", err);
+      setUserWainwrights([]);
     } finally {
       setIsLoading(false);
     }
-  };
+    return function () {
+      controller.abort();
+    };
+  }
 
   useEffect(() => {
     if (userId) {

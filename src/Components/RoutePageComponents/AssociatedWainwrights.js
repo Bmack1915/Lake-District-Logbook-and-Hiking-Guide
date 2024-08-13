@@ -1,7 +1,10 @@
+import { Loading } from "../Utilities/Loading";
 import useAssociatedWainwrights from "../Utilities/useAssociatedWainwrights";
 
 function AssociatedWainwrights({ route }) {
   const { associatedWainwrights, isLoading } = useAssociatedWainwrights(route);
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="rounded-lg bg-white p-1 shadow-md">
@@ -15,8 +18,8 @@ function AssociatedWainwrights({ route }) {
         </p>
       </span>
       <ul className="flex overflow-y-hidden">
-        {associatedWainwrights.map((aw) => (
-          <li key={aw.id} className="mb-2 mr-4 flex-shrink-0 border-r pr-4">
+        {associatedWainwrights.map((aw, index) => (
+          <li key={index} className="mb-2 mr-4 flex-shrink-0 border-r pr-4">
             <div className="flex flex-col">
               <div className="flex items-center">
                 <span className="mr-2 text-xl">⛰</span>

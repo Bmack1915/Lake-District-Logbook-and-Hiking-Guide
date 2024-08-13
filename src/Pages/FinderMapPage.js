@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 import "../index.css";
-import MapView from "../Components/MapComponents/Map/MainView";
+import MapView from "../Components/MapComponents/Map/MapView";
 import Sidebar from "../Components/MapComponents/Map/Sidebar";
 import ViewSelector from "../Components/MapComponents/Filters/ViewSelector";
 import ListView from "../Components/MapComponents/ListView";

@@ -1,5 +1,5 @@
-import CompletedWainwrights from "../Components/LogbookComponents/CompletedWainwrights";
-import CompletedRoutesList from "../Components/LogbookComponents/CompletedRoutesList";
+import CompletedWainwrights from "../Components/LogbookComponents/MyWainwrights/CompletedWainwrights";
+import CompletedRoutesList from "../Components/LogbookComponents/MyRoutes/CompletedRoutesList";
 import ProgressWheel from "../Components/LogbookComponents/LogbookWheel";
 import { useSelector } from "react-redux";
 import { useUserWainwrights } from "../Components/Utilities/useUserWainwrights";
@@ -19,7 +19,10 @@ function Logbook() {
         />
 
         {/* <CompletedRoutesList fetchUserWainwrightData={fetchUserWainwrightData} /> */}
-        <CompletedWainwrights userWainwrights={userWainwrights} />
+        <div className="flex flex-col">
+          <CompletedWainwrights userWainwrights={userWainwrights} />
+          <CompletedRoutesList />
+        </div>
       </div>
     </div>
   );

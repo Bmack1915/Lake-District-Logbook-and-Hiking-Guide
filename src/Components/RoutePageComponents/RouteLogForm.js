@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { difficulties } from "../Utilities/difficulties";
 
 import {
   Button,
@@ -15,6 +13,7 @@ import { API_BASE_URL } from "../Utilities/apiConfig";
 import StarRating from "../Utilities/StarRating";
 import { toast } from "react-toastify";
 import apiClient from "../Utilities/axiosInterceptor";
+import { difficulties } from "../Utilities/utilityFuncsStats";
 
 export default function RouteLogForm({ route }) {
   const id = useSelector((state) => state.user.id);
@@ -29,15 +28,10 @@ export default function RouteLogForm({ route }) {
     try {
       const response = await apiClient.post(`${API_BASE_URL}userroutes`, log);
       if (response.status === 201 || response.state === 200) {
-        // console.log("Log created successfully", response.data);
-        //This post method returns the whole thing created at action, which is the primary keys, referencs (Route and Application User),
-        //description, etc. Do I want to add these or just the routes? We will need to access the logs too btw.
+        toast.alert("Route successfully logged!");
       }
     } catch (error) {
-      toast.error(
-        error.response.statusText,
-        "you must login to record routes.",
-      );
+      toast.error(error.response, "you must login to record routes.");
       console.log("Error", error);
     }
   }
