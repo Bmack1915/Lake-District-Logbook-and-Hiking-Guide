@@ -1,12 +1,13 @@
 import Slider from "../../Utilities/Slider";
 import { useSelector } from "react-redux";
 import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
-import { areas } from "../../Utilities/areas";
+
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { maxWHeight, minWHeight } from "../../Utilities/Stats";
 import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 import { RadioGroup, Radio } from "@nextui-org/react";
 import Search from "./SearchBar";
+import { areas } from "../../Utilities/utilityFuncsStats";
 
 function WainwrightFilters() {
   const id = useSelector((state) => state.user.id);

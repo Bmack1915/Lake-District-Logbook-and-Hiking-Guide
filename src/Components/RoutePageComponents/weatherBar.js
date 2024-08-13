@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 function WeatherBar({ route }) {
   const [data, setData] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
+  const [weatherAvailable, setWeatherAvailable] = useState(false);
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${route.latitude}&lon=${route.longitude}&units=metric&appid=c8444dc095cbd98d6d1f799a6e88bf83`;
 
@@ -55,7 +56,7 @@ function WeatherBar({ route }) {
           </ul>
         </div>
         {selectedDate && (
-          <div className="bg-white flex items-center justify-evenly rounded-lg p-4 shadow-md">
+          <div className="flex items-center justify-evenly rounded-lg bg-white p-4 shadow-md">
             <p className="text-xl font-semibold">
               🌡️ Avg Temp: {selectedDate.main.temp.toFixed()}°C
             </p>

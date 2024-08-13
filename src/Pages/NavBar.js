@@ -1,16 +1,16 @@
-import React from "react";
 import { Image } from "@nextui-org/react";
 import { Link, useLocation } from "react-router-dom";
 import LogoutButton from "../Components/Authorization/LogoutButton";
 import LoginButton from "../Components/Authorization/LoginButton";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
-  const token = sessionStorage.getItem("token");
+  const token = useSelector((state) => state.user.token);
   const location = useLocation();
 
   const links = [
     { to: "/home", label: "Home" },
-    { to: "/wainwrightFinder", label: "Wainwrights" },
+    { to: "/wainwrightFinder", label: "My Wainwrights" },
     { to: "/logbook", label: "My Logbook" },
     { to: "/routeFinder", label: "Route Finder" },
   ];
@@ -42,7 +42,7 @@ export default function NavBar() {
         ))}
       </div>
       <div className="mx-16 flex items-center">
-        {!token ? <LoginButton /> : <LogoutButton />}
+        {!token.length > 0 ? <LoginButton /> : <LogoutButton />}
       </div>
     </nav>
   );

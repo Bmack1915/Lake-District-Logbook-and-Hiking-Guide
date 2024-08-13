@@ -9,7 +9,7 @@ function LandingPage() {
       <div
         className="col-span-2 col-start-4 row-span-5 row-start-1 h-auto bg-cover bg-center"
         style={{
-          backgroundImage: `url(${process.env.PUBLIC_URL}assets/stonecircle.jpg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}assets/lakedistrict/grasmere.jpg)`,
         }}
       ></div>
       <div className="col-span-3 col-start-1 row-span-2 row-start-1 border-b-4 p-5">

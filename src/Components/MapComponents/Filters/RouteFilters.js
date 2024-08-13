@@ -1,7 +1,7 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import Slider from "../../Utilities/Slider";
 import { FaMountain, FaHiking, FaClock } from "react-icons/fa";
-import { difficulties } from "../../Utilities/difficulties";
+
 import {
   maxRascent,
   maxRdistance,
@@ -12,6 +12,7 @@ import {
 } from "../../Utilities/Stats";
 import useRouteFilters from "../../Utilities/useRouteFilters";
 import Search from "./SearchBar";
+import { difficulties } from "../../Utilities/utilityFuncsStats";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
 function RouteFilters() {

@@ -9,7 +9,7 @@ const RouteIcon = new L.Icon({
   iconUrl: "assets/hiking.png",
   iconSize: [24, 35],
   iconAnchor: [16, 30],
-  popupAnchor: [-3, -76],
+  popupAnchor: [-3, -30],
 });
 
 function RouteMarkers() {

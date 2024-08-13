@@ -16,23 +16,22 @@ export default function Suggestions({ type }) {
   return (
     <div>
       <p className="text-3xl">{data.length} Results found...</p>
-      <div className="container">
-        <div className="grid grid-flow-col" spacing={2}>
-          {data.length > 1000 ? (
-            "Have a search!"
-          ) : (
-            <ScrollShadow className="h-[500px] w-[400px]">
-              {data.map((dataPoint) => (
-                <div className="grid justify-center p-2" key={dataPoint.id}>
-                  {type === "routes" && <RouteViewCard route={dataPoint} />}
-                  {type === "wainwrights" && (
-                    <WainwrightViewCard wainwright={dataPoint} />
-                  )}
-                </div>
-              ))}
-            </ScrollShadow>
-          )}
-        </div>
+
+      <div className="grid grid-flow-col" spacing={2}>
+        {data.length > 1000 ? (
+          "Have a search!"
+        ) : (
+          <ScrollShadow className="h-[700px] w-[1000px]">
+            {data.map((dataPoint) => (
+              <div className="grid justify-center p-2" key={dataPoint.id}>
+                {type === "routes" && <RouteViewCard route={dataPoint} />}
+                {type === "wainwrights" && (
+                  <WainwrightViewCard wainwright={dataPoint} />
+                )}
+              </div>
+            ))}
+          </ScrollShadow>
+        )}
       </div>
     </div>
   );

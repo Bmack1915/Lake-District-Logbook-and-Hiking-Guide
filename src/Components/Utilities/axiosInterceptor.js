@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
-import { logout } from "../../redux/userSlice";
+import { Logout } from "../../redux/userSlice";
 import { store } from "../../redux/store";
 import { toast } from "react-toastify";
 import handleHomeNavigate from "./handleHomeNavigate";
@@ -42,7 +42,7 @@ apiClient.interceptors.response.use(
     ) {
       isLoggingOut = true; // Set the flag to true
       toast.warning("Your session has expired");
-      store.dispatch(logout());
+      store.dispatch(Logout());
       handleHomeNavigate();
     }
     return Promise.reject(error);
