@@ -42,8 +42,8 @@ apiClient.interceptors.response.use(
     ) {
       isLoggingOut = true; // Set the flag to true
       toast.warning("Your session has expired");
-      store.dispatch(Logout());
-      handleHomeNavigate();
+      // store.dispatch(Logout());
+      // handleHomeNavigate();
     }
     return Promise.reject(error);
   },

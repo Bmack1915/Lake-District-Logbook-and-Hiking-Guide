@@ -16,7 +16,6 @@ import RouteHomePage from "./Pages/RoutePage.js";
 
 import Logbook from "./Pages/LogbookPage.js";
 import WainwrightInfoPage from "./Pages/WainwrightInfoPage.js";
-import LandingPage from "./Pages/LandingPage.js";
 import AppLayout from "./Pages/AppLayout.js";
 import HomePage from "./Pages/HomePage.js";
 import ProtectedRoute from "./Components/Authorization/ProtectedRoute.js";
@@ -32,12 +31,11 @@ function App() {
     <div className="font-inconsolata">
       <Router>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
 
           {/* App layout provides the Navbar */}
           <Route element={<AppLayout />}>
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
             {/* <Route element={<SessionChecker />}> */}
 
             <Route

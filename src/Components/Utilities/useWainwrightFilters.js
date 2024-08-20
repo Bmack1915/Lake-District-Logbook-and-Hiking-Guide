@@ -17,11 +17,12 @@ function useWainwrightFilters(userWainwrights) {
 
       if (filterStatus === "completed") {
         filtered = filtered.filter((w) =>
-          userWainwrights.map((uw) => uw.name).includes(w.name),
+          userWainwrights.map((uw) => uw.wainwright.name).includes(w.name),
         );
       } else if (filterStatus === "uncompleted") {
         filtered = filtered.filter(
-          (w) => !userWainwrights.map((uw) => uw.name).includes(w.name),
+          (w) =>
+            !userWainwrights.map((uw) => uw.wainwright.name).includes(w.name),
         );
       }
 

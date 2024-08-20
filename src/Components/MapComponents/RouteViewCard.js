@@ -2,6 +2,7 @@ import { Button, Card, CardHeader, Image } from "@nextui-org/react";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdSend } from "react-icons/io";
+import timeConverter from "../Utilities/timeConverter";
 
 export default function RouteViewCard({ route }) {
   // All requests made with the client will be authenticated
@@ -22,6 +23,9 @@ export default function RouteViewCard({ route }) {
               <h2 className="text-lg font-bold">
                 {route.distanceKm} Km ({route.distanceM} m), {route.difficulty}
               </h2>
+              <p className="font-bold">
+                Estimated Time {timeConverter(route.time)}
+              </p>
               <Button
                 endContent={<IoMdSend />}
                 className="bg-lightblue"

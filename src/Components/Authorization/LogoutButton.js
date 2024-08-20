@@ -11,7 +11,7 @@ export default function LogoutButton() {
   function handleLogOut() {
     dispatch(Logout());
     toast.success("Successfully logged out");
-    navigate("/home");
+    navigate("/");
   }
 
   return (

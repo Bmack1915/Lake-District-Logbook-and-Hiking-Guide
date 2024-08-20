@@ -1,33 +1,39 @@
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import MyButton from "../../materialUI/myButton.jsx";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { API_BASE_URL } from "../../Utilities/apiConfig.js";
+import { API_BASE_URL } from "../Utilities/apiConfig.js";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import apiClient from "../../Utilities/axiosInterceptor.js";
+import apiClient from "../Utilities/axiosInterceptor.js";
 import { useState } from "react";
-import formatDate, { difficulties } from "../../Utilities/utilityFuncsStats.js";
+import formatDate, { difficulties } from "../Utilities/utilityFuncsStats.js";
+import { Button } from "@nextui-org/react";
+import StarRating from "../Utilities/StarRating.js";
+import BasicTimeField from "../Utilities/TimePicker.js";
+import dayjs from "dayjs";
 
-export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
+export default function EditRouteDialog({
+  userRoute,
+  fetchUserRouteData,
+  editOpen,
+  setEditOpen,
+}) {
   const id = useSelector((state) => state.user.id);
   const routeID = userRoute.route.routeID;
+
+  // State for all attributes
+  const [description, setDescription] = useState(userRoute.description);
   const [difficulty, setDifficulty] = useState(userRoute.difficultyRating);
   const [date, setDate] = useState(userRoute.date);
-  const [description, setDescription] = useState(userRoute.description);
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const [duration, setDuration] = useState(dayjs(userRoute.duration));
+  const [rating, setRating] = useState(userRoute.rating);
 
   const handleClose = () => {
-    setOpen(false);
+    setEditOpen(false);
   };
 
   async function EditLog(log) {
@@ -35,65 +41,56 @@ export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
       `${API_BASE_URL}userroutes/${id}?routeID=${routeID}`,
       log,
     );
-    console.log("Response", response);
+
     fetchUserRouteData();
     toast.success("Log successfully updated!");
 
     if (response.status === 201 || response.state === 200) {
+      // Handle success
     }
   }
 
   function handleSubmit(e) {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
     const updatedLog = {
       id,
       routeID,
       description,
       date: new Date(date).toISOString(),
-      DifficultyRating: difficulty,
+      difficultyRating: difficulty,
+      duration,
+      rating,
     };
 
     EditLog(updatedLog);
-    setDate(() => date);
-    setDescription(() => description);
-    setDifficulty(() => difficulty);
-    setOpen(false);
+    setEditOpen(false);
   }
 
   return (
     <>
-      <MyButton variant="contained" handleSubmit={handleClickOpen}>
-        Edit
-      </MyButton>
       <Dialog
-        open={open}
+        open={editOpen}
         onClose={handleClose}
         PaperProps={{
           component: "form",
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
+          onSubmit: handleSubmit, // Form submission handler
         }}
       >
-        <DialogTitle>{userRoute.route.name}</DialogTitle>
+        <DialogTitle className="bg-blue text-white">
+          Editing: {userRoute.route.name}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Would you like to edit this route log from {""}
+          <DialogContentText className="pt-4">
+            Would you like to edit this route log from{" "}
             {formatDate(userRoute.date)}?
           </DialogContentText>
           <ul>
             <li>
               <TextField
                 autoFocus
-                required
                 margin="dense"
                 label="Description"
-                id="name"
+                id="description"
                 fullWidth
                 variant="standard"
                 value={description}
@@ -102,40 +99,54 @@ export default function EditRouteDialog({ userRoute, fetchUserRouteData }) {
             </li>
             <li className="mt-5">
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  How did it feel?
-                </InputLabel>
+                <InputLabel id="difficulty-label">How did it feel?</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
+                  labelId="difficulty-label"
+                  id="difficulty"
                   value={difficulty}
                   label="Difficulty"
                   onChange={(e) => setDifficulty(e.target.value)}
                 >
-                  {difficulties.map((d) => (
-                    <MenuItem value={d}>{d}</MenuItem>
+                  {difficulties.map((d, index) => (
+                    <MenuItem key={index} value={d}>
+                      {d}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </li>
-            <li className="mt-5 flex">
-              <input
+            <li className="mt-5">
+              <TextField
                 type="date"
+                label="Date"
                 value={formatDate(date)}
                 onChange={(e) => setDate(e.target.value)}
+                fullWidth
+                variant="standard"
+              />
+            </li>
+            <li className="mt-5">
+              <BasicTimeField value={duration} setValue={setDuration} />
+            </li>
+            <li className="mt-5">
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ color: "text.secondary" }}
+              >
+                How would you rate this route?
+              </InputLabel>
+              <StarRating
+                className="pt-3"
+                size={40}
+                defaultRating={rating}
+                onSetRating={setRating}
               />
             </li>
           </ul>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <MyButton
-            handleSubmit={handleSubmit}
-            variant="contained"
-            type="submit"
-          >
-            Save
-          </MyButton>
+          <Button type="submit">Save</Button>
         </DialogActions>
       </Dialog>
     </>

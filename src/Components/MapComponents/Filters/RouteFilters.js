@@ -56,7 +56,8 @@ function RouteFilters() {
         max={maxRascent}
       >
         <div className="flex items-center">
-          <FaMountain size={36} /> Ascent
+          <p className="px-4">Ascent</p>
+          <FaMountain size={36} />
         </div>
       </Slider>
 
@@ -68,7 +69,8 @@ function RouteFilters() {
         max={maxRdistance}
       >
         <div className="flex items-center">
-          <FaHiking size={36} /> Length of Walk
+          <p className="px-4">Length of Walk</p>
+          <FaHiking size={36} />
         </div>
       </Slider>
 
@@ -80,7 +82,8 @@ function RouteFilters() {
         max={maxRouteTime}
       >
         <div className="flex items-center">
-          <FaClock size={36} /> Estimated Time
+          <p className="px-4">Estimated Time</p>
+          <FaClock size={36} />
         </div>
       </Slider>
 

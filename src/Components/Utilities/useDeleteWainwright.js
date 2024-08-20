@@ -1,28 +1,24 @@
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "./apiConfig";
-import { useCallback } from "react";
 import apiClient from "./axiosInterceptor";
 import { toast } from "react-toastify";
 
-function useDeleteWainwright() {
+function useDeleteWainwright(wainwrightID) {
   const userId = useSelector((state) => state.user.id);
 
-  const handleRemoveWainwright = useCallback(
-    async (id) => {
-      try {
-        await apiClient.delete(
-          `${API_BASE_URL}userwainwrights/${userId}/${id}`,
-        );
-        toast.success("Wainwright successfully removed!");
-      } catch (err) {
-        toast.error(`${err.response?.data || "Error removing Wainwright"}!!!`);
-        console.error("Error removing Wainwright:", err);
-      }
-    },
-    [userId],
-  );
+  async function handleRemoveWainwright() {
+    try {
+      await apiClient.delete(
+        `${API_BASE_URL}userwainwrights/${userId}/${wainwrightID}`,
+      );
+      toast.success("Wainwright log successfully removed!");
+    } catch (err) {
+      toast.error("Error removing Wainwright, please try again");
+      console.error("Error removing Wainwright:", err);
+    }
+  }
 
-  return handleRemoveWainwright;
+  return { handleRemoveWainwright };
 }
 
 export default useDeleteWainwright;

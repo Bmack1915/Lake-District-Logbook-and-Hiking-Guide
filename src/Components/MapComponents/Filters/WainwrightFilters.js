@@ -26,8 +26,19 @@ function WainwrightFilters() {
   } = useWainwrightFilters(userWainwrights);
 
   return (
-    <div className="flex flex-col items-center justify-between space-y-6">
+    <div className="flex flex-col items-center justify-between space-y-10 pt-5">
       <Search placeholder="Wainwrights" query={query} setQuery={setQuery} />
+      <div className="mb-8 flex items-center justify-center">
+        <RadioGroup
+          value={filterStatus}
+          onValueChange={setFilterStatus}
+          defaultValue="all"
+        >
+          <Radio value="all">All</Radio>
+          <Radio value="completed">Completed</Radio>
+          <Radio value="uncompleted">Uncompleted</Radio>
+        </RadioGroup>
+      </div>
       <div className="flex w-48 justify-center">
         <Select label="Area" onChange={(e) => setSelectedArea(e.target.value)}>
           {areas.map((area) => (
@@ -45,18 +56,6 @@ function WainwrightFilters() {
       >
         Height
       </Slider>
-
-      <div className="mb-8 flex items-center justify-center">
-        <RadioGroup
-          value={filterStatus}
-          onValueChange={setFilterStatus}
-          defaultValue="all"
-        >
-          <Radio value="all">All</Radio>
-          <Radio value="completed">Completed</Radio>
-          <Radio value="uncompleted">Uncompleted</Radio>
-        </RadioGroup>
-      </div>
 
       <Button
         className="p-3"

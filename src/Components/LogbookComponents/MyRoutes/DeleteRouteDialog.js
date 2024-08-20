@@ -1,20 +1,21 @@
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../../Utilities/apiConfig";
 import { useState } from "react";
-import MyButton from "../../materialUI/myButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AlertDialog from "../../materialUI/alertDialog";
 import apiClient from "../../Utilities/axiosInterceptor";
+import { Button } from "@nextui-org/react";
+import { useUserRoutes } from "../../Utilities/useUserRoutes";
+import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
 
-function DeleteRouteDialog({
-  userRoute,
-  fetchUserRouteData,
-  fetchUserWainwrightData,
-}) {
+function DeleteRouteDialog({ userRoute }) {
   const userID = useSelector((state) => state.user.id);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deleteAssociatedWainwrights, setDeleteAssociatedWainwrights] =
     useState(true);
+
+  const { fetchUserRouteData } = useUserRoutes(userID);
+  const { fetchUserWainwrightData } = useUserWainwrights(userID);
 
   const handleDeleteClick = () => {
     setDialogOpen(true);
@@ -47,15 +48,13 @@ function DeleteRouteDialog({
 
   return (
     <div>
-      <MyButton
-        handleSubmit={handleDeleteClick}
-        startIcon={<DeleteIcon />}
-        size="small"
-        variant="contained"
-        color="error"
+      <Button
+        endContent={<DeleteIcon />}
+        onPress={handleDeleteClick}
+        className="bg-red text-white"
       >
         Delete
-      </MyButton>
+      </Button>
       <AlertDialog
         open={dialogOpen}
         title="Confirm Deletion"

@@ -1,5 +1,4 @@
 import { Button } from "@nextui-org/react";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { LiaHikingSolid } from "react-icons/lia";
 import {
   FaRegClock,
@@ -8,8 +7,13 @@ import {
   FaHiking,
   FaTachometerAlt,
 } from "react-icons/fa";
+import timeConverter from "../Utilities/timeConverter";
+import { useState } from "react";
+import RouteForm from "../LogbookComponents/MyRoutes/RouteForm";
+import { FaDownload } from "react-icons/fa";
 
 function RouteInfo({ route, gpxFileUrl }) {
+  const [formOpen, setFormOpen] = useState(false);
   function handleDownload() {
     const element = document.createElement("a");
 
@@ -20,44 +24,64 @@ function RouteInfo({ route, gpxFileUrl }) {
     element.click();
     document.body.removeChild(element); // Clean up
   }
-
   return (
-    <div className="flex h-full w-full flex-col justify-evenly overflow-auto p-4">
-      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl">
+    <div className="flex h-full w-full flex-col justify-evenly overflow-auto rounded-lg bg-white p-6 shadow-lg">
+      <h1 className="text-gray-800 text-3xl font-bold sm:text-4xl md:text-5xl">
         {route.name}
       </h1>
-      <p className="mt-5 text-sm sm:text-base md:text-lg">
+      <p className="text-gray-600 mt-4 text-sm leading-relaxed sm:text-base md:text-lg">
         {route.description}
       </p>
-      <ul className="mb-5 mt-5 space-y-5">
-        <li className="flex items-center">
-          <FaMountain className="mr-3" /> {route.distanceKm} kM ( Distance:{" "}
-          {route.distanceM} miles)
+      <ul className="mt-6 space-y-6">
+        <li className="text-gray-700 flex items-center text-xl">
+          <FaMountain className="text-gray-500 mr-3" /> {route.distanceKm} kM
+          (Distance: {route.distanceM} miles)
         </li>
-        <li className="flex items-center">
-          <FaTachometerAlt className="mr-3" /> Difficulty: {route.difficulty}
+        <li className="text-gray-700 flex items-center text-xl">
+          <FaTachometerAlt className="text-gray-500 mr-3" /> Difficulty:{" "}
+          {route.difficulty}
         </li>
-        <li className="flex items-center">
-          <FaRegClock className="mr-3" /> Estimated time: {route.time} minutes
+        <li className="text-gray-700 flex items-center text-xl">
+          <FaRegClock className="text-gray-500 mr-3" /> Estimated time:{" "}
+          {timeConverter(route.time)}
         </li>
-        <li className="flex items-center text-sm">
-          <FaMapMarkerAlt className="mr-3" /> Start Point {route.latitude} Lat,{" "}
-          {route.longitude} Lng
+        <li className="text-gray-700 flex items-center text-sm text-xl">
+          <FaMapMarkerAlt className="text-gray-500 mr-3" /> Start Point:{" "}
+          {route.latitude} Lat, {route.longitude} Lng
         </li>
-        <li className="flex items-center">
-          <FaHiking className="mr-3" />
-          Total elevation climbed {route.ascentM} m, ({route.ascentF} ft)
+        <li className="text-gray-700 flex items-center text-xl">
+          <FaHiking className="text-gray-500 mr-3" />
+          Total elevation climbed: {route.ascentM} m, ({route.ascentF} ft)
         </li>
+
         <li>
           <Button
             color="primary"
             onPress={handleDownload}
             size="md"
-            className="flex items-center"
+            className="flex items-center text-lg"
           >
-            Download GPX File <LiaHikingSolid className="ml-2" />
-            <FaLongArrowAltRight className="ml-2" />
+            Download GPX File <FaDownload size={20} className="ml-2" />
+            {/* <FaLongArrowAltRight className="ml-2" /> */}
           </Button>
+        </li>
+        <li>
+          <div>
+            <div>
+              <Button
+                className="bg-mint text-lg"
+                onPress={() => setFormOpen(true)}
+              >
+                Log Route <LiaHikingSolid size={45} className="ml-2" />
+              </Button>
+            </div>
+            <RouteForm
+              type="create"
+              route={route}
+              setFormOpen={setFormOpen}
+              formOpen={formOpen}
+            />
+          </div>
         </li>
       </ul>
     </div>

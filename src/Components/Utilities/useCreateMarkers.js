@@ -43,7 +43,9 @@ function useCreateMarkers() {
     if (userWainwrights && userWainwrights.length > 0) {
       data.forEach((w) => {
         // If a list of user wainwright names includes the current name of the filtered wainwright, set completed to true
-        const completed = userWainwrights.map((uw) => uw.name).includes(w.name);
+        const completed = userWainwrights
+          .map((uw) => uw.wainwright.name)
+          .includes(w.name);
         icons[w.wainwrightID] = createWainwrightIcon(w.area, completed);
       });
     } else {

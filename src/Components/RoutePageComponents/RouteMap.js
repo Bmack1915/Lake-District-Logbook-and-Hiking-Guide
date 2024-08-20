@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-gpx";
 import L from "leaflet";
-import MapBaseLayer from "../MapComponents/Map/MapBaseLayer";
 
 function GPXLayer({ url }) {
   const map = useMap();
@@ -41,11 +40,10 @@ export default function RouteMap({ url }) {
       zoom={13}
       style={{ height: "100%", width: "100%" }}
     >
-      <MapBaseLayer />
       <TileLayer
-        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-        maxZoom={19}
-        attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+        maxZoom={17}
+        attribution='Map data: &copy; <a href="https://www.opentopomap.org">OpenTopoMap</a> contributors'
       />
       <GPXLayer url={url} />
     </MapContainer>

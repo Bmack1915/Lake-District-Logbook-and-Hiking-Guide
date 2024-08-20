@@ -3,11 +3,13 @@ import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
+import { act } from "react";
 
 const initialState = {
-  email: sessionStorage.getItem("userEmail") || "",
-  id: sessionStorage.getItem("userId") || "",
-  token: sessionStorage.getItem("token") || "",
+  name: "",
+  email: "",
+  id: "",
+  token: "",
 };
 
 const userSlice = createSlice({
@@ -29,6 +31,9 @@ const userSlice = createSlice({
         state.id = action.payload.id;
         state.token = action.payload.token;
       },
+    },
+    register(state, action) {
+      state.name = action.payload;
     },
     logout(state) {
       return initialState;
@@ -72,8 +77,8 @@ export function LoginAndFetchUserInfo(email, password) {
       sessionStorage.setItem("userId", userId);
 
       dispatch(login(email, userId, token));
-    } catch (response) {
-      console.error("Login error:", response);
+    } catch (error) {
+      console.error("Login error:", error);
       toast.error("Login failed. Please check your credentials and try again.");
     }
   };
@@ -98,4 +103,4 @@ export function Logout() {
 }
 
 export default userSlice.reducer;
-export const { login, logout } = userSlice.actions;
+export const { login, logout, register } = userSlice.actions;

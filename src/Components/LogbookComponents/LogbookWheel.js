@@ -7,7 +7,6 @@ function ProgressWheel({
   isLoading,
   fetchUserWainwrightData,
 }) {
-  console.log(userWainwrights);
   if (isLoading) {
     return (
       <div>
@@ -52,11 +51,12 @@ function ProgressWheel({
   };
 
   return (
-    <div className="h-[70vh] w-screen">
+    <div className="h-[70vh] w-[100vh]">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={data}
+            // dataKey
             cx="50%"
             cy="50%"
             innerRadius={180}
@@ -72,13 +72,13 @@ function ProgressWheel({
           <Legend iconSize={50} content={renderLegend} />
           <text
             x="50%"
-            y="50%"
+            y="42%"
             fill="black"
             textAnchor="middle"
-            style={{ fontSize: "36px", fontWeight: "bold" }}
+            style={{ fontSize: "42px", fontWeight: "bold" }}
           >
             {`${percentage}% Completed`}
-            <tspan x="50%" y="50%" dy="1.2em" fontSize="24px">
+            <tspan x="50%" y="45%" dy="1.2em" fontSize="32px">
               {`${userWainwrights.length}/${total} Wainwrights`}
             </tspan>
           </text>

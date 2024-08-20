@@ -6,17 +6,21 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { NextUIProvider } from "@nextui-org/react";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <NextUIProvider>
-        <main className="font min-h-screen light">
-          <App />
-        </main>
-      </NextUIProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <NextUIProvider>
+          <main className="font min-h-screen light">
+            <App />
+          </main>
+        </NextUIProvider>
+      </LocalizationProvider>
     </PersistGate>
   </Provider>,
 );
