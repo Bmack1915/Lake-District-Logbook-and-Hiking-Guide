@@ -36,7 +36,7 @@ export default function WainwrightViewCard({ wainwright }) {
                 className="bg-lightblue"
                 onPress={handleNavigate}
               >
-                Route Info
+                Wainwright Info
               </Button>
             </div>
           </div>

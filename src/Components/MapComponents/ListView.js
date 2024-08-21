@@ -12,7 +12,7 @@ function ListView({ type }) {
         {type === "routes" && <RouteFilters />}
         {type === "wainwrights" && <WainwrightFilters />}
       </div>
-      <div className="col-span-3">
+      <div className="col-span- px-5 pt-3">
         <Suggestions type={type} />
       </div>
     </div>

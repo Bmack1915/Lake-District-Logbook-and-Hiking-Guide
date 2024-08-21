@@ -5,7 +5,6 @@ import ViewWainrightLog from "../LogbookComponents/MyWainwrights/ViewWainwrightL
 
 export default function ViewWainwrightButton({
   wainwright,
-  fetchUserWainwrightData,
   userWainwright,
   completed,
 }) {
@@ -18,7 +17,7 @@ export default function ViewWainwrightButton({
   return (
     <div>
       <Button
-        className="bg-blue text-lg font-thin text-white"
+        className="text-black bg-lightblue text-lg"
         onPress={handleClickOpen}
       >
         {!completed ? "Mark Complete" : "View Log"}
@@ -30,13 +29,11 @@ export default function ViewWainwrightButton({
           type="create"
           userWainwright={userWainwright}
           formOpen={formOpen}
-          fetchUserWainwrightData={fetchUserWainwrightData}
         />
       ) : (
         userWainwright && (
           <div>
             <ViewWainrightLog
-              fetchUserWainwrightData={fetchUserWainwrightData}
               open={formOpen}
               setOpen={setFormOpen}
               wainwright={wainwright}

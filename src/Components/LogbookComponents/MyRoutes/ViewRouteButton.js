@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 import RouteForm from "./RouteForm";
 import ViewRouteLog from "./ViewRouteLog";
 
-export default function ViewRouteButton({ userRoute, fetchUserRouteData }) {
+export default function ViewRouteButton({ userRoute }) {
   const [editOpen, setEditOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -25,7 +25,7 @@ export default function ViewRouteButton({ userRoute, fetchUserRouteData }) {
         Open
       </Button>
       <ViewRouteLog
-        fetchUserRouteData={fetchUserRouteData}
+        withNavigation={true}
         handleEditClickOpen={handleEditClickOpen}
         setOpen={setOpen}
         open={open}

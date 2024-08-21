@@ -1,25 +1,31 @@
 import { Loading } from "../Utilities/Loading";
 import useAssociatedWainwrights from "../Utilities/useAssociatedWainwrights";
+import { FaArrowsAltH } from "react-icons/fa";
 
 function AssociatedWainwrights({ route }) {
   const { associatedWainwrights, isLoading } = useAssociatedWainwrights(route);
-  console.log(associatedWainwrights);
 
   if (isLoading) return <Loading />;
 
+  if (associatedWainwrights.length < 1) return null;
+
   return (
-    <div className="rounded-lg bg-white p-1 shadow-md">
+    <div className="w-[80vh] rounded-lg bg-white p-2 shadow-lg">
       <span>
         <h1 className="mb-2 text-2xl font-bold md:text-xl">
           {associatedWainwrights.length > 1
             ? `${associatedWainwrights.length} Wainwrights summited in this route: `
             : "This route summits:"}
         </h1>{" "}
-        <p className="text-gray-600 pb-5 md:text-sm">
-          (Logging this route will automatically add{" "}
-          {associatedWainwrights.length > 1 ? "these" : "this"} Wainwright/s to
-          your logbook)
-        </p>
+        <div className="flex items-center pb-5 text-lg md:text-sm">
+          <p>
+            (Logging this route will automatically add{" "}
+            {associatedWainwrights.length > 1 ? "these" : "this"} Wainwright/s
+            to your logbook)
+          </p>
+
+          <FaArrowsAltH size={20} className="ml-2 items-center" />
+        </div>
       </span>
 
       {associatedWainwrights.length === 1 && (

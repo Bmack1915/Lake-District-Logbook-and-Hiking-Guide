@@ -8,7 +8,7 @@ export default function TextExpander({
   textColor = "black",
   expandButtonText = "Show more...",
   collapseButtonText = "Show less...",
-  collapsedNumWords = 10,
+  collapsedNumWords = 5,
   setOpen,
 }) {
   const [expanded, setExpanded] = useState(expandedDefault);

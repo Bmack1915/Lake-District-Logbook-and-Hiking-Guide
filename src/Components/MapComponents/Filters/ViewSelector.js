@@ -7,7 +7,7 @@ export default function ViewSelector({ viewType, setViewType }) {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col pb-2 pt-5">
       <Tabs
         variant="solid"
         fullWidth
@@ -16,8 +16,8 @@ export default function ViewSelector({ viewType, setViewType }) {
         onSelectionChange={handleTabChange}
         value={viewType}
       >
-        <Tab key="map" title="Map View" className="w-full text-blue" />
-        <Tab key="list" title="List View" className="w-full" />
+        <Tab key="map" title="Map View" className="w-full text-2xl text-blue" />
+        <Tab key="list" title="List View" className="w-full text-2xl" />
       </Tabs>
     </div>
   );

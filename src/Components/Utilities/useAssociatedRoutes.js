@@ -5,6 +5,7 @@ import { API_BASE_URL } from "./apiConfig";
 function useAssociatedRoutes(wainwright) {
   const [associatedRoutes, setAssociatedRoutes] = useState([]);
   const [isLoadingRoutes, setIsLoading] = useState(false);
+  console.log(wainwright, "in hook");
 
   useEffect(() => {
     async function getAssociatedRoutes() {

@@ -10,12 +10,11 @@ import {
 } from "@nextui-org/react";
 import ViewWainrightLog from "./ViewWainwrightLog";
 import formatDate from "../../Utilities/utilityFuncsStats";
+import { useSelector } from "react-redux";
 
-function CompletedWainwrightsTable({
-  userWainwrights,
-  fetchUserWainwrightData,
-}) {
+function CompletedWainwrightsTable({ fetchUserWainwrightData }) {
   const [selectedWainwrightID, setSelectedWainwrightID] = useState(null);
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
 
   const handleOpenLog = (wainwrightID) => {
     setSelectedWainwrightID(wainwrightID);
@@ -56,7 +55,6 @@ function CompletedWainwrightsTable({
                 <ViewWainrightLog
                   open={true}
                   setOpen={handleCloseLog}
-                  fetchUserWainwrightData={fetchUserWainwrightData}
                   userWainwright={uw}
                 />
               )}

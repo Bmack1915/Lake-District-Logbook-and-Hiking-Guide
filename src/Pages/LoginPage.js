@@ -53,8 +53,22 @@ export default function LoginPage() {
           navigate(from, { replace: true });
         }
       } else {
-        await dispatch(LoginAndFetchUserInfo(email, password));
-        navigate(from, { replace: true });
+        try {
+          const res = await dispatch(LoginAndFetchUserInfo(email, password));
+          if (
+            res.response &&
+            res.response.status >= 400 &&
+            res.response.status < 500
+          ) {
+            console.log("ERROR");
+          } else if (res && res.status >= 200 && res.status < 300) {
+            navigate(from, { replace: true });
+          } else {
+            console.log("Unexpected status code:", res.response.status);
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");

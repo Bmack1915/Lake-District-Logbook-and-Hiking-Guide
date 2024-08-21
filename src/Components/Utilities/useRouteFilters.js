@@ -19,7 +19,7 @@ function useRouteFilters() {
     maxRdistance,
   ]);
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
-  const [time, setTime] = useState([minRouteTime, maxRouteTime]);
+  const [time, setTime] = useState([minRouteTime - 1, maxRouteTime]);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -70,7 +70,7 @@ function useRouteFilters() {
     dispatch(setFilteredRoutes(routes));
     setCurrentAscent([minRascent, maxRascent]);
     setCurrentDistance([minRdistance, maxRdistance]);
-    setTime([minRouteTime, maxRouteTime]);
+    setTime([minRouteTime - 1, maxRouteTime]);
     setSelectedDifficulty("");
     setQuery("");
   }

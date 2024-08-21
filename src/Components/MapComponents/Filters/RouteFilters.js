@@ -47,6 +47,31 @@ function RouteFilters() {
           ))}
         </Select>
       </div>
+      <Slider
+        currentValue={currentDistance}
+        setCurrentValue={setCurrentDistance}
+        unit="km"
+        min={minRdistance}
+        max={maxRdistance}
+      >
+        <div className="flex items-center">
+          <p className="px-4">Length of Walk</p>
+          {/* <FaHiking size={36} /> */}
+        </div>
+      </Slider>
+
+      <Slider
+        currentValue={time}
+        setCurrentValue={setTime}
+        unit="hrs"
+        min={minRouteTime - 1}
+        max={maxRouteTime}
+      >
+        <div className="flex items-center">
+          <p className="px-4">Estimated Time</p>
+          {/* <FaClock size={36} /> */}
+        </div>
+      </Slider>
 
       <Slider
         currentValue={currentAscent}
@@ -57,33 +82,7 @@ function RouteFilters() {
       >
         <div className="flex items-center">
           <p className="px-4">Ascent</p>
-          <FaMountain size={36} />
-        </div>
-      </Slider>
-
-      <Slider
-        currentValue={currentDistance}
-        setCurrentValue={setCurrentDistance}
-        unit="km"
-        min={minRdistance}
-        max={maxRdistance}
-      >
-        <div className="flex items-center">
-          <p className="px-4">Length of Walk</p>
-          <FaHiking size={36} />
-        </div>
-      </Slider>
-
-      <Slider
-        currentValue={time}
-        setCurrentValue={setTime}
-        unit="hrs"
-        min={minRouteTime}
-        max={maxRouteTime}
-      >
-        <div className="flex items-center">
-          <p className="px-4">Estimated Time</p>
-          <FaClock size={36} />
+          {/* <FaMountain size={36} /> */}
         </div>
       </Slider>
 

@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useWainwright } from "../Components/Utilities/useWainwright";
-import { Loading } from "../Components/Utilities/Loading";
+import { useWainwright } from "../Utilities/useWainwright";
+import { Loading } from "../Utilities/Loading";
 
-import WainwrightMap from "../Components/WainwrightPageComponents/WainwrightMap";
-import WainwrightInfo from "../Components/WainwrightPageComponents/WainwrightInfo";
+import WainwrightMap from "../WainwrightPageComponents/WainwrightMap";
+import WainwrightInfo from "../WainwrightPageComponents/WainwrightInfo";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import AssociatedRoutes from "../Components/WainwrightPageComponents/AssociatedRoutes";
-import ViewWainwrightButton from "../Components/WainwrightPageComponents/ViewWainwrightButton";
-import fetchWainwrightData from "../Components/Utilities/fetchWainwright";
+import AssociatedRoutes from "../WainwrightPageComponents/AssociatedRoutes";
+import ViewWainwrightButton from "../WainwrightPageComponents/ViewWainwrightButton";
+import fetchWainwrightData from "../Utilities/fetchWainwright";
 
 function WainwrightInfoPage() {
   const [completed, setCompleted] = useState(false);
@@ -53,10 +53,17 @@ function WainwrightInfoPage() {
   }, [wainwright, userWainwrights]);
 
   if (!wainwright || !userWainwrights) return <Loading />;
+
   return (
     <div>
-      <div className="grid grid-cols-7 grid-rows-6 gap-4">
-        <div className="col-span-5 col-start-2 row-span-2">
+      <h1 className="mb-4 px-5 text-start text-4xl font-bold">
+        {wainwright.name}
+      </h1>
+      <div className="grid grid-cols-5 grid-rows-5 gap-4">
+        <div className="col-span-3 col-start-3 row-span-3 row-start-1">
+          <WainwrightMap wainwright={wainwright} />
+        </div>
+        <div className="col-span-2 col-start-1 row-span-2 row-start-1">
           <WainwrightInfo
             wainwright={wainwright}
             completed={completed}
@@ -69,17 +76,13 @@ function WainwrightInfoPage() {
             />
           </WainwrightInfo>
         </div>
-        <div className="col-span-5 col-start-2 row-span-2 row-start-3">
-          <h1 className="pb-5 text-2xl font-bold sm:text-3xl md:text-4xl">
-            Wainwright Map
-          </h1>
-          <WainwrightMap wainwright={wainwright} />
-        </div>
-        <div className="col-span-5 col-start-2 row-span-2 row-start-5">
+
+        <div className="col-span-4 col-start-3 row-span-2 row-start-3">
           <AssociatedRoutes wainwright={wainwright} />
         </div>
       </div>
     </div>
   );
 }
+
 export default WainwrightInfoPage;

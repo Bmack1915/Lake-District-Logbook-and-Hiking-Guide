@@ -5,7 +5,6 @@ import { IoMdSend } from "react-icons/io";
 import timeConverter from "../Utilities/timeConverter";
 
 export default function RouteViewCard({ route }) {
-  // All requests made with the client will be authenticated
   const navigate = useNavigate();
 
   function handleNavigate() {
@@ -15,13 +14,16 @@ export default function RouteViewCard({ route }) {
   return (
     <Card className="p-1">
       <CardHeader className="flex flex-col items-start">
-        <div className="grid grid-cols-3 gap-2">
-          <div className="col-span-2 space-y-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {/* Image Section */}
+
+          {/* Text Content Section */}
+          <div className="space-y-2 md:col-span-2">
             <p className="text-lg font-bold">{route.name}</p>
             <p className="text-default-500">{route.description}</p>
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold">
-                {route.distanceKm} Km ({route.distanceM} m), {route.difficulty}
+                {route.distanceKm} Km ({route.distanceM} mi), {route.difficulty}
               </h2>
               <p className="font-bold">
                 Estimated Time {timeConverter(route.time)}
@@ -35,8 +37,14 @@ export default function RouteViewCard({ route }) {
               </Button>
             </div>
           </div>
-          <div className="col-span-1 flex items-center justify-center px-5">
-            <Image src="assets/image.png" className="h-auto max-w-full"></Image>
+          <div className="h-auto w-full object-cover md:col-span-1">
+            <Image
+              src="/Assets/lakeDistrict/ambleside.jpg"
+              alt={route.name}
+              className="h-auto w-full rounded-lg object-cover"
+              width={1000}
+              height={130}
+            />
           </div>
         </div>
       </CardHeader>

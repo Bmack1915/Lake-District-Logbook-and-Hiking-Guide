@@ -1,12 +1,10 @@
 import React from "react";
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
 import { Loading } from "../Utilities/Loading";
+import { useSelector } from "react-redux";
 
-function ProgressWheel({
-  userWainwrights,
-  isLoading,
-  fetchUserWainwrightData,
-}) {
+function ProgressWheel({ isLoading }) {
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
   if (isLoading) {
     return (
       <div>

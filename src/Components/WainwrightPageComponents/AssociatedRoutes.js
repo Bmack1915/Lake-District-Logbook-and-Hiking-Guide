@@ -10,13 +10,13 @@ function AssociatedRoutes({ wainwright }) {
 
   return associatedRoutes.length > 0 ? (
     <div>
-      <h1 className="text-xl font-bold">
+      <h1 className="pb-3 pt-3 text-2xl font-bold">
         {associatedRoutes.length > 1
-          ? `Looking to climb ${wainwright.name}?. Take a look at these
+          ? `Looking to climb ${wainwright.name}? Take a look at these
         ${associatedRoutes.length} routes...`
           : `Looking to climb ${wainwright.name}? Why not try this route..`}
       </h1>
-      <ScrollShadow className="h-[500px] w-[1000px]">
+      <ScrollShadow className="h-[500px] w-[1050px]">
         {associatedRoutes.map((route) => (
           <div className="grid justify-center p-2" key={route.routeId}>
             <RouteViewCard route={route} />

@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import apiClient from "./axiosInterceptor";
 import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
+import { fetchUserData } from "../../redux/userSlice";
 
 function useEditRouteLog() {
-  const id = useSelector((state) => state.user.id);
   const [isLoading, setIsLoading] = useState(false);
+  const id = useSelector((state) => state.user.id);
+  const dispatch = useDispatch();
 
   async function EditRouteLog(log) {
     setIsLoading(true); // Set loading to true before the request
@@ -25,6 +27,7 @@ function useEditRouteLog() {
         response.status === 204
       ) {
         toast.success("Log successfully updated!");
+        dispatch(fetchUserData(id));
       } else {
         toast.error("Failed to update log!!!");
       }

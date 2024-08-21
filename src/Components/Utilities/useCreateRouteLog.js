@@ -2,8 +2,13 @@ import { useState } from "react";
 import apiClient from "./axiosInterceptor";
 import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "../../redux/userSlice";
 
 function useCreateRouteLog() {
+  const userId = useSelector((state) => state.user.id);
+  const dispatch = useDispatch();
+
   const [isLoading, setIsLoading] = useState(false);
 
   async function CreateUserRouteLog(log) {
@@ -16,7 +21,6 @@ function useCreateRouteLog() {
           headers: {
             "Content-Type": "application/json",
           },
-          transformRequest: [(data, headers) => data],
         },
       );
 
@@ -26,6 +30,7 @@ function useCreateRouteLog() {
         response.status === 204
       ) {
         toast.success("Route log successfully created!");
+        dispatch(fetchUserData(userId));
       } else {
         toast.error("Failed to update log.");
       }

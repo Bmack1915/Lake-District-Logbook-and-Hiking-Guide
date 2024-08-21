@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { InputLabel } from "@mui/material";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
-
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  InputLabel,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { Button } from "@nextui-org/react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import formatDate from "../Utilities/utilityFuncsStats.js";
 import StarRating from "../Utilities/StarRating.js";
 import dayjs from "dayjs";
@@ -22,17 +23,18 @@ import { getAssociatedWainwrights } from "../Utilities/useAssociatedWainwrights.
 import useEditRouteLog from "../Utilities/useEditLog.js";
 import { difficulties } from "../Utilities/utilityFuncsStats.js";
 import useEditWainwrightLog from "../Utilities/useEditWainwrightLog.js";
+import { fetchUserData } from "../../redux/userSlice.js";
 
 export default function WainwrightForm({
   userWainwright,
   wainwright,
   formOpen,
   setFormOpen,
-  fetchUserWainwrightData,
   type,
 }) {
   const userId = useSelector((state) => state.user.id);
   const wainwrightID = wainwright?.wainwrightID;
+  const dispatch = useDispatch();
 
   const [duration, setDuration] = useState(dayjs().hour(1).minute(0));
   const [date, setDate] = useState(formatDate(new Date()));
@@ -42,7 +44,6 @@ export default function WainwrightForm({
   const [difficulty, setDifficulty] = useState("");
 
   const { associatedRoutes, isLoadingRoutes } = useAssociatedRoutes(wainwright);
-
   const { CreateUserRouteLog } = useCreateRouteLog();
   const { CreateUserWainwrightLog } = useCreateWainwrightLog();
   const { EditRouteLog } = useEditRouteLog();
@@ -50,7 +51,6 @@ export default function WainwrightForm({
 
   const [associatedWainwrights, setAssociatedWainwrights] = useState([]);
 
-  // Get associated Wainwrights dynamically using useEffect
   useEffect(() => {
     const fetchAssociatedWainwrights = async () => {
       if (routeName !== null) {
@@ -104,53 +104,40 @@ export default function WainwrightForm({
     try {
       if (type === "edit") {
         if (routeName !== null) {
-          // Editing a Route Log
           const RouteLog = { ...logData, routeID: routeName.routeID };
-
-          // Update the Route Log
           await EditRouteLog(RouteLog);
-          // Optionally, update associated Wainwright logs for the Route
-          if (associatedWainwrights.length > 0) {
-            const wainwrightLogs = associatedWainwrights.map((aw) => ({
-              ...logData,
-              wainwrightID: aw.wainwrightID, // Update each associated wainwright log
-              routeName: routeName.name,
-            }));
 
-            wainwrightLogs.map((i) => EditWainwrightLog(i));
-            // Update each associated wainwright log
-            for (let wainwrightLog of wainwrightLogs) {
-              await EditWainwrightLog(wainwrightLog);
-            }
-          }
-
-          toast.success("Route log updated successfully!");
-        } else {
-          // Editing a Wainwright Log
-          const WainwrightLog = { ...logData, wainwrightID: wainwrightID };
-          await EditWainwrightLog(WainwrightLog);
-        }
-      } else {
-        if (routeName !== null) {
-          // Create a Route Log
-          const RouteLog = { ...logData, routeID: routeName.routeID };
-          await CreateUserRouteLog(RouteLog);
-
-          // Create associated Wainwright logs for the route
           if (associatedWainwrights.length > 0) {
             const wainwrightLogs = associatedWainwrights.map((aw) => ({
               ...logData,
               wainwrightID: aw.wainwrightID,
               routeName: routeName.name,
             }));
+            for (let wainwrightLog of wainwrightLogs) {
+              await EditWainwrightLog(wainwrightLog);
+            }
+          }
+          toast.success("Route log updated successfully!");
+        } else {
+          const WainwrightLog = { ...logData, wainwrightID: wainwrightID };
+          await EditWainwrightLog(WainwrightLog);
+        }
+      } else {
+        if (routeName !== null) {
+          const RouteLog = { ...logData, routeID: routeName.routeID };
+          await CreateUserRouteLog(RouteLog);
 
-            // Create each associated wainwright log
+          if (associatedWainwrights.length > 0) {
+            const wainwrightLogs = associatedWainwrights.map((aw) => ({
+              ...logData,
+              wainwrightID: aw.wainwrightID,
+              routeName: routeName.name,
+            }));
             for (let wainwrightLog of wainwrightLogs) {
               await CreateUserWainwrightLog(wainwrightLog, true);
             }
           }
         } else {
-          // Create a Wainwright Log
           const WainwrightLog = { ...logData, wainwrightID: wainwrightID };
           await CreateUserWainwrightLog(WainwrightLog);
         }
@@ -158,7 +145,7 @@ export default function WainwrightForm({
         resetForm();
       }
 
-      fetchUserWainwrightData();
+      dispatch(fetchUserData(userId));
       setFormOpen(false);
     } catch (error) {
       console.error("Submission error:", error);
@@ -175,8 +162,8 @@ export default function WainwrightForm({
           backgroundColor: "primary.main",
           color: "white",
           fontWeight: "bold",
+          fontSize: "1.75rem",
           fontFamily: "Inconsolata",
-          width: 500,
         }}
       >
         {routeName
@@ -186,20 +173,26 @@ export default function WainwrightForm({
       <DialogContent
         sx={{
           backgroundColor: "background.default",
+          color: "text.primary",
           fontFamily: "Inconsolata",
+          padding: 3,
         }}
       >
         <form onSubmit={handleSubmit}>
+          {/* Description Section */}
           <div style={{ width: "400px" }}>
-            {" "}
-            {/* Adjust the width of the parent container */}
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", mt: 2, fontFamily: "Inconsolata" }}
+            >
+              Description
+            </Typography>
             <TextField
-              label="Description"
               fullWidth
               placeholder="How was your experience? Write about it here"
               multiline
               maxRows={6}
-              minRows={4}
+              minRows={3}
               margin="dense"
               variant="standard"
               value={description}
@@ -207,23 +200,27 @@ export default function WainwrightForm({
               sx={{
                 "& .MuiInputLabel-root": { color: "text.secondary" },
                 "& .MuiInputBase-root": { color: "text.primary" },
-                font: "bold",
+                fontFamily: "Inconsolata",
               }}
             />
           </div>
-          <InputLabel
-            sx={{
-              color: "text.secondary",
-              paddingBottom: 2,
-              fontFamily: "Inconsolata",
-            }}
+
+          {/* Duration Section */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
           >
             How long did this route take you?
-          </InputLabel>
+          </Typography>
           <BasicTimeField width={385} value={duration} setValue={setDuration} />
 
-          <p className="p-3">How difficult did it feel?</p>
-
+          {/* Difficulty Section */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
+          >
+            How difficult did it feel?
+          </Typography>
           <select
             id="difficulty"
             value={difficulty}
@@ -237,15 +234,13 @@ export default function WainwrightForm({
             ))}
           </select>
 
-          <InputLabel
-            sx={{
-              color: "text.secondary",
-              fontFamily: "Inconsolata",
-              marginTop: 3,
-            }}
+          {/* Date Section */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
           >
             Date completed:
-          </InputLabel>
+          </Typography>
           <input
             type="date"
             value={date}
@@ -253,17 +248,20 @@ export default function WainwrightForm({
             className="w-96 rounded border p-2"
           />
 
+          {/* Associated Routes Section (optional) */}
           {associatedRoutes && type === "create" && (
             <div>
-              <InputLabel
+              <Typography
+                variant="h6"
                 sx={{
-                  color: "text.secondary",
+                  fontWeight: "bold",
+                  mt: 3,
+                  mb: 1,
                   fontFamily: "Inconsolata",
-                  marginTop: 3,
                 }}
               >
                 Route Taken:
-              </InputLabel>
+              </Typography>
               <select
                 onChange={(e) => {
                   const selectedValue = e.target.value;
@@ -290,9 +288,15 @@ export default function WainwrightForm({
             </div>
           )}
 
+          {/* Associated Wainwrights Section */}
           {associatedWainwrights.length > 0 && type === "create" && (
             <div className="flex flex-col pt-3">
-              <p>Logging this Wainwright via this route also completes:</p>
+              <Typography
+                variant="body2"
+                sx={{ fontFamily: "Inconsolata", mb: 1 }}
+              >
+                Logging this Wainwright via this route also completes:
+              </Typography>
               <ul className="list-disc pl-5">
                 {associatedWainwrights.map((aw) => (
                   <li key={aw.id}>{aw.name}</li>
@@ -301,29 +305,27 @@ export default function WainwrightForm({
             </div>
           )}
 
-          <InputLabel
-            sx={{
-              color: "text.secondary",
-              fontFamily: "Inconsolata",
-              marginTop: 3,
-            }}
+          {/* Rating Section */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
           >
             How would you rate this Wainwright/Ascent?
-          </InputLabel>
+          </Typography>
           <StarRating defaultRating={5} onSetRating={setRating} />
         </form>
       </DialogContent>
       <DialogActions sx={{ backgroundColor: "background.paper" }}>
         <Button
           onPress={() => setFormOpen(false)}
-          className="bg-lightblue text-white"
+          className="bg-mint font-inconsolata text-xl text-blue"
         >
           Cancel
         </Button>
         <Button
           type="submit"
           onPress={handleSubmit}
-          className="bg-green text-white"
+          className="bg-green font-inconsolata text-xl text-white"
         >
           {type === "edit" ? "Save" : "Create Log"}
         </Button>

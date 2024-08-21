@@ -14,25 +14,24 @@ import StarRating from "../../Utilities/StarRating";
 import HandleDeleteWainwright from "./HandleDeleteWainwright";
 import dayjs from "dayjs";
 
+// Apply Bootstrap Dialog Styles
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.primary,
   },
   "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.background.paper,
+    borderTop: `1px solid ${theme.palette.divider}`,
   },
 }));
 
-export default function ViewWainrightLog({
-  userWainwright,
-  fetchUserWainwrightData,
-  open,
-  setOpen,
-}) {
+export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
   const [editOpen, setEditOpen] = useState(false);
   const { rating, description, duration, routeName, difficultyRating } =
     userWainwright;
-  console.log(routeName, userWainwright);
   const wainwright = userWainwright.wainwright;
   const date = formatDate(userWainwright.date);
 
@@ -54,16 +53,28 @@ export default function ViewWainrightLog({
         <DialogTitle
           sx={{
             m: 0,
-            p: 2,
-            width: 500,
+            p: 3,
             backgroundColor: "primary.main",
             color: "white",
             fontWeight: "bold",
+            fontSize: "1.75rem",
+            fontFamily: "inconsolata",
           }}
           id="customized-dialog-title"
         >
-          {userWainwright.wainwright.name} Ascent{" "}
-          {userWainwright.date && <p className="text-sm">on {date}</p>}
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: "primary.main",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "1.75rem",
+              fontFamily: "inconsolata",
+            }}
+          >
+            {userWainwright.wainwright.name}{" "}
+            {userWainwright.date && `Ascent on ${date}`}
+          </Typography>
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -77,60 +88,89 @@ export default function ViewWainrightLog({
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent
-          dividers
-          sx={{
-            backgroundColor: "background.default",
-            color: "text.primary",
-          }}
-        >
-          <Typography gutterBottom>
-            <div className="mb-4">
-              <h2 className="text-lg font-bold">Description</h2>
+        <DialogContent dividers>
+          {/* Description Section */}
+          <div className="mb-4">
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+            >
+              Description
+            </Typography>
+            {description !== null ? (
+              <Typography variant="body1">{description}</Typography>
+            ) : (
+              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                No description provided
+              </Typography>
+            )}
+          </div>
 
-              {description !== null ? (
-                <p>{description}</p>
-              ) : (
-                <p className="italic">No description provided</p>
-              )}
-            </div>
-          </Typography>
-          <Typography gutterBottom>
-            <div className="mb-4">
-              <h2 className="text-lg font-bold">Duration</h2>
-              <p className={!duration && "italic"}>
-                {duration
-                  ? `${dayjs(duration).format("HH:mm")}`
-                  : "No completion time provided"}
-              </p>
-            </div>
-          </Typography>
+          {/* Duration Section */}
+          <div className="mb-4">
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+            >
+              Duration
+            </Typography>
+            <Typography variant="body1">
+              {duration
+                ? `${dayjs(duration).format("HH:mm")}`
+                : "No completion time provided"}
+            </Typography>
+          </div>
 
-          <Typography sx={{ fontFamily: "inconsolata" }} gutterBottom>
-            <div className="mb-4">
-              <h2 className="text-lg font-bold">Difficulty Rating</h2>
-              <p className={!difficultyRating && "italic"}>
-                {difficultyRating
-                  ? `${difficultyRating}`
-                  : "No difficulty rating provided"}
-              </p>
-            </div>
-          </Typography>
-          <Typography gutterBottom>
-            <div className="mb-4">
-              <h2 className="text-lg font-bold">Route</h2>
-              <p className={!routeName && "italic"}>
-                {routeName ? routeName : "No Route Specified"}
-              </p>
-            </div>
-          </Typography>
-          <Typography gutterBottom>
+          {/* Difficulty Rating Section */}
+          <div className="mb-4">
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+            >
+              Difficulty Rating
+            </Typography>
+            {difficultyRating ? (
+              <Typography variant="body1">{difficultyRating}</Typography>
+            ) : (
+              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                No difficulty rating provided
+              </Typography>
+            )}
+          </div>
+
+          {/* Route Section */}
+          <div className="mb-4">
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+            >
+              Route
+            </Typography>
+            {routeName ? (
+              <Typography variant="body1">{routeName}</Typography>
+            ) : (
+              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                No Route Specified
+              </Typography>
+            )}
+          </div>
+
+          {/* Rating Section */}
+          <div className="mb-4">
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+            >
+              Rating
+            </Typography>
             {rating !== null ? (
               <StarRating defaultRating={rating} disabled />
             ) : (
-              <p className="italic">No Rating provided</p>
+              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                No Rating provided
+              </Typography>
             )}
-          </Typography>
+          </div>
         </DialogContent>
         <div className="flex justify-center">
           <DialogActions
@@ -141,7 +181,7 @@ export default function ViewWainrightLog({
             }}
           >
             <Button
-              className="bg-mint px-5 text-blue"
+              className="bg-mint px-5 font-inconsolata text-xl text-blue"
               autoFocus
               onClick={handleEditClickOpen}
             >
@@ -149,13 +189,12 @@ export default function ViewWainrightLog({
             </Button>
 
             <HandleDeleteWainwright
-              fetchUserWainwrightData={fetchUserWainwrightData}
               setOpen={setOpen}
               userWainwright={userWainwright}
             />
 
             <Button
-              className="bg-blue text-white"
+              className="bg-blue font-inconsolata text-xl text-white"
               autoFocus
               onClick={handleClose}
             >
@@ -166,13 +205,11 @@ export default function ViewWainrightLog({
         <WainwrightForm
           wainwright={wainwright}
           type="edit"
-          fetchUserWainwrightData={fetchUserWainwrightData}
           userWainwright={userWainwright}
           setFormOpen={setEditOpen}
           formOpen={editOpen}
         />
       </BootstrapDialog>
-      <div></div>
     </div>
   );
 }

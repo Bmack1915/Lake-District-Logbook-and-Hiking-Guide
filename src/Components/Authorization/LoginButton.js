@@ -9,7 +9,7 @@ function LoginButton() {
   }
 
   return (
-    <Button color="primary" onPress={handleLoginPress}>
+    <Button color="primary" className="text-xl" onPress={handleLoginPress}>
       Login
     </Button>
   );

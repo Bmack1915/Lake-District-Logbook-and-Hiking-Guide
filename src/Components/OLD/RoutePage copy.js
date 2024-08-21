@@ -1,17 +1,17 @@
-import RouteMap from "../Components/RoutePageComponents/RouteMap";
-import RouteLogForm from "../Components/RoutePageComponents/RouteLogForm";
-import AssociatedWainwrights from "../Components/RoutePageComponents/AssociatedWainwrights";
+import RouteMap from "../RoutePageComponents/RouteMap";
+import RouteLogForm from "../RoutePageComponents/RouteLogForm";
+import AssociatedWainwrights from "../RoutePageComponents/AssociatedWainwrights";
 import { useSelector } from "react-redux";
-import { Loading } from "../Components/Utilities/Loading";
+import { Loading } from "../Utilities/Loading";
 import { useParams } from "react-router-dom";
-import useFetchGpxFile from "../Components/Utilities/useFetchGpxFile";
-import { useRoute } from "../Components/Utilities/useRoute";
-import RouteInfo from "../Components/RoutePageComponents/RouteInfo";
-import WeatherBar from "../Components/RoutePageComponents/weatherBar";
-import { useUserRoutes } from "../Components/Utilities/useUserRoutes";
+import useFetchGpxFile from "../Utilities/useFetchGpxFile";
+import { useRoute } from "../Utilities/useRoute";
+import RouteInfo from "../RoutePageComponents/RouteInfo";
+import WeatherBar from "../RoutePageComponents/weatherBar";
+import { useUserRoutes } from "../Utilities/useUserRoutes";
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
-import RouteForm from "../Components/LogbookComponents/MyRoutes/RouteForm";
+import RouteForm from "../LogbookComponents/MyRoutes/RouteForm";
 
 export default function RouteHomePage() {
   const { id } = useParams();

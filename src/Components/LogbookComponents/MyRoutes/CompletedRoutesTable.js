@@ -6,8 +6,7 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-import { useSelector } from "react-redux";
-import { useUserRoutes } from "../../Utilities/useUserRoutes";
+
 import StarRating from "../../Utilities/StarRating";
 
 import ViewRouteButton from "./ViewRouteButton";
@@ -15,10 +14,10 @@ import formatDate from "../../Utilities/utilityFuncsStats";
 import timeConverter from "../../Utilities/timeConverter";
 import durationConverter from "../../Utilities/durationConverter";
 import TextExpander from "../../Utilities/TextExpander";
+import { useSelector } from "react-redux";
 
 export default function CompletedRoutesTable() {
-  const id = useSelector((state) => state.user.id);
-  const { userRoutes, isLoading, fetchUserRouteData } = useUserRoutes(id);
+  const userRoutes = useSelector((state) => state.user.userRoutes);
 
   const columns = [
     { title: "Name" },
@@ -59,7 +58,7 @@ export default function CompletedRoutesTable() {
               </TableCell>
               <TableCell className="text-center text-lg">
                 {uw.description ? (
-                  <div className="w-56">
+                  <div className="w-40">
                     <TextExpander expandedDefault={false}>
                       {uw.description}
                     </TextExpander>
@@ -83,10 +82,7 @@ export default function CompletedRoutesTable() {
                 {uw.duration !== null ? durationConverter(uw.duration) : "N/A"}
               </TableCell>
               <TableCell>
-                <ViewRouteButton
-                  userRoute={uw}
-                  fetchUserRouteData={fetchUserRouteData}
-                />
+                <ViewRouteButton userRoute={uw} />
               </TableCell>
             </TableRow>
           ))}

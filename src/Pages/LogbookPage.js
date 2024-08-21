@@ -1,19 +1,13 @@
 import CompletedWainwrightsTable from "../Components/LogbookComponents/MyWainwrights/CompletedWainwrightsTable";
 import ProgressWheel from "../Components/LogbookComponents/LogbookWheel";
 import { useSelector } from "react-redux";
-import { useUserWainwrights } from "../Components/Utilities/useUserWainwrights";
 import { ConfirmProvider } from "material-ui-confirm";
 import SlideshowBackground from "../Components/HomePageComponents/SlideshowBackground";
 import Oops from "../Components/LogbookComponents/Oops";
 import CompletedRoutesTable from "../Components/LogbookComponents/MyRoutes/CompletedRoutesTable";
-import { Loading } from "../Components/Utilities/Loading";
 
 function Logbook() {
-  const id = useSelector((state) => state.user.id);
-  const { userWainwrights, isLoading, fetchUserWainwrightData } =
-    useUserWainwrights(id);
-
-  if (isLoading) return <Loading />;
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
 
   return (
     <div>
@@ -25,20 +19,9 @@ function Logbook() {
                 My Progress
               </h1>
               <div className="flex">
-                <ProgressWheel
-                  userWainwrights={userWainwrights}
-                  isLoading={isLoading}
-                  fetchUserWainwrightData={fetchUserWainwrightData}
-                />
-
+                <ProgressWheel />
                 <div className="flex flex-col">
-                  <CompletedWainwrightsTable
-                    fetchUserWainwrightData={fetchUserWainwrightData}
-                    userWainwrights={userWainwrights}
-                  />
-                  {/* <CompletedRoutesList
-            fetchUserWainwrightData={fetchUserWainwrightData}
-            /> */}
+                  <CompletedWainwrightsTable />
                 </div>
               </div>
             </div>

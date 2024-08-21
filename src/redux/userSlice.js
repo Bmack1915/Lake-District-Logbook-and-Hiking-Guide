@@ -1,17 +1,23 @@
+import { fetchUserRouteData } from "../Components/Utilities/fetchUserRouteData";
+import { fetchUserWainwrightData } from "../Components/Utilities/fetchUserWainwrightData";
 import { createSlice } from "@reduxjs/toolkit";
 import { API_BASE_URL } from "../Components/Utilities/apiConfig";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import { toast } from "react-toastify";
-import { act } from "react";
+import { jwtDecode as decodeJwt } from "jwt-decode";
 
+import { toast } from "react-toastify";
+import axios from "axios";
+
+// Initial state
 const initialState = {
   name: "",
   email: "",
   id: "",
   token: "",
+  userWainwrights: [],
+  userRoutes: [],
 };
 
+// Redux slice
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -38,37 +44,49 @@ const userSlice = createSlice({
     logout(state) {
       return initialState;
     },
-
-    deleteUserRoute: {
-      prepare(id, routeID) {
-        return {
-          payload: {
-            id,
-            routeID,
-          },
-        };
-      },
-      reducer(state, action) {
-        state.userRoutes = state.userRoutes.filter(
-          (ur) =>
-            ur.id !== action.payload.id &&
-            ur.routeID !== action.payload.routeID,
-        );
-      },
+    setUserRoutes(state, action) {
+      state.userRoutes = action.payload;
+    },
+    setUserWainwrights(state, action) {
+      state.userWainwrights = action.payload;
     },
   },
 });
 
+// Action creators
+export const { login, logout, register, setUserRoutes, setUserWainwrights } =
+  userSlice.actions;
+
+// Thunk to fetch user data (user routes and wainwrights)
+export function fetchUserData(userId) {
+  return async function (dispatch) {
+    try {
+      // Fetch user routes
+      const routesData = await fetchUserRouteData(userId);
+      dispatch(setUserRoutes(routesData));
+
+      // Fetch user wainwrights
+      const wainwrightsData = await fetchUserWainwrightData(userId);
+      dispatch(setUserWainwrights(wainwrightsData));
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+      toast.error("Failed to load user data.");
+    }
+  };
+}
+
+// Thunk for login and fetching user data
 export function LoginAndFetchUserInfo(email, password) {
   return async function (dispatch) {
     try {
+      // Perform login request
       const response = await axios.post(`${API_BASE_URL}account/login`, {
         Email: email,
         Password: password,
       });
 
       const { token } = response.data;
-      const decodedToken = jwtDecode(token);
+      const decodedToken = decodeJwt(token);
       const userId = decodedToken.nameid;
 
       // Save email, id, token to sessionStorage
@@ -77,30 +95,40 @@ export function LoginAndFetchUserInfo(email, password) {
       sessionStorage.setItem("userId", userId);
 
       dispatch(login(email, userId, token));
+      dispatch(fetchUserData(userId));
+
+      toast.success("Login successful!");
+      return response;
     } catch (error) {
       console.error("Login error:", error);
       toast.error("Login failed. Please check your credentials and try again.");
+      return error;
     }
   };
 }
 
+// Thunk for logout
 export function Logout() {
   return async function (dispatch) {
     try {
-      const response = await axios.post(`${API_BASE_URL}account/logout`);
-      console.log("Logout Response", response);
+      // Perform logout request
+      await axios.post(`${API_BASE_URL}account/logout`);
 
+      // Clear sessionStorage
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userId");
 
+      // Dispatch logout action to reset the state
       dispatch(logout());
+
+      // Optionally, show a success message
+      toast.success("Logout successful!");
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Logout error:", error);
       toast.error("Logout failed. Please try again.");
     }
   };
 }
 
 export default userSlice.reducer;
-export const { login, logout, register } = userSlice.actions;
