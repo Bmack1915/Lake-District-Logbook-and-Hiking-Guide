@@ -1,9 +1,12 @@
-import { Button } from "@mui/material";
 import { Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
 import { useEffect, useState } from "react";
+import { Button } from "@nextui-org/react";
+import { IoMdArrowForward } from "react-icons/io";
+import { timeClockClasses } from "@mui/x-date-pickers";
+import timeConverter from "../../Utilities/timeConverter";
 
 const RouteIcon = new L.Icon({
   iconUrl: "assets/hiking.png",
@@ -40,14 +43,20 @@ function RouteMarkers() {
             icon={RouteIcon}
           >
             <Popup>
-              <b>{r.name}</b>
-              <p>{r.description}</p>
+              <div className="">
+                <b>{r.name}</b>
+                <p>{r.description}</p>
+                <p>Estimated time {timeConverter(r.time)}</p>
+              </div>
               <Button
-                onClick={() => handleNavigate(r)}
-                variant="contained"
-                size="small"
+                className="text-black bg-mint"
+                onPress={() => handleNavigate(r)}
+                size="sm"
               >
-                Click for more info/Logging!
+                <div className="flex items-center">
+                  Click for more info
+                  <IoMdArrowForward size={20} />
+                </div>
               </Button>
             </Popup>
           </Marker>

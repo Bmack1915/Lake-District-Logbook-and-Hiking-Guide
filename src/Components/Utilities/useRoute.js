@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
 import { Loading } from "./Loading";
 import apiClient from "./axiosInterceptor";
 
-export function useRoute(id) {
+export async function useRoute(id) {
   const [route, setRoute] = useState();
   const [isLoading, setIsLoading] = useState(true);
 

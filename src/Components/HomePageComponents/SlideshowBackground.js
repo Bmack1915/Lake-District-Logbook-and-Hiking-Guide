@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import SlideshowContent from "./SlideshowContent";
 
 const link = "/assets/lakedistrict/";
 
-export default function SlideshowBackground() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
+export default function SlideshowBackground({
+  children,
+  currentSlide = 0,
+  opacity,
+}) {
   const slideshowRef = useRef(null);
   const images = [
     `${link}ambleside.jpg`,
@@ -34,7 +35,6 @@ export default function SlideshowBackground() {
     `${link}sheep.jpg`,
   ];
 
-  //If current slide is manually updated in the content i.e. doesn't match the current reference, update the photo behind manually
   useEffect(() => {
     if (slideshowRef.current) {
       slideshowRef.current.goTo(currentSlide + 2);
@@ -51,20 +51,42 @@ export default function SlideshowBackground() {
         infinite={true}
         arrows={false}
         defaultIndex={currentSlide}
-        // onStartChange={handleSlideChange}
       >
         {images.map((image, index) => (
           <div className="each-slide" key={index}>
             <div
               style={{
-                backgroundImage: `url(${image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
+                position: "relative",
                 height: "90vh",
                 width: "100%",
               }}
             >
-              <SlideshowContent setCurrentSlide={setCurrentSlide} />
+              {/* Background */}
+              <div
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  opacity: opacity,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: -1,
+                }}
+              />
+
+              {/* Content  */}
+              <div
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  height: "100%",
+                }}
+              >
+                {children}
+              </div>
             </div>
           </div>
         ))}

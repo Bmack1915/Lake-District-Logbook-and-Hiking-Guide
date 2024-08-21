@@ -1,6 +1,6 @@
 function handleHomeNavigate() {
   setTimeout(() => {
-    window.location.href = "/home";
+    window.location.href = "/";
   }, 5000);
 }
 

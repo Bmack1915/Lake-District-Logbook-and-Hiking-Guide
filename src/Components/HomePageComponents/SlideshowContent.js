@@ -4,7 +4,7 @@ import "react-slideshow-image/dist/styles.css";
 export default function SlideshowContent({ setCurrentSlide }) {
   const slides = [
     {
-      title: "Wainwright Logbook",
+      title: "Welcome to the Wainwright Logbook",
       desc: "Log your achievements on this journey set out by Alfred Wainwright",
     },
     {
@@ -16,8 +16,8 @@ export default function SlideshowContent({ setCurrentSlide }) {
       desc: "Unsure what to ascend next? Use the Wainwright finder to find a desired hike",
     },
     {
-      title: "Record your experiences ",
-      desc: "Record detailed logs of Wainwright ascents",
+      title: "Record your experiences",
+      desc: "Log each ascent with detailed notes, preserving the memories of your Wainwright adventures.",
     },
   ];
 
@@ -38,11 +38,11 @@ export default function SlideshowContent({ setCurrentSlide }) {
           <div
             style={{ height: "90vh", width: "100%" }}
             key={index}
-            className="flex min-h-128 items-center justify-center font-bold text-white"
+            className="flex min-h-128 items-center justify-center overflow-auto font-bold text-white"
           >
-            <div className="flex flex-col justify-center text-center">
-              <h1 className="text-5xl">{slide.title}</h1>
-              <p className="flex-wrap text-xl">{slide.desc}</p>
+            <div className="flex flex-col items-center justify-center text-center">
+              <h1 className="pb-5 text-5xl">{slide.title}</h1>
+              <p className="max-w-128 flex-wrap text-2xl">{slide.desc}</p>
             </div>
           </div>
         ))}

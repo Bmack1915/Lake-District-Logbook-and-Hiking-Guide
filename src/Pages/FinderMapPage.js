@@ -33,6 +33,7 @@ function FinderMapPage({ type }) {
             )}
             <div className={isSidebarOpen ? "col-span-4" : "col-span-5"}>
               <MapView
+                toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
                 type={type}

@@ -1,6 +1,6 @@
-import EditRouteDialog from "./EditRouteDialog";
+import EditRouteDialog from "../../OLD/EditRouteDialog";
 import DeleteRouteDialog from "./DeleteRouteDialog";
-import CompletedUserRouteInfo from "./CompletedUserRouteInfo";
+import CompletedUserRouteInfo from "../../OLD/CompletedUserRouteInfo";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 

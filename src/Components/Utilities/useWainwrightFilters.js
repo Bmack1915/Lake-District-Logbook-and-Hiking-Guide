@@ -17,12 +17,27 @@ function useWainwrightFilters(userWainwrights) {
 
       if (filterStatus === "completed") {
         filtered = filtered.filter((w) =>
-          userWainwrights.map((uw) => uw.name).includes(w.name),
+          userWainwrights.map((uw) => uw.wainwright.name).includes(w.name),
         );
+        filtered = filtered.filter(
+          (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
+        );
+
+        if (selectedArea) {
+          filtered = filtered.filter((w) => w.area === selectedArea);
+        }
       } else if (filterStatus === "uncompleted") {
         filtered = filtered.filter(
-          (w) => !userWainwrights.map((uw) => uw.name).includes(w.name),
+          (w) =>
+            !userWainwrights.map((uw) => uw.wainwright.name).includes(w.name),
         );
+        filtered = filtered.filter(
+          (w) => w.heightM >= currentHeight[0] && w.heightM <= currentHeight[1],
+        );
+
+        if (selectedArea) {
+          filtered = filtered.filter((w) => w.area === selectedArea);
+        }
       }
 
       if (query.length > 0) {

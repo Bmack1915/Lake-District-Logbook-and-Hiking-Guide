@@ -23,7 +23,8 @@ function useCreateMarkers() {
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
 
   const userId = useSelector((state) => state.user.id);
-  const { userWainwrights } = useUserWainwrights(userId);
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
+  // const { userWainwrights } = useUserWainwrights(userId);
 
   //By default show all wainwright markers
   const [data, setData] = useState(wainwrights);
@@ -43,7 +44,9 @@ function useCreateMarkers() {
     if (userWainwrights && userWainwrights.length > 0) {
       data.forEach((w) => {
         // If a list of user wainwright names includes the current name of the filtered wainwright, set completed to true
-        const completed = userWainwrights.map((uw) => uw.name).includes(w.name);
+        const completed = userWainwrights
+          .map((uw) => uw.wainwright.name)
+          .includes(w.name);
         icons[w.wainwrightID] = createWainwrightIcon(w.area, completed);
       });
     } else {

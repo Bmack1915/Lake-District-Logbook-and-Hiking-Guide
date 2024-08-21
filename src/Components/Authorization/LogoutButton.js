@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { Logout } from "../../redux/userSlice";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 export default function LogoutButton() {
   const dispatch = useDispatch();
@@ -10,12 +9,16 @@ export default function LogoutButton() {
 
   function handleLogOut() {
     dispatch(Logout());
-    toast.success("Successfully logged out");
-    navigate("/home");
+    navigate("/");
   }
 
   return (
-    <Button color="primary" variant="bordered" onPress={handleLogOut}>
+    <Button
+      color="primary"
+      variant="bordered"
+      className="text-xl"
+      onPress={handleLogOut}
+    >
       Logout
     </Button>
   );

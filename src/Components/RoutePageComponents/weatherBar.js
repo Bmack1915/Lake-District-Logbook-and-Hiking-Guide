@@ -1,3 +1,4 @@
+import { Divider } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -60,15 +61,14 @@ function WeatherBar({ route }) {
             <p className="text-xl font-semibold">
               🌡️ Avg Temp: {selectedDate.main.temp.toFixed()}°C
             </p>
+
             <p className="text-xl font-semibold">
               ☁️ Weather: {selectedDate.weather[0].main}
             </p>
             <p className="text-xl font-semibold">
-              🌬️ Feels Like: {selectedDate.main.feels_like.toFixed()}°F
+              🌬️ Feels Like: {selectedDate.main.feels_like.toFixed()}°C
             </p>
-            <p className="text-xl font-semibold">
-              💧 Humidity: {selectedDate.main.humidity}%
-            </p>
+
             <p className="text-xl font-semibold">
               🌪️ Wind: {selectedDate.wind.speed.toFixed()} MPH
             </p>

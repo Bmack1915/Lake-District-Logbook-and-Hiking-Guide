@@ -1,29 +1,41 @@
-import CompletedWainwrights from "../Components/LogbookComponents/MyWainwrights/CompletedWainwrights";
-import CompletedRoutesList from "../Components/LogbookComponents/MyRoutes/CompletedRoutesList";
+import CompletedWainwrightsTable from "../Components/LogbookComponents/MyWainwrights/CompletedWainwrightsTable";
 import ProgressWheel from "../Components/LogbookComponents/LogbookWheel";
 import { useSelector } from "react-redux";
-import { useUserWainwrights } from "../Components/Utilities/useUserWainwrights";
+import { ConfirmProvider } from "material-ui-confirm";
+import SlideshowBackground from "../Components/HomePageComponents/SlideshowBackground";
+import Oops from "../Components/LogbookComponents/Oops";
+import CompletedRoutesTable from "../Components/LogbookComponents/MyRoutes/CompletedRoutesTable";
 
 function Logbook() {
-  const id = useSelector((state) => state.user.id);
-  const { userWainwrights, isLoading, fetchUserWainwrightData } =
-    useUserWainwrights(id);
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
+
   return (
     <div>
-      <h1 className="flex justify-center p-5 text-3xl">My Wainwrights</h1>
-      <div className="flex">
-        <ProgressWheel
-          userWainwrights={userWainwrights}
-          isLoading={isLoading}
-          fetchUserWainwrightData={fetchUserWainwrightData}
-        />
-
-        {/* <CompletedRoutesList fetchUserWainwrightData={fetchUserWainwrightData} /> */}
-        <div className="flex flex-col">
-          <CompletedWainwrights userWainwrights={userWainwrights} />
-          <CompletedRoutesList />
-        </div>
-      </div>
+      <ConfirmProvider>
+        {userWainwrights.length > 0 ? (
+          <SlideshowBackground opacity={0.25}>
+            <div>
+              <h1 className="flex justify-center p-4 pb-5 text-4xl font-bold">
+                My Progress
+              </h1>
+              <div className="flex">
+                <ProgressWheel />
+                <div className="flex flex-col">
+                  <CompletedWainwrightsTable />
+                </div>
+              </div>
+            </div>
+          </SlideshowBackground>
+        ) : (
+          <SlideshowBackground>
+            <Oops />
+          </SlideshowBackground>
+        )}
+        <h1 className="flex justify-center p-4 pb-5 text-4xl font-bold">
+          My Routes
+        </h1>
+        <CompletedRoutesTable />
+      </ConfirmProvider>
     </div>
   );
 }

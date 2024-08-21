@@ -1,7 +1,7 @@
 export default function Search({ placeholder, query, setQuery }) {
   return (
     <input
-      className="search"
+      className="search w-[25vh]"
       type="text"
       placeholder={`Search ${placeholder}...`}
       value={query}

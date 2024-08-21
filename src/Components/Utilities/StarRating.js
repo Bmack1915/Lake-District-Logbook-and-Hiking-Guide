@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const containerStyle = {
@@ -18,7 +18,6 @@ StarRating.propTypes = {
   size: PropTypes.number,
   messages: PropTypes.array,
   className: PropTypes.string,
-  onSetRating: PropTypes.func,
 };
 
 export default function StarRating({
@@ -29,9 +28,14 @@ export default function StarRating({
   messages = ["hello"],
   defaultRating = 0,
   onSetRating,
+  disabled,
 }) {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
+
+  useEffect(() => {
+    setRating(defaultRating);
+  }, [defaultRating]);
 
   function handleRating(rating) {
     setRating(rating);
@@ -57,6 +61,7 @@ export default function StarRating({
             onHoverOut={() => setTempRating(0)}
             color={color}
             size={size}
+            disabled={disabled}
           />
         ))}
       </div>
@@ -69,7 +74,7 @@ export default function StarRating({
   );
 }
 
-function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
+function Star({ onRate, full, onHoverIn, onHoverOut, color, size, disabled }) {
   const starStyle = {
     width: `${size}px`,
     height: `${size}px`,
@@ -81,9 +86,9 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
     <span
       role="button"
       style={starStyle}
-      onClick={onRate}
-      onMouseEnter={onHoverIn}
-      onMouseLeave={onHoverOut}
+      onClick={!disabled ? onRate : undefined}
+      onMouseEnter={!disabled ? onHoverIn : undefined}
+      onMouseLeave={!disabled ? onHoverOut : undefined}
     >
       {full ? (
         <svg
@@ -112,6 +117,8 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
     </span>
   );
 }
+
+export { Star };
 
 /*
 FULL STAR

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import CompletedRouteCard from "./CompletedRouteCard";
-import { useUserRoutes } from "../../Utilities/useUserRoutes";
-import { Loading } from "../../Utilities/Loading";
+import CompletedRouteCard from "../LogbookComponents/MyRoutes/CompletedRouteCard";
+import { useUserRoutes } from "../Utilities/useUserRoutes";
+import { Loading } from "../Utilities/Loading";
 
 export default function CompletedRoutesList({ fetchUserWainwrightData }) {
   const id = useSelector((state) => state.user.id);
@@ -9,16 +9,16 @@ export default function CompletedRoutesList({ fetchUserWainwrightData }) {
   const { userRoutes, isLoading, fetchUserRouteData } = useUserRoutes(id);
 
   if (isLoading) return <Loading />;
+
   return (
-    <div className="my-4 flex items-center">
+    <div>
       {userRoutes && userRoutes.length > 0 ? (
         <>
-          <h1 className="mb-4 text-xl font-bold">Hikes Completed 🥾</h1>
           {userRoutes.map((userRoute) => (
             <CompletedRouteCard
               fetchUserWainwrightData={fetchUserWainwrightData}
               fetchUserRouteData={fetchUserRouteData}
-              key={userRoutes.routeID}
+              key={userRoutes.route}
               userRoute={userRoute}
             />
           ))}

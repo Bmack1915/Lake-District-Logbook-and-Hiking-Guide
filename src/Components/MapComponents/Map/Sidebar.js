@@ -16,7 +16,7 @@ function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
       >
         <h5
           id="drawer-navigation-label"
-          className="text-gray-500 dark:text-gray-400 p-4 text-base font-semibold uppercase"
+          className="text-gray-500 dark:text-gray-400 p-4 text-2xl font-semibold uppercase"
         >
           Filters
         </h5>

@@ -7,17 +7,17 @@ export default function ViewSelector({ viewType, setViewType }) {
   }
 
   return (
-    <div className="bg-mint flex w-full flex-col">
+    <div className="flex w-full flex-col pb-2 pt-5">
       <Tabs
         variant="solid"
         fullWidth
         aria-label="Options"
-        className="bg-mint mb-5 w-full"
+        className="mb-5 w-full"
         onSelectionChange={handleTabChange}
         value={viewType}
       >
-        <Tab key="map" title="Map View" className="bg-mint w-full text-blue" />
-        <Tab key="list" title="List View" className="bg-mint w-full" />
+        <Tab key="map" title="Map View" className="w-full text-2xl text-blue" />
+        <Tab key="list" title="List View" className="w-full text-2xl" />
       </Tabs>
     </div>
   );
