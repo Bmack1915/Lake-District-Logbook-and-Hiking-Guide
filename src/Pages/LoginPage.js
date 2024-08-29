@@ -34,7 +34,6 @@ export default function LoginPage() {
       if (isRegistering) {
         const firstName = e.target.elements.firstName.value;
         const surname = e.target.elements.surname.value;
-
         if (!firstName || !surname) {
           toast.error("Please provide both first name and surname");
           return;
@@ -100,7 +99,7 @@ export default function LoginPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           className="h-25 mx-auto w-auto"
-          src="assets/wainwrightLogbook.png"
+          src="assets/Wainwright Logbook.png"
           alt="Your Company"
         />
 
@@ -180,13 +179,13 @@ export default function LoginPage() {
               >
                 Password
               </label>
-              <div className="text-sm">
+              {/* <div className="text-sm">
                 <Link to="/">
                   <div className="font-semibold text-blue hover:text-lightblue">
                     {!isRegistering && "Forgot Password?"}
                   </div>
                 </Link>
-              </div>
+              </div> */}
             </div>
             <div className="mt-2">
               <input

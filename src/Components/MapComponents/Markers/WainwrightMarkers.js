@@ -1,8 +1,9 @@
 import { Marker, Popup } from "react-leaflet";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../Utilities/Loading";
 import useCreateMarkers from "../../Utilities/useCreateMarkers";
+import { IoMdSend } from "react-icons/io";
+import { Button } from "@nextui-org/react";
 
 function WainwrightMarkers() {
   const navigate = useNavigate();
@@ -24,16 +25,21 @@ function WainwrightMarkers() {
               icon={wainwrightIcons[w.wainwrightID]}
             >
               <Popup>
-                <b>{w.name}</b>
-                <p>
-                  {w.latitude},{w.longitude}
-                </p>
+                <div>
+                  <b>{w.name}</b>
+
+                  <p>{w.description}</p>
+                  <p>
+                    #{w.rankByHeight} in Height ({w.heightM} m)
+                  </p>
+                </div>
                 <Button
-                  onClick={() => handleNavigate(w)}
-                  variant="contained"
-                  size="small"
+                  endContent={<IoMdSend />}
+                  className="text-black bg-lightblue font-bold"
+                  onPress={() => handleNavigate(w)}
+                  size="sm"
                 >
-                  Click for more info/Logging!
+                  Click for more info
                 </Button>
               </Popup>
             </Marker>

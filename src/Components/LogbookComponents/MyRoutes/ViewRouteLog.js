@@ -53,7 +53,7 @@ function ViewRouteLog({
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        className="font-inconsolata"
+        className="font-poppins"
       >
         <DialogTitle
           sx={{
@@ -63,7 +63,7 @@ function ViewRouteLog({
             color: "white",
             fontWeight: "bold",
             fontSize: "1.75rem",
-            fontFamily: "inconsolata",
+            fontFamily: "poppins",
           }}
           id="customized-dialog-title"
         >
@@ -74,7 +74,7 @@ function ViewRouteLog({
               color: "white",
               fontWeight: "bold",
               fontSize: "1.75rem",
-              fontFamily: "inconsolata",
+              fontFamily: "poppins",
             }}
           >
             {userRoute.route.name} {userRoute.date && `on ${formattedDate}`}
@@ -100,7 +100,7 @@ function ViewRouteLog({
               sx={{
                 fontWeight: "bold",
                 mb: 1,
-                fontFamily: "inconsolata",
+                fontFamily: "poppins",
               }}
             >
               Description
@@ -127,7 +127,7 @@ function ViewRouteLog({
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Date Completed
             </Typography>
@@ -143,7 +143,7 @@ function ViewRouteLog({
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Duration
             </Typography>
@@ -161,7 +161,7 @@ function ViewRouteLog({
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Difficulty Rating
             </Typography>
@@ -177,7 +177,7 @@ function ViewRouteLog({
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Rating
             </Typography>
@@ -193,7 +193,7 @@ function ViewRouteLog({
         <div className="flex justify-center">
           <DialogActions>
             <Button
-              className="bg-mint px-5 font-inconsolata text-xl text-blue"
+              className="font-poppins bg-mint px-5 text-xl text-blue"
               autoFocus
               onClick={handleEditClickOpen}
             >
@@ -203,7 +203,7 @@ function ViewRouteLog({
             {withNavigation && (
               <Button
                 endContent={<IoMdSend />}
-                className="bg-lightblue font-inconsolata text-xl"
+                className="font-poppins bg-lightblue text-xl"
                 onPress={handleNavigate}
               >
                 Route Info
@@ -211,7 +211,7 @@ function ViewRouteLog({
             )}
 
             <Button
-              className="bg-blue font-inconsolata text-xl text-white"
+              className="font-poppins bg-blue text-xl text-white"
               autoFocus
               onClick={handleClose}
             >

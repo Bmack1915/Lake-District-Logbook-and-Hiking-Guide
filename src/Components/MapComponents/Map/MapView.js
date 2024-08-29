@@ -19,7 +19,9 @@ export default function MapView({ type, toggleSidebar }) {
   return (
     <MapContainer
       center={[54.5522, -3.1038704]}
-      zoom={10}
+      zoom={9.5}
+      maxZoom={15}
+      minZoom={9}
       style={{ height: "75vh", borderRadius: "5vh" }}
     >
       <MapBaseLayer />
@@ -32,25 +34,4 @@ export default function MapView({ type, toggleSidebar }) {
       </Control>
     </MapContainer>
   );
-}
-
-// <a href="https://www.flaticon.com/free-icons/walk" title="walk icons">
-//   Walk icons created by Freepik - Flaticon
-// </a>;
-
-// <a href="https://www.flaticon.com/free-icons/hiking" title="hiking icons">
-//   Hiking icons created by IYIKON - Flaticon
-// </a>;
-
-{
-  /* <a
-  href="https://www.flaticon.com/free-icons/placeholder"
-  title="placeholder icons"
->
-  Placeholder icons created by Freepik - Flaticon
-</a>;
-
-<a href="https://www.flaticon.com/free-icons/map-pin" title="map pin icons">
-  Map pin icons created by Md Tanvirul Haque - Flaticon
-</a>; */
 }

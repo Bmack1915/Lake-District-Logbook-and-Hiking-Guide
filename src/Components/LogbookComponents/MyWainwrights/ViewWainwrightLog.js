@@ -58,7 +58,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             color: "white",
             fontWeight: "bold",
             fontSize: "1.75rem",
-            fontFamily: "inconsolata",
+            fontFamily: "poppins",
           }}
           id="customized-dialog-title"
         >
@@ -69,7 +69,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
               color: "white",
               fontWeight: "bold",
               fontSize: "1.75rem",
-              fontFamily: "inconsolata",
+              fontFamily: "poppins",
             }}
           >
             {userWainwright.wainwright.name}{" "}
@@ -93,7 +93,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Description
             </Typography>
@@ -110,7 +110,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Duration
             </Typography>
@@ -125,7 +125,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Difficulty Rating
             </Typography>
@@ -139,10 +139,10 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
           </div>
 
           {/* Route Section */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Route
             </Typography>
@@ -153,13 +153,13 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
                 No Route Specified
               </Typography>
             )}
-          </div>
+          </div> */}
 
           {/* Rating Section */}
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Rating
             </Typography>
@@ -181,7 +181,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             }}
           >
             <Button
-              className="bg-mint px-5 font-inconsolata text-xl text-blue"
+              className="font-poppins bg-mint px-5 text-xl text-blue"
               autoFocus
               onClick={handleEditClickOpen}
             >
@@ -194,7 +194,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             />
 
             <Button
-              className="bg-blue font-inconsolata text-xl text-white"
+              className="font-poppins bg-blue text-xl text-white"
               autoFocus
               onClick={handleClose}
             >

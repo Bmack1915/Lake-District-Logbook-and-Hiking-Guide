@@ -32,7 +32,7 @@ function HandleDeleteWainwright({ setOpen, userWainwright }) {
       <Button
         endContent={<DeleteIcon />}
         onPress={() => setDialogOpen(true)}
-        className="bg-red font-inconsolata text-xl text-white"
+        className="font-poppins bg-red text-xl text-white"
       >
         Delete
       </Button>

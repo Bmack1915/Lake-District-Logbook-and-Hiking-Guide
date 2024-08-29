@@ -9,11 +9,13 @@ import { useEffect, useState } from "react";
 import AssociatedRoutes from "../Components/WainwrightPageComponents/AssociatedRoutes";
 import ViewWainwrightButton from "../Components/WainwrightPageComponents/ViewWainwrightButton";
 import fetchWainwrightData from "../Components/Utilities/fetchWainwright";
+import { getAssociatedRoutes } from "../Components/Utilities/fetchAssociatedRoutes";
 
 function WainwrightInfoPage() {
   const [completed, setCompleted] = useState(false);
   const [loggedAscent, setLoggedAscent] = useState(null);
   const [wainwright, setWainwright] = useState();
+  const [associatedRoutes, setAssociatedRoutes] = useState();
 
   // Get wainwright ID from URL
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
@@ -22,7 +24,9 @@ function WainwrightInfoPage() {
   useEffect(() => {
     async function getData() {
       const wainwright = await fetchWainwrightData(id);
+      const associatedRoutes = await getAssociatedRoutes(wainwright);
       setWainwright(wainwright);
+      setAssociatedRoutes(associatedRoutes);
     }
 
     getData();
@@ -50,12 +54,14 @@ function WainwrightInfoPage() {
     }
 
     if (wainwright && userWainwrights) GetCompleted();
-  }, [wainwright, userWainwrights]);
+  }, [userWainwrights, wainwright]);
 
   if (!wainwright || !userWainwrights) return <Loading />;
   return (
     <div>
-      <div className="grid grid-cols-7 grid-rows-6 gap-4">
+      <div
+        className={`grid grid-cols-7 ${associatedRoutes ? "grid-rows-6" : "grid-row-4"} gap-4`}
+      >
         <div className="col-span-5 col-start-2 row-span-2">
           <WainwrightInfo
             wainwright={wainwright}
@@ -76,7 +82,10 @@ function WainwrightInfoPage() {
           <WainwrightMap wainwright={wainwright} />
         </div>
         <div className="col-span-5 col-start-2 row-span-2 row-start-5">
-          <AssociatedRoutes wainwright={wainwright} />
+          <AssociatedRoutes
+            associatedRoutes={associatedRoutes}
+            wainwright={wainwright}
+          />
         </div>
       </div>
     </div>

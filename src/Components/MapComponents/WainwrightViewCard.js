@@ -5,7 +5,7 @@ import { useUserWainwrights } from "../Utilities/useUserWainwrights";
 import { IoMdSend } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-export default function WainwrightViewCard({ wainwright }) {
+export default function WainwrightViewCard({ wainwright, img }) {
   const navigate = useNavigate();
   const id = useSelector((state) => state.user.id);
   const { userWainwrights } = useUserWainwrights(id);
@@ -41,7 +41,10 @@ export default function WainwrightViewCard({ wainwright }) {
             </div>
           </div>
           <div className="col-span-1 flex items-center justify-center">
-            <Image src="assets/lakes.png" className="h-auto max-w-full"></Image>
+            <Image
+              src={`/Assets/lakeDistrict/${img}`}
+              className="h-auto max-w-full"
+            ></Image>
           </div>
         </div>
       </CardHeader>

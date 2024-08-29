@@ -1,14 +1,14 @@
 import { useState } from "react";
 import AppInformation from "../Components/HomePageComponents/AppInformation";
 import SlideshowBackground from "../Components/HomePageComponents/SlideshowBackground";
-import SlideshowContent from "../Components/HomePageComponents/SlideshowContent";
+import HomepageSlides from "../Components/HomePageComponents/HomePageSlides";
 
 function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   return (
     <div>
       <SlideshowBackground currentSlide={currentSlide}>
-        <SlideshowContent setCurrentSlide={setCurrentSlide} />
+        <HomepageSlides setCurrentSlide={setCurrentSlide} />
       </SlideshowBackground>
       <AppInformation />
     </div>

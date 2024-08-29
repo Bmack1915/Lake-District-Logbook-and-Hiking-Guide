@@ -1,23 +1,38 @@
 import { Button } from "@nextui-org/react";
-import { MdWarning } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { IoMdSend } from "react-icons/io";
 
 function Oops() {
   const navigate = useNavigate();
+
+  function handleNavigate() {
+    navigate("/wainwrightFinder");
+  }
   return (
-    <div className="flex h-screen flex-col items-center justify-center text-center">
-      <MdWarning className="text-white" size={150} />
-      <h2 className="mt-8 text-4xl font-bold text-white">
-        Oops, you haven't summited any Wainwrights yet
-      </h2>
-      <Button
-        className="mt-10 rounded-lg bg-blue px-4 py-4 text-xl text-white hover:bg-lightblue"
-        onPress={() => navigate("/wainwrightFinder")}
-        endContent={<IoMdSend />}
-      >
-        Start Exploring
-      </Button>
+    <div className="flex h-screen items-center justify-center">
+      <div className="rounded-lg bg-white bg-opacity-70 p-10 text-center shadow-lg">
+        <div className="grid grid-cols-1 items-center gap-6">
+          <img
+            src="assets/mountainNoBg.png"
+            alt="Oops"
+            className="h-30 mx-auto w-44"
+          />
+
+          <h1 className="text-gray-800 text-3xl font-bold">
+            Oops! You haven't logged any Wainwrights yet.
+          </h1>
+
+          <p className="text-gray-600">
+            Start tracking your progress by adding your completed Wainwrights.
+          </p>
+
+          <Button
+            onPress={() => handleNavigate()}
+            className="mt-4 rounded-lg bg-blue px-6 py-3 text-white transition duration-300"
+          >
+            Log Your First Wainwright
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

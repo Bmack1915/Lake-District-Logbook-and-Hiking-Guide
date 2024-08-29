@@ -78,6 +78,7 @@ module.exports = {
     },
     fontFamily: {
       inconsolata: ["Inconsolata"],
+      poppins: ["Poppins"],
       sans: ["Roboto", "Graphik", "sans-serif"],
       serif: ["Roboto", "serif"],
     },

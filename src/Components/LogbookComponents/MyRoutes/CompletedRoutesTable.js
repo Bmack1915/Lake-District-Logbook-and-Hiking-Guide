@@ -14,11 +14,8 @@ import formatDate from "../../Utilities/utilityFuncsStats";
 import timeConverter from "../../Utilities/timeConverter";
 import durationConverter from "../../Utilities/durationConverter";
 import TextExpander from "../../Utilities/TextExpander";
-import { useSelector } from "react-redux";
 
-export default function CompletedRoutesTable() {
-  const userRoutes = useSelector((state) => state.user.userRoutes);
-
+export default function CompletedRoutesTable({ userRoutes }) {
   const columns = [
     { title: "Name" },
     { title: "Distance" },
@@ -33,7 +30,7 @@ export default function CompletedRoutesTable() {
 
   return (
     <div>
-      <Table aria-label="Completed Routes Table">
+      <Table aria-label="Completed Routes Table" isStriped>
         <TableHeader>
           {columns.map((col, index) => (
             <TableColumn className="text-2xl font-bold" key={index}>

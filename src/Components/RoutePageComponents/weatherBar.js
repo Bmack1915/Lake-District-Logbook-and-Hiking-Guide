@@ -1,11 +1,9 @@
-import { Divider } from "@nextui-org/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function WeatherBar({ route }) {
   const [data, setData] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
-  const [weatherAvailable, setWeatherAvailable] = useState(false);
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${route.latitude}&lon=${route.longitude}&units=metric&appid=c8444dc095cbd98d6d1f799a6e88bf83`;
 
@@ -13,6 +11,7 @@ function WeatherBar({ route }) {
     async function getWeather() {
       try {
         const response = await axios.get(url);
+        console.log("weather response", response.data.list[0]);
         setData(response.data);
         setSelectedDate(response.data.list[0]);
       } catch (error) {
@@ -38,17 +37,25 @@ function WeatherBar({ route }) {
   return (
     data &&
     data.city && (
-      <div>
-        <p className="flex justify-center font-bold">
+      <div className="flex w-full flex-col justify-evenly overflow-hidden rounded-xl bg-white p-6 shadow-2xl">
+        <p className="flex justify-center pt-3 text-2xl font-extrabold">
           Daily Weather Forecast for the {data.city.name} Area
         </p>
-        <div className="dark:text-gray-400 dark:border-gray-700 overflow-x-auto border-primary text-center text-sm">
-          <ul className="-mb-px flex justify-evenly">
+
+        <div className="mt-4 text-center text-sm">
+          <ul className="-mb-px flex justify-evenly space-x-4">
             {formattedDateData.map((timePoint, index) => (
-              <li key={index}>
+              <li
+                key={index}
+                className="transform transition ease-in-out hover:scale-125"
+              >
                 <button
                   onClick={() => setSelectedDate(timePoint)}
-                  className={`border-transparent hover:border-gray-300 inline-block rounded-t-lg border-b-2 p-4 hover:font-bold ${timePoint?.dt === selectedDate?.dt ? "font-bold text-primary" : ""}`}
+                  className={`border-transparent inline-block rounded-t-lg border-b-4 p-4 text-xl hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-blue ${
+                    timePoint?.dt === selectedDate?.dt
+                      ? "border-b-blue-500 text-2xl font-bold text-blue"
+                      : "border-b-transparent"
+                  }`}
                 >
                   {timePoint.dt_txt}
                 </button>
@@ -56,21 +63,22 @@ function WeatherBar({ route }) {
             ))}
           </ul>
         </div>
+
         {selectedDate && (
-          <div className="flex items-center justify-evenly rounded-lg bg-white p-4 shadow-md">
-            <p className="text-xl font-semibold">
-              🌡️ Avg Temp: {selectedDate.main.temp.toFixed()}°C
+          <div className="ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700 mt-6 flex items-center justify-evenly rounded-xl bg-white p-6 shadow-lg ring-1">
+            <p className="text-gray-800 dark:text-gray-200 text-xl font-semibold">
+              Avg Temp: {selectedDate.main.temp.toFixed()}°C
             </p>
 
-            <p className="text-xl font-semibold">
-              ☁️ Weather: {selectedDate.weather[0].main}
+            <p className="text-gray-800 dark:text-gray-200 text-xl font-semibold">
+              Feels Like: {selectedDate.main.feels_like.toFixed()}°C
             </p>
-            <p className="text-xl font-semibold">
-              🌬️ Feels Like: {selectedDate.main.feels_like.toFixed()}°C
+            <p className="text-gray-800 dark:text-gray-200 text-xl font-semibold">
+              Weather: {selectedDate.weather[0].description}
             </p>
 
-            <p className="text-xl font-semibold">
-              🌪️ Wind: {selectedDate.wind.speed.toFixed()} MPH
+            <p className="text-gray-800 dark:text-gray-200 text-xl font-semibold">
+              Wind: {selectedDate.wind.speed.toFixed()} MPH
             </p>
           </div>
         )}

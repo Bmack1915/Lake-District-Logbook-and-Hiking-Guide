@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { useUserWainwrights } from "./useUserWainwrights";
 import L from "leaflet";
 
 function createWainwrightIcon(area, completed) {
   const iconUrl = completed
     ? `assets/pins/pin${area}Complete.png`
-    : `assets/pins/pin${area}Uncomplete.svg`;
+    : `assets/pins/pin${area}Uncomplete.png
+    `;
 
   return new L.Icon({
     iconUrl,

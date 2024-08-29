@@ -38,6 +38,8 @@ export default function RouteMap({ url }) {
     <MapContainer
       center={[54.460861, -3.08875]}
       zoom={13}
+      maxZoom={15}
+      minZoom={10}
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer

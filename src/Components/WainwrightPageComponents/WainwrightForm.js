@@ -113,6 +113,7 @@ export default function WainwrightForm({
               wainwrightID: aw.wainwrightID,
               routeName: routeName.name,
             }));
+
             for (let wainwrightLog of wainwrightLogs) {
               await EditWainwrightLog(wainwrightLog);
             }
@@ -133,9 +134,12 @@ export default function WainwrightForm({
               wainwrightID: aw.wainwrightID,
               routeName: routeName.name,
             }));
-            for (let wainwrightLog of wainwrightLogs) {
-              await CreateUserWainwrightLog(wainwrightLog, true);
-            }
+
+            wainwrightLogs.map((wL) => CreateUserWainwrightLog(wL, true));
+
+            // for (let wainwrightLog of wainwrightLogs) {
+            //   CreateUserWainwrightLog(wainwrightLog, true);
+            // }
           }
         } else {
           const WainwrightLog = { ...logData, wainwrightID: wainwrightID };
@@ -163,7 +167,7 @@ export default function WainwrightForm({
           color: "white",
           fontWeight: "bold",
           fontSize: "1.75rem",
-          fontFamily: "Inconsolata",
+          fontFamily: "poppins",
         }}
       >
         {routeName
@@ -174,7 +178,7 @@ export default function WainwrightForm({
         sx={{
           backgroundColor: "background.default",
           color: "text.primary",
-          fontFamily: "Inconsolata",
+          fontFamily: "poppins",
           padding: 3,
         }}
       >
@@ -183,7 +187,7 @@ export default function WainwrightForm({
           <div style={{ width: "400px" }}>
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mt: 2, fontFamily: "Inconsolata" }}
+              sx={{ fontWeight: "bold", mt: 2, fontFamily: "poppins" }}
             >
               Description
             </Typography>
@@ -200,7 +204,7 @@ export default function WainwrightForm({
               sx={{
                 "& .MuiInputLabel-root": { color: "text.secondary" },
                 "& .MuiInputBase-root": { color: "text.primary" },
-                fontFamily: "Inconsolata",
+                fontFamily: "poppins",
               }}
             />
           </div>
@@ -208,7 +212,7 @@ export default function WainwrightForm({
           {/* Duration Section */}
           <Typography
             variant="h6"
-            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
           >
             How long did this route take you?
           </Typography>
@@ -217,7 +221,7 @@ export default function WainwrightForm({
           {/* Difficulty Section */}
           <Typography
             variant="h6"
-            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
           >
             How difficult did it feel?
           </Typography>
@@ -237,7 +241,7 @@ export default function WainwrightForm({
           {/* Date Section */}
           <Typography
             variant="h6"
-            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
           >
             Date completed:
           </Typography>
@@ -249,7 +253,7 @@ export default function WainwrightForm({
           />
 
           {/* Associated Routes Section (optional) */}
-          {associatedRoutes && type === "create" && (
+          {/* {associatedRoutes && type === "create" && (
             <div>
               <Typography
                 variant="h6"
@@ -257,7 +261,7 @@ export default function WainwrightForm({
                   fontWeight: "bold",
                   mt: 3,
                   mb: 1,
-                  fontFamily: "Inconsolata",
+                  fontFamily: "poppins",
                 }}
               >
                 Route Taken:
@@ -286,15 +290,12 @@ export default function WainwrightForm({
                 ))}
               </select>
             </div>
-          )}
+          )} */}
 
           {/* Associated Wainwrights Section */}
           {associatedWainwrights.length > 0 && type === "create" && (
             <div className="flex flex-col pt-3">
-              <Typography
-                variant="body2"
-                sx={{ fontFamily: "Inconsolata", mb: 1 }}
-              >
+              <Typography variant="body2" sx={{ fontFamily: "poppins", mb: 1 }}>
                 Logging this Wainwright via this route also completes:
               </Typography>
               <ul className="list-disc pl-5">
@@ -308,7 +309,7 @@ export default function WainwrightForm({
           {/* Rating Section */}
           <Typography
             variant="h6"
-            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "Inconsolata" }}
+            sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
           >
             How would you rate this Wainwright/Ascent?
           </Typography>
@@ -318,14 +319,14 @@ export default function WainwrightForm({
       <DialogActions sx={{ backgroundColor: "background.paper" }}>
         <Button
           onPress={() => setFormOpen(false)}
-          className="bg-mint font-inconsolata text-xl text-blue"
+          className="font-poppins bg-mint text-xl text-blue"
         >
           Cancel
         </Button>
         <Button
           type="submit"
           onPress={handleSubmit}
-          className="bg-green font-inconsolata text-xl text-white"
+          className="font-poppins bg-green text-xl text-white"
         >
           {type === "edit" ? "Save" : "Create Log"}
         </Button>

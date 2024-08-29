@@ -118,7 +118,7 @@ export default function RouteForm({
           color: "white",
           fontWeight: "bold",
           fontSize: "1.75rem", // Larger title
-          fontFamily: "inconsolata",
+          fontFamily: "poppins",
         }}
       >
         {type === "create" && `Record a log for ${route.name}?`}
@@ -132,7 +132,7 @@ export default function RouteForm({
           <li className="mb-4">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Description
             </Typography>
@@ -144,7 +144,7 @@ export default function RouteForm({
               variant="standard"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              sx={{ fontFamily: "inconsolata" }}
+              sx={{ fontFamily: "poppins" }}
             />
           </li>
 
@@ -152,15 +152,12 @@ export default function RouteForm({
           <li className="mb-4 mt-5">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               How did it feel?
             </Typography>
             <FormControl fullWidth>
-              <InputLabel
-                sx={{ fontFamily: "inconsolata" }}
-                id="difficulty-label"
-              >
+              <InputLabel sx={{ fontFamily: "poppins" }} id="difficulty-label">
                 Difficulty
               </InputLabel>
               <Select
@@ -169,7 +166,7 @@ export default function RouteForm({
                 value={difficulty}
                 label="Difficulty"
                 onChange={(e) => setDifficulty(e.target.value)}
-                sx={{ fontFamily: "inconsolata" }}
+                sx={{ fontFamily: "poppins" }}
               >
                 {difficulties.map((d, index) => (
                   <MenuItem defaultValue={difficulty} key={index} value={d}>
@@ -184,7 +181,7 @@ export default function RouteForm({
           <li className="mb-4 mt-2">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", fontFamily: "poppins" }}
             >
               Date
             </Typography>
@@ -194,7 +191,7 @@ export default function RouteForm({
               onChange={(e) => setDate(e.target.value)}
               fullWidth
               variant="standard"
-              sx={{ fontFamily: "inconsolata" }}
+              sx={{ fontFamily: "poppins" }}
             />
           </li>
 
@@ -202,7 +199,7 @@ export default function RouteForm({
           <li className="mb-4 mt-2">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Duration
             </Typography>
@@ -213,7 +210,7 @@ export default function RouteForm({
           <li className="mb-1 mt-2">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Rating
             </Typography>
@@ -227,14 +224,14 @@ export default function RouteForm({
       </DialogContent>
       <DialogActions>
         <Button
-          className="bg-mint font-inconsolata text-xl text-blue"
+          className="font-poppins bg-mint text-xl text-blue"
           onClick={handleClose}
           autoFocus
         >
           Cancel
         </Button>
         <Button
-          className="bg-blue font-inconsolata text-xl text-white"
+          className="font-poppins bg-blue text-xl text-white"
           type="submit"
           autoFocus
         >

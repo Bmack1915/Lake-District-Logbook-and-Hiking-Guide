@@ -47,7 +47,7 @@ function DeleteRouteDialog({ userRoute }) {
       <Button
         endContent={<DeleteIcon />}
         onPress={handleDeleteClick}
-        className="bg-red font-inconsolata text-xl text-white"
+        className="font-poppins bg-red text-xl text-white"
       >
         Delete
       </Button>

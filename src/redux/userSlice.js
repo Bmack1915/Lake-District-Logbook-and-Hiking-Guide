@@ -23,12 +23,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: {
-      prepare(email, id, token) {
+      prepare(email, id, token, name) {
         return {
           payload: {
             email,
             id,
             token,
+            name,
           },
         };
       },
@@ -36,6 +37,7 @@ const userSlice = createSlice({
         state.email = action.payload.email;
         state.id = action.payload.id;
         state.token = action.payload.token;
+        state.name = action.payload.name;
       },
     },
     register(state, action) {
@@ -88,13 +90,14 @@ export function LoginAndFetchUserInfo(email, password) {
       const { token } = response.data;
       const decodedToken = decodeJwt(token);
       const userId = decodedToken.nameid;
+      const name = response.data.name;
 
       // Save email, id, token to sessionStorage
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("userEmail", email);
       sessionStorage.setItem("userId", userId);
 
-      dispatch(login(email, userId, token));
+      dispatch(login(email, userId, token, name));
       dispatch(fetchUserData(userId));
 
       toast.success("Login successful!");

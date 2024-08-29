@@ -78,7 +78,7 @@ function AppInformation() {
             </div>
           ))}
           <h3 className="text-gray-800 pb-5 pt-5 text-xl font-bold">
-            Whether you’re starting fresh or deep into your quest, our app will
+            Whether you’re starting new or deep into your journey, our app will
             help you plan, track, and celebrate every step of your journey
             through the Lake District.
           </h3>

@@ -85,7 +85,7 @@ function RouteInfo({ route, gpxFileUrl }) {
             <Button
               color="primary"
               onPress={handleDownload}
-              className="flex items-center font-inconsolata text-xl"
+              className="font-poppins flex items-center text-xl"
             >
               Download GPX File{" "}
               <FaDownload size={20} className="ml-2 text-xl" />
@@ -95,7 +95,7 @@ function RouteInfo({ route, gpxFileUrl }) {
           {/* Log or View Route Section */}
           <div className="mt-6">
             <Button
-              className="w-60 bg-mint font-inconsolata text-xl"
+              className="font-poppins w-60 bg-mint text-xl"
               onPress={() => setFormOpen(true)}
             >
               {loggedRoute ? "View Log" : "Log Route"}
