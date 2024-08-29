@@ -18,7 +18,6 @@ function CompletedWainwrightsTable() {
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
   const [query, setQuery] = useState("");
   const [data, setData] = useState(userWainwrights);
-  console.log("userwainwrights in table", userWainwrights);
 
   //Search bar useEffect
   useEffect(() => {
@@ -47,7 +46,7 @@ function CompletedWainwrightsTable() {
       </div>
       <Table
         isHeaderSticky
-        className="h-128 w-[85vh] overflow-scroll shadow-xl"
+        className="h-128 w-[85vh] overflow-scroll"
         aria-label="Completed Wainwrights Table"
         selectionMode="single"
         isStriped

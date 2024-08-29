@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchWainwrights());
     dispatch(fetchRoutes());
+    console.log("All data fetched");
   }, [dispatch]);
 
   return (

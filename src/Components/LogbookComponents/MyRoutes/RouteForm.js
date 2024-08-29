@@ -44,7 +44,7 @@ export default function RouteForm({
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [date, setDate] = useState(formatDate(new Date()));
-  const [duration, setDuration] = useState(dayjs().hour(1).minute(0));
+  const [duration, setDuration] = useState(dayjs().hour(0).minute(0));
   const [rating, setRating] = useState(5);
 
   const { EditRouteLog } = useEditRouteLog();
@@ -89,13 +89,13 @@ export default function RouteForm({
       setDescription(userRoute?.description || "");
       setDifficulty(userRoute?.difficultyRating || "");
       setDate(userRoute?.date || formatDate(new Date()));
-      setDuration(dayjs(userRoute?.duration) || dayjs().hour(1).minute(0));
+      setDuration(dayjs(userRoute?.duration) || dayjs().hour(0).minute(0));
       setRating(userRoute?.rating || 5);
     } else {
       setDate(formatDate(new Date()));
       setDescription("");
       setDifficulty("");
-      setDuration(dayjs().hour(1).minute(0));
+      setDuration(dayjs().hour(0).minute(0));
       setRating(5);
     }
   }, [type, userRoute]);

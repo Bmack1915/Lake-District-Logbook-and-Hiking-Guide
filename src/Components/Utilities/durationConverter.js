@@ -5,6 +5,7 @@ function durationConverter(duration) {
   const hours = dateString.getUTCHours();
   const mins = dateString.getUTCMinutes();
   const convertedDuration = timeConverter(hours * 60 + mins);
+
   return convertedDuration;
 }
 

@@ -28,7 +28,6 @@ apiClient.interceptors.request.use(
 // Response interceptor to handle token expiration
 apiClient.interceptors.response.use(
   (response) => {
-    console.log("Response", response);
     return response;
   },
   async (error) => {

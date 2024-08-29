@@ -11,7 +11,6 @@ function WeatherBar({ route }) {
     async function getWeather() {
       try {
         const response = await axios.get(url);
-        console.log("weather response", response.data.list[0]);
         setData(response.data);
         setSelectedDate(response.data.list[0]);
       } catch (error) {

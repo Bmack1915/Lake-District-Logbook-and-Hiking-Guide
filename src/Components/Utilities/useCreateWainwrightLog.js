@@ -15,8 +15,6 @@ function useCreateWainwrightLog() {
   async function CreateUserWainwrightLog(log, isRouteLogging = false) {
     if (isSubmitting) return;
     isSubmitting = true;
-    console.log(log);
-    // try {
     const response = await apiClient.post(
       `${API_BASE_URL}userwainwrights/`,
       log,

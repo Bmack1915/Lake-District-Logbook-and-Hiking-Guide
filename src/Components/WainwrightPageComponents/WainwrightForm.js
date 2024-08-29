@@ -168,7 +168,7 @@ export default function WainwrightForm({
       >
         {routeName
           ? `Editing Route Log: ${routeName.name}`
-          : `Editing Wainwright Log: ${wainwright?.name}`}
+          : `Create Wainwright Log: ${wainwright?.name}`}
       </DialogTitle>
       <DialogContent
         sx={{

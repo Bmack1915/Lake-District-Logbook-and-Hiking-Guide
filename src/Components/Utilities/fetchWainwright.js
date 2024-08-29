@@ -8,7 +8,6 @@ export async function fetchWainwrightData(id) {
   }
   try {
     const res = await apiClient.get(`${API_BASE_URL}wainwrights/${id}`);
-    console.log("API Response:", res.data);
     return res.data;
   } catch (err) {
     console.error("Error fetching Wainwright data:", err);

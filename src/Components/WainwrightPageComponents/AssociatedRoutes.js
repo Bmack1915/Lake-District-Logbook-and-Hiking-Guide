@@ -11,8 +11,8 @@ function AssociatedRoutes({ wainwright, associatedRoutes }) {
           : `Looking to climb ${wainwright.name}? Why not try this route..`}
       </h1>
       <ScrollShadow className="h-[500px] w-[1050px]">
-        {associatedRoutes.map((route) => (
-          <div className="grid justify-center p-2" key={route.routeId}>
+        {associatedRoutes.map((route, index) => (
+          <div className="grid justify-center p-2" key={index}>
             <RouteViewCard route={route} />
           </div>
         ))}
