@@ -16,7 +16,7 @@ export default function LogoutButton() {
     <Button
       color="primary"
       variant="bordered"
-      className="text-xl"
+      className="text-lg"
       onPress={handleLogOut}
     >
       Logout

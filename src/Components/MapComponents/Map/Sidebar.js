@@ -1,7 +1,7 @@
 import React from "react";
 import RouteFilters from "../Filters/RouteFilters";
 import WainwrightFilters from "../Filters/WainwrightFilters";
-
+//Sidebar that displays the appropraite filters depending on the type passed
 function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
   return (
     <div>
@@ -12,7 +12,7 @@ function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
         }`}
         tabIndex="-1"
         aria-labelledby="drawer-navigation-label"
-        style={{ height: "calc(100vh - 12rem)" }} // Adjust the height to fit your layout
+        style={{ height: "calc(100vh - 12rem)" }}
       >
         <h5
           id="drawer-navigation-label"

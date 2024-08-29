@@ -11,7 +11,7 @@ import {
 import timeConverter from "../Utilities/timeConverter";
 import { useEffect, useState } from "react";
 import RouteForm from "../LogbookComponents/MyRoutes/RouteForm";
-import ViewRouteLog from "../LogbookComponents/MyRoutes/ViewRouteLog";
+import RouteLog from "../LogbookComponents/MyRoutes/RouteLog";
 import { useSelector } from "react-redux";
 import AssociatedWainwrights from "./AssociatedWainwrights";
 
@@ -36,13 +36,15 @@ function RouteInfo({ route, gpxFileUrl }) {
     }
   }, [route, userRoutes]);
 
+  //Download of GPX
   function handleDownload() {
     const element = document.createElement("a");
     element.href = gpxFileUrl;
+    //Label for download
     element.download = `${route.name}_${Date.now()}.gpx`;
     document.body.appendChild(element);
     element.click();
-    document.body.removeChild(element); // Clean up
+    document.body.removeChild(element);
   }
 
   return (
@@ -54,7 +56,6 @@ function RouteInfo({ route, gpxFileUrl }) {
         {route.description}
       </p>
 
-      {/* Grid Container for Route Attributes */}
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="text-gray-700 flex items-center text-xl">
           <FaMountain className="text-gray-500 mr-3" />
@@ -79,41 +80,39 @@ function RouteInfo({ route, gpxFileUrl }) {
       </div>
 
       <div className="flex justify-between pt-9">
-        {/* Download GPX File Button */}
         <div className="flex flex-col">
           <div className="mt-6">
             <Button
               color="primary"
               onPress={handleDownload}
-              className="flex items-center font-inconsolata text-xl"
+              className="flex items-center font-poppins text-xl"
             >
               Download GPX File{" "}
               <FaDownload size={20} className="ml-2 text-xl" />
             </Button>
           </div>
 
-          {/* Log or View Route Section */}
+          {/* Log or View */}
           <div className="mt-6">
             <Button
-              className="w-60 bg-mint font-inconsolata text-xl"
+              className="w-60 bg-mint font-poppins text-xl"
               onPress={() => setFormOpen(true)}
             >
               {loggedRoute ? "View Log" : "Log Route"}
               <LiaHikingSolid size={45} className="ml-2" />
             </Button>
 
-            {/* Conditionally render ViewRouteLog only if loggedRoute exists */}
             {loggedRoute && (
               <div>
-                <ViewRouteLog
+                <RouteLog
                   open={formOpen}
                   setOpen={setFormOpen}
-                  userRoute={loggedRoute} // loggedRoute passed as userRoute
+                  userRoute={loggedRoute}
                   handleEditClickOpen={handleEditClickOpen}
                 />
                 <RouteForm
                   type="edit"
-                  userRoute={loggedRoute} // loggedRoute passed for editing
+                  userRoute={loggedRoute}
                   route={route}
                   setFormOpen={setEditOpen}
                   formOpen={editOpen}
@@ -122,7 +121,7 @@ function RouteInfo({ route, gpxFileUrl }) {
             )}
           </div>
 
-          {/* Render RouteForm if no loggedRoute exists */}
+          {/* Create Form available to be used if route not previously logged */}
           {!loggedRoute && (
             <RouteForm
               type="create"

@@ -1,8 +1,6 @@
 import RouteMap from "../Components/RoutePageComponents/RouteMap";
-import AssociatedWainwrights from "../Components/RoutePageComponents/AssociatedWainwrights";
 import { useParams } from "react-router-dom";
 import useFetchGpxFile from "../Components/Utilities/useFetchGpxFile";
-import { useRoute } from "../Components/Utilities/useRoute";
 import RouteInfo from "../Components/RoutePageComponents/RouteInfo";
 import WeatherBar from "../Components/RoutePageComponents/weatherBar";
 import { useEffect, useState } from "react";
@@ -36,13 +34,11 @@ export default function RouteHomePage() {
             </h1>
             <RouteMap url={gpxFileUrl} />
           </div>
-          <div className="col-span-3 col-start-2 row-span-2 row-start-6">
-            {" "}
+          <div className="col-span-5 col-start-2 row-span-2 row-start-5 pt-16">
+            <h1 className="pb-3 pt-3 text-3xl font-bold">
+              Planning this route? Check for a rainy day...
+            </h1>
             <WeatherBar route={route} />
-          </div>
-          <div className="col-span-2 col-start-5 row-span-2 row-start-5">
-            {" "}
-            <AssociatedWainwrights route={route} />
           </div>
         </div>
       </div>

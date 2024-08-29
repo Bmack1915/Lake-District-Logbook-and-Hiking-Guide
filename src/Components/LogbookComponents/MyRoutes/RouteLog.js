@@ -6,15 +6,14 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
 import { Button } from "@nextui-org/react";
-import WainwrightForm from "../../WainwrightPageComponents/WainwrightForm";
 import formatDate from "../../Utilities/utilityFuncsStats";
+import durationConverter from "../../Utilities/durationConverter";
 import StarRating from "../../Utilities/StarRating";
-import HandleDeleteWainwright from "./HandleDeleteWainwright";
-import dayjs from "dayjs";
+import DeleteRouteDialog from "./DeleteRouteDialog";
+import { IoMdSend } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-// Apply Bootstrap Dialog Styles
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(3),
@@ -28,20 +27,24 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
-  const [editOpen, setEditOpen] = useState(false);
-  const { rating, description, duration, routeName, difficultyRating } =
-    userWainwright;
-  const wainwright = userWainwright.wainwright;
-  const date = formatDate(userWainwright.date);
-
-  const handleEditClickOpen = () => {
-    setEditOpen(true);
-  };
-
+function RouteLog({
+  userRoute,
+  open,
+  setOpen,
+  handleEditClickOpen,
+  withNavigation = false,
+}) {
+  const navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
   };
+
+  function handleNavigate() {
+    navigate(`/routeinfo/${userRoute.route.routeID}`);
+  }
+
+  const { description, duration, date, difficultyRating, rating } = userRoute;
+  const formattedDate = formatDate(userRoute.date);
 
   return (
     <div>
@@ -49,6 +52,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        className="font-poppins"
       >
         <DialogTitle
           sx={{
@@ -58,7 +62,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             color: "white",
             fontWeight: "bold",
             fontSize: "1.75rem",
-            fontFamily: "inconsolata",
+            fontFamily: "poppins",
           }}
           id="customized-dialog-title"
         >
@@ -69,11 +73,10 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
               color: "white",
               fontWeight: "bold",
               fontSize: "1.75rem",
-              fontFamily: "inconsolata",
+              fontFamily: "poppins",
             }}
           >
-            {userWainwright.wainwright.name}{" "}
-            {userWainwright.date && `Ascent on ${date}`}
+            {userRoute.route.name} {userRoute.date && `on ${formattedDate}`}
           </Typography>
         </DialogTitle>
         <IconButton
@@ -89,43 +92,75 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          {/* Description Section */}
+          {/* Description  */}
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{
+                fontWeight: "bold",
+                mb: 1,
+                fontFamily: "poppins",
+              }}
             >
               Description
             </Typography>
-            {description !== null ? (
-              <Typography variant="body1">{description}</Typography>
+            {description ? (
+              <Typography
+                sx={{
+                  maxWidth: "5000px",
+                  wordWrap: "break-word",
+                  whiteSpace: "normal",
+                  overflowWrap: "break-word",
+                }}
+                variant="body1"
+              >
+                {description}
+              </Typography>
             ) : (
               <Typography variant="body2" sx={{ fontStyle: "italic" }}>
                 No description provided
               </Typography>
             )}
           </div>
-
-          {/* Duration Section */}
+          {/* Date  */}
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
+            >
+              Date Completed
+            </Typography>
+            {date ? (
+              <Typography variant="body1">{formattedDate}</Typography>
+            ) : (
+              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                No completion date provided
+              </Typography>
+            )}
+          </div>
+          {/* Duration  */}
+          <div className="mb-4">
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Duration
             </Typography>
-            <Typography variant="body1">
-              {duration
-                ? `${dayjs(duration).format("HH:mm")}`
-                : "No completion time provided"}
-            </Typography>
+            {duration ? (
+              <Typography variant="body1">
+                {durationConverter(duration)}
+              </Typography>
+            ) : (
+              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                No completion time provided
+              </Typography>
+            )}
           </div>
-
-          {/* Difficulty Rating Section */}
+          {/* Difficulty  */}
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Difficulty Rating
             </Typography>
@@ -137,64 +172,45 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
               </Typography>
             )}
           </div>
-
-          {/* Route Section */}
+          {/* Rating */}
           <div className="mb-4">
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
-            >
-              Route
-            </Typography>
-            {routeName ? (
-              <Typography variant="body1">{routeName}</Typography>
-            ) : (
-              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-                No Route Specified
-              </Typography>
-            )}
-          </div>
-
-          {/* Rating Section */}
-          <div className="mb-4">
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Rating
             </Typography>
-            {rating !== null ? (
-              <StarRating defaultRating={rating} disabled />
+            {rating ? (
+              <StarRating size={36} disabled defaultRating={rating} />
             ) : (
               <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-                No Rating provided
+                No rating provided
               </Typography>
             )}
           </div>
         </DialogContent>
         <div className="flex justify-center">
-          <DialogActions
-            sx={{
-              backgroundColor: "background.paper",
-              borderTop: "1px solid",
-              borderColor: "divider",
-            }}
-          >
+          <DialogActions>
             <Button
-              className="bg-mint px-5 font-inconsolata text-xl text-blue"
+              className="bg-mint px-5 font-poppins text-xl text-blue"
               autoFocus
               onClick={handleEditClickOpen}
             >
               Edit Log
             </Button>
-
-            <HandleDeleteWainwright
-              setOpen={setOpen}
-              userWainwright={userWainwright}
-            />
+            <DeleteRouteDialog userRoute={userRoute} />
+            {withNavigation && (
+              <Button
+                endContent={<IoMdSend />}
+                className="bg-lightblue font-poppins text-xl"
+                onPress={handleNavigate}
+              >
+                Route Info
+              </Button>
+            )}
 
             <Button
-              className="bg-blue font-inconsolata text-xl text-white"
+              className="bg-blue font-poppins text-xl text-white"
               autoFocus
               onClick={handleClose}
             >
@@ -202,14 +218,9 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             </Button>
           </DialogActions>
         </div>
-        <WainwrightForm
-          wainwright={wainwright}
-          type="edit"
-          userWainwright={userWainwright}
-          setFormOpen={setEditOpen}
-          formOpen={editOpen}
-        />
       </BootstrapDialog>
     </div>
   );
 }
+
+export default RouteLog;

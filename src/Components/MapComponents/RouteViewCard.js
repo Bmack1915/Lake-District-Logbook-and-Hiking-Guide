@@ -1,10 +1,9 @@
 import { Button, Card, CardHeader, Image } from "@nextui-org/react";
-import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMdSend } from "react-icons/io";
 import timeConverter from "../Utilities/timeConverter";
 
-export default function RouteViewCard({ route }) {
+export default function RouteViewCard({ route, img }) {
   const navigate = useNavigate();
 
   function handleNavigate() {
@@ -15,9 +14,6 @@ export default function RouteViewCard({ route }) {
     <Card className="p-1">
       <CardHeader className="flex flex-col items-start">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {/* Image Section */}
-
-          {/* Text Content Section */}
           <div className="space-y-2 md:col-span-2">
             <p className="text-lg font-bold">{route.name}</p>
             <p className="text-default-500">{route.description}</p>
@@ -39,7 +35,7 @@ export default function RouteViewCard({ route }) {
           </div>
           <div className="h-auto w-full object-cover md:col-span-1">
             <Image
-              src="/Assets/lakeDistrict/ambleside.jpg"
+              src={`/Assets/lakeDistrict/${img}`}
               alt={route.name}
               className="h-auto w-full rounded-lg object-cover"
               width={1000}

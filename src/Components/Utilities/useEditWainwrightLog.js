@@ -9,7 +9,7 @@ function useEditWainwrightLog(wainwrightID) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function EditWainwrightLog(log) {
-    setIsLoading(true); // Set loading to true before the request
+    setIsLoading(true);
     try {
       const response = await apiClient.put(
         `${API_BASE_URL}userwainwrights/${id}?wainwrightID=${wainwrightID}`,
@@ -28,7 +28,7 @@ function useEditWainwrightLog(wainwrightID) {
       console.error("Error updating log:", error);
       toast.error("An error occurred while updating the log.");
     } finally {
-      setIsLoading(false); // Set loading to false after the request completes
+      setIsLoading(false);
     }
   }
 

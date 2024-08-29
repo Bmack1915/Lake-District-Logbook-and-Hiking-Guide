@@ -19,9 +19,8 @@ import BasicTimeField from "../../Utilities/TimePicker.js";
 import dayjs from "dayjs";
 import useEditRouteLog from "../../Utilities/useEditLog.js";
 import useCreateRouteLog from "../../Utilities/useCreateRouteLog.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-// Apply Bootstrap Dialog Styles
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(3),
@@ -45,14 +44,17 @@ export default function RouteForm({
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [date, setDate] = useState(formatDate(new Date()));
-  const [duration, setDuration] = useState(dayjs().hour(1).minute(0));
+  const [duration, setDuration] = useState(dayjs().hour(0).minute(0));
   const [rating, setRating] = useState(5);
 
   const { EditRouteLog } = useEditRouteLog();
   const { CreateUserRouteLog } = useCreateRouteLog();
+
   const id = useSelector((state) => state.user.id);
+
   function handleSubmit(e) {
     e.preventDefault();
+    //Prepare log for backend
     const updatedLog = {
       id,
       description,
@@ -62,6 +64,7 @@ export default function RouteForm({
       rating,
     };
 
+    //If editing, get the same route ID from the route attribute of the userRoute
     if (type === "edit") {
       updatedLog.routeID = userRoute.route.routeID;
       try {
@@ -86,13 +89,13 @@ export default function RouteForm({
       setDescription(userRoute?.description || "");
       setDifficulty(userRoute?.difficultyRating || "");
       setDate(userRoute?.date || formatDate(new Date()));
-      setDuration(dayjs(userRoute?.duration) || dayjs().hour(1).minute(0));
+      setDuration(dayjs(userRoute?.duration) || dayjs().hour(0).minute(0));
       setRating(userRoute?.rating || 5);
     } else {
       setDate(formatDate(new Date()));
       setDescription("");
       setDifficulty("");
-      setDuration(dayjs().hour(1).minute(0));
+      setDuration(dayjs().hour(0).minute(0));
       setRating(5);
     }
   }, [type, userRoute]);
@@ -117,8 +120,8 @@ export default function RouteForm({
           backgroundColor: "primary.main",
           color: "white",
           fontWeight: "bold",
-          fontSize: "1.75rem", // Larger title
-          fontFamily: "inconsolata",
+          fontSize: "1.75rem",
+          fontFamily: "poppins",
         }}
       >
         {type === "create" && `Record a log for ${route.name}?`}
@@ -128,11 +131,10 @@ export default function RouteForm({
       </DialogTitle>
       <DialogContent dividers>
         <ul>
-          {/* Description Field */}
           <li className="mb-4">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Description
             </Typography>
@@ -144,23 +146,20 @@ export default function RouteForm({
               variant="standard"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              sx={{ fontFamily: "inconsolata" }}
+              sx={{ fontFamily: "poppins" }}
             />
           </li>
 
-          {/* Difficulty Field */}
+          {/* Difficulty */}
           <li className="mb-4 mt-5">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               How did it feel?
             </Typography>
             <FormControl fullWidth>
-              <InputLabel
-                sx={{ fontFamily: "inconsolata" }}
-                id="difficulty-label"
-              >
+              <InputLabel sx={{ fontFamily: "poppins" }} id="difficulty-label">
                 Difficulty
               </InputLabel>
               <Select
@@ -169,7 +168,7 @@ export default function RouteForm({
                 value={difficulty}
                 label="Difficulty"
                 onChange={(e) => setDifficulty(e.target.value)}
-                sx={{ fontFamily: "inconsolata" }}
+                sx={{ fontFamily: "poppins" }}
               >
                 {difficulties.map((d, index) => (
                   <MenuItem defaultValue={difficulty} key={index} value={d}>
@@ -180,11 +179,11 @@ export default function RouteForm({
             </FormControl>
           </li>
 
-          {/* Date Field */}
+          {/* Date */}
           <li className="mb-4 mt-2">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", fontFamily: "poppins" }}
             >
               Date
             </Typography>
@@ -194,26 +193,26 @@ export default function RouteForm({
               onChange={(e) => setDate(e.target.value)}
               fullWidth
               variant="standard"
-              sx={{ fontFamily: "inconsolata" }}
+              sx={{ fontFamily: "poppins" }}
             />
           </li>
 
-          {/* Duration Field */}
+          {/* Duration */}
           <li className="mb-4 mt-2">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Duration
             </Typography>
             <BasicTimeField value={duration} setValue={setDuration} />
           </li>
 
-          {/* Rating Field */}
+          {/* Rating */}
           <li className="mb-1 mt-2">
             <Typography
               variant="h5"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "inconsolata" }}
+              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
             >
               Rating
             </Typography>
@@ -227,14 +226,14 @@ export default function RouteForm({
       </DialogContent>
       <DialogActions>
         <Button
-          className="bg-mint font-inconsolata text-xl text-blue"
+          className="bg-mint font-poppins text-xl text-blue"
           onClick={handleClose}
           autoFocus
         >
           Cancel
         </Button>
         <Button
-          className="bg-blue font-inconsolata text-xl text-white"
+          className="bg-blue font-poppins text-xl text-white"
           type="submit"
           autoFocus
         >

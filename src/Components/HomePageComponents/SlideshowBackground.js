@@ -61,12 +61,12 @@ export default function SlideshowBackground({
                 width: "100%",
               }}
             >
-              {/* Background */}
               <div
                 style={{
                   backgroundImage: `url(${image})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+
                   opacity: opacity,
                   position: "absolute",
                   top: 0,
@@ -77,7 +77,6 @@ export default function SlideshowBackground({
                 }}
               />
 
-              {/* Content  */}
               <div
                 style={{
                   position: "relative",

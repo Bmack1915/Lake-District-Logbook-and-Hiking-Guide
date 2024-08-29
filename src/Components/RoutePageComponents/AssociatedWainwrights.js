@@ -1,6 +1,6 @@
 import { Loading } from "../Utilities/Loading";
-import useAssociatedWainwrights from "../Utilities/useAssociatedWainwrights";
 import { FaArrowsAltH } from "react-icons/fa";
+import useAssociatedWainwrights from "../Utilities/useAssociatedWainwrights";
 
 function AssociatedWainwrights({ route }) {
   const { associatedWainwrights, isLoading } = useAssociatedWainwrights(route);
@@ -16,7 +16,7 @@ function AssociatedWainwrights({ route }) {
           {associatedWainwrights.length > 1
             ? `${associatedWainwrights.length} Wainwrights summited in this route: `
             : "This route summits:"}
-        </h1>{" "}
+        </h1>
         <div className="flex items-center pb-5 text-lg md:text-sm">
           <p>
             (Logging this route will automatically add{" "}

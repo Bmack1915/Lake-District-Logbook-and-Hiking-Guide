@@ -2,48 +2,34 @@ import { useState } from "react";
 import apiClient from "./axiosInterceptor";
 import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "../../redux/userSlice";
 
 function useCreateWainwrightLog() {
   const [isLoading, setIsLoading] = useState(false);
+  const id = useSelector((state) => state.user.id);
+  const dispatch = useDispatch();
+
+  let isSubmitting = false;
 
   async function CreateUserWainwrightLog(log, isRouteLogging = false) {
-    setIsLoading(true); // Set loading to true before the request
-    try {
-      const response = await apiClient.post(
-        `${API_BASE_URL}userwainwrights/`,
-        JSON.stringify(log),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
+    if (isSubmitting) return;
+    isSubmitting = true;
+    const response = await apiClient.post(
+      `${API_BASE_URL}userwainwrights/`,
+      log,
+    );
 
-      if (
-        response.status === 201 ||
-        response.status === 200 ||
-        response.status === 204
-      ) {
-        toast.success("Wainwright log successfully created!");
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 409) {
-        if (isRouteLogging) {
-          // If this is route logging, simply continue without showing an error
-          console.log(
-            "Wainwright log already exists. Continuing route logging...",
-          );
-        } else {
-          // If it's not route logging, treat it as a warning
-          toast.warning("Wainwright log already exists.");
-        }
-      } else {
-        console.error("Error creating log:", error);
-        toast.error("An error occurred while creating the log.");
-      }
-    } finally {
-      setIsLoading(false); // Set loading to false after the request completes
+    if (
+      response.status === 201 ||
+      response.status === 200 ||
+      response.status === 204
+    ) {
+      toast.success("Wainwright log successfully created!");
     }
+    await dispatch(fetchUserData(id));
+    isSubmitting = false;
+    setIsLoading(false);
   }
 
   return { CreateUserWainwrightLog, isLoading };

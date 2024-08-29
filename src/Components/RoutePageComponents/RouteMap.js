@@ -11,8 +11,8 @@ function GPXLayer({ url }) {
     const gpx = new L.GPX(url, {
       async: true,
       marker_options: {
-        startIconUrl: "/assets/greenPin.png", // Make sure this path is correct
-        endIconUrl: "/assets/redPin.png", // Make sure this path is correct
+        startIconUrl: "/assets/pins/greenPin.png", // Make sure this path is correct
+        endIconUrl: "/assets/pins/redPin.png", // Make sure this path is correct
         shadowUrl: null,
       },
     })
@@ -38,6 +38,8 @@ export default function RouteMap({ url }) {
     <MapContainer
       center={[54.460861, -3.08875]}
       zoom={13}
+      maxZoom={15}
+      minZoom={10}
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer

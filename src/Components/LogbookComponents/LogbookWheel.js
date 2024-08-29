@@ -20,11 +20,11 @@ function ProgressWheel({ isLoading }) {
 
   // Create the data array with the completed count
   const data = [
-    { name: "Completed", value: userWainwrights.length, fill: "#0088FE" },
+    { name: "Completed", value: userWainwrights.length, fill: "#00C47F" },
     {
       name: "Remaining",
       value: total - userWainwrights.length,
-      fill: "#00C49F",
+      fill: "#8EBCE5",
     },
   ];
 
@@ -35,13 +35,18 @@ function ProgressWheel({ isLoading }) {
         {payload.map((entry, index) => (
           <li
             key={`item-${index}`}
-            style={{ color: entry.color }}
-            className="mx-6 flex items-center justify-center text-xl"
+            className="mx-6 flex items-center justify-center text-2xl"
           >
             <svg width="50" height="50" style={{ marginRight: 5 }}>
               <rect width="50" height="50" fill={entry.color} />
             </svg>
-            {entry.value}
+
+            <span
+              className="text-gray-700 font-semibold"
+              style={{ fontFamily: "poppins" }}
+            >
+              {entry.value}
+            </span>
           </li>
         ))}
       </ul>
@@ -54,14 +59,14 @@ function ProgressWheel({ isLoading }) {
         <PieChart>
           <Pie
             data={data}
-            // dataKey
             cx="50%"
             cy="50%"
             innerRadius={180}
             outerRadius={240}
-            fill="#8884d8"
             paddingAngle={5}
             label
+            startAngle={90}
+            endAngle={-270}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -73,10 +78,14 @@ function ProgressWheel({ isLoading }) {
             y="42%"
             fill="black"
             textAnchor="middle"
-            style={{ fontSize: "42px", fontWeight: "bold" }}
+            style={{
+              fontSize: "42px",
+              fontWeight: "bold",
+              fontFamily: "poppins",
+            }}
           >
             {`${percentage}% Completed`}
-            <tspan x="50%" y="45%" dy="1.2em" fontSize="32px">
+            <tspan x="50%" y="45%" dy="1.2em" fontSize="25px">
               {`${userWainwrights.length}/${total} Wainwrights`}
             </tspan>
           </text>

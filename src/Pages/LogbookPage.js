@@ -8,6 +8,7 @@ import CompletedRoutesTable from "../Components/LogbookComponents/MyRoutes/Compl
 
 function Logbook() {
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
+  const userRoutes = useSelector((state) => state.user.userRoutes);
 
   return (
     <div>
@@ -20,7 +21,7 @@ function Logbook() {
               </h1>
               <div className="flex">
                 <ProgressWheel />
-                <div className="flex flex-col">
+                <div className="flex flex-col px-12">
                   <CompletedWainwrightsTable />
                 </div>
               </div>
@@ -31,10 +32,14 @@ function Logbook() {
             <Oops />
           </SlideshowBackground>
         )}
-        <h1 className="flex justify-center p-4 pb-5 text-4xl font-bold">
-          My Routes
-        </h1>
-        <CompletedRoutesTable />
+        {userRoutes && userRoutes.length > 0 && (
+          <div>
+            <h1 className="flex justify-center p-4 pb-5 text-4xl font-bold">
+              My Routes
+            </h1>
+            <CompletedRoutesTable userRoutes={userRoutes} />
+          </div>
+        )}
       </ConfirmProvider>
     </div>
   );

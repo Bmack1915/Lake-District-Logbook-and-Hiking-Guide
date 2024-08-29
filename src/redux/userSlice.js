@@ -23,12 +23,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: {
-      prepare(email, id, token) {
+      prepare(email, id, token, name) {
         return {
           payload: {
             email,
             id,
             token,
+            name,
           },
         };
       },
@@ -36,6 +37,7 @@ const userSlice = createSlice({
         state.email = action.payload.email;
         state.id = action.payload.id;
         state.token = action.payload.token;
+        state.name = action.payload.name;
       },
     },
     register(state, action) {
@@ -53,19 +55,16 @@ const userSlice = createSlice({
   },
 });
 
-// Action creators
+//Export actions
 export const { login, logout, register, setUserRoutes, setUserWainwrights } =
   userSlice.actions;
 
-// Thunk to fetch user data (user routes and wainwrights)
 export function fetchUserData(userId) {
   return async function (dispatch) {
     try {
-      // Fetch user routes
       const routesData = await fetchUserRouteData(userId);
       dispatch(setUserRoutes(routesData));
 
-      // Fetch user wainwrights
       const wainwrightsData = await fetchUserWainwrightData(userId);
       dispatch(setUserWainwrights(wainwrightsData));
     } catch (err) {
@@ -75,11 +74,9 @@ export function fetchUserData(userId) {
   };
 }
 
-// Thunk for login and fetching user data
 export function LoginAndFetchUserInfo(email, password) {
   return async function (dispatch) {
     try {
-      // Perform login request
       const response = await axios.post(`${API_BASE_URL}account/login`, {
         Email: email,
         Password: password,
@@ -88,13 +85,14 @@ export function LoginAndFetchUserInfo(email, password) {
       const { token } = response.data;
       const decodedToken = decodeJwt(token);
       const userId = decodedToken.nameid;
+      const name = response.data.name;
 
       // Save email, id, token to sessionStorage
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("userEmail", email);
       sessionStorage.setItem("userId", userId);
 
-      dispatch(login(email, userId, token));
+      dispatch(login(email, userId, token, name));
       dispatch(fetchUserData(userId));
 
       toast.success("Login successful!");
@@ -107,22 +105,18 @@ export function LoginAndFetchUserInfo(email, password) {
   };
 }
 
-// Thunk for logout
 export function Logout() {
   return async function (dispatch) {
     try {
-      // Perform logout request
       await axios.post(`${API_BASE_URL}account/logout`);
 
-      // Clear sessionStorage
+      // clear sessionStorage
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("userEmail");
       sessionStorage.removeItem("userId");
 
-      // Dispatch logout action to reset the state
       dispatch(logout());
 
-      // Optionally, show a success message
       toast.success("Logout successful!");
     } catch (error) {
       console.error("Logout error:", error);

@@ -1,18 +1,17 @@
+import L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import L from "leaflet";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
-import { IoMdArrowForward } from "react-icons/io";
-import { timeClockClasses } from "@mui/x-date-pickers";
+import { IoMdSend } from "react-icons/io";
 import timeConverter from "../../Utilities/timeConverter";
 
 const RouteIcon = new L.Icon({
-  iconUrl: "assets/hiking.png",
-  iconSize: [24, 35],
+  iconUrl: "assets/pins/pinEasternUnComplete.png",
+  iconSize: [30, 35],
   iconAnchor: [16, 30],
-  popupAnchor: [-3, -30],
+  popupAnchor: [0, -25],
 });
 
 function RouteMarkers() {
@@ -49,14 +48,12 @@ function RouteMarkers() {
                 <p>Estimated time {timeConverter(r.time)}</p>
               </div>
               <Button
-                className="text-black bg-mint"
+                endContent={<IoMdSend />}
+                className="text-black bg-lightblue font-bold"
                 onPress={() => handleNavigate(r)}
                 size="sm"
               >
-                <div className="flex items-center">
-                  Click for more info
-                  <IoMdArrowForward size={20} />
-                </div>
+                Click for more info
               </Button>
             </Popup>
           </Marker>

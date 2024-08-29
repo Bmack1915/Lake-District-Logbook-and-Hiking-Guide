@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@nextui-org/react";
 import WainwrightForm from "./WainwrightForm";
-import ViewWainrightLog from "../LogbookComponents/MyWainwrights/ViewWainwrightLog";
+import WainrightLog from "../LogbookComponents/MyWainwrights/WainwrightLog";
 
 export default function ViewWainwrightButton({
   wainwright,
@@ -33,7 +33,7 @@ export default function ViewWainwrightButton({
       ) : (
         userWainwright && (
           <div>
-            <ViewWainrightLog
+            <WainrightLog
               open={formOpen}
               setOpen={setFormOpen}
               wainwright={wainwright}

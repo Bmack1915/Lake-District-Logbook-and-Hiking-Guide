@@ -1,14 +1,8 @@
 import { ScrollShadow } from "@nextui-org/react";
-import useAssociatedRoutes from "../Utilities/useAssociatedRoutes";
 import RouteViewCard from "../MapComponents/RouteViewCard";
-import { Loading } from "../Utilities/Loading";
 
-function AssociatedRoutes({ wainwright }) {
-  const { associatedRoutes, isLoading } = useAssociatedRoutes(wainwright);
-
-  if (isLoading) return <Loading />;
-
-  return associatedRoutes.length > 0 ? (
+function AssociatedRoutes({ wainwright, associatedRoutes }) {
+  return associatedRoutes && associatedRoutes.length > 0 ? (
     <div>
       <h1 className="pb-3 pt-3 text-2xl font-bold">
         {associatedRoutes.length > 1
@@ -17,16 +11,14 @@ function AssociatedRoutes({ wainwright }) {
           : `Looking to climb ${wainwright.name}? Why not try this route..`}
       </h1>
       <ScrollShadow className="h-[500px] w-[1050px]">
-        {associatedRoutes.map((route) => (
-          <div className="grid justify-center p-2" key={route.routeId}>
+        {associatedRoutes.map((route, index) => (
+          <div className="grid justify-center p-2" key={index}>
             <RouteViewCard route={route} />
           </div>
         ))}
       </ScrollShadow>
     </div>
-  ) : (
-    <p>No associated routes found.</p>
-  );
+  ) : null;
 }
 
 export default AssociatedRoutes;

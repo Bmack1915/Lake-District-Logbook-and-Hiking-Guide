@@ -12,7 +12,7 @@ function useCreateRouteLog() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function CreateUserRouteLog(log) {
-    setIsLoading(true); // Set loading to true before the request
+    setIsLoading(true);
     try {
       const response = await apiClient.post(
         `${API_BASE_URL}userroutes/`,
@@ -38,7 +38,7 @@ function useCreateRouteLog() {
       console.error("Error updating log:", error);
       toast.error("An error occurred while updating the log.");
     } finally {
-      setIsLoading(false); // Set loading to false after the request completes
+      setIsLoading(false);
     }
   }
 

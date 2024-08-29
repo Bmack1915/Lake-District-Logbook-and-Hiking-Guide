@@ -7,7 +7,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 
-function AlertDialog({ open, title, message, onConfirm, onDecline, onCancel }) {
+function DeleteDialogWindow({
+  open,
+  title,
+  message,
+  onConfirm,
+  onDecline,
+  onCancel,
+}) {
   return (
     <Dialog open={open} onClose={onCancel}>
       <DialogTitle>{title}</DialogTitle>
@@ -29,7 +36,7 @@ function AlertDialog({ open, title, message, onConfirm, onDecline, onCancel }) {
   );
 }
 
-AlertDialog.propTypes = {
+DeleteDialogWindow.propTypes = {
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
@@ -38,4 +45,4 @@ AlertDialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-export default AlertDialog;
+export default DeleteDialogWindow;

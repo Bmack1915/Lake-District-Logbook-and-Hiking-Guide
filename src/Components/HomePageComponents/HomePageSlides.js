@@ -1,7 +1,7 @@
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
-export default function SlideshowContent({ setCurrentSlide }) {
+export default function HomepageSlides({ setCurrentSlide }) {
   const slides = [
     {
       title: "Welcome to the Wainwright Logbook",

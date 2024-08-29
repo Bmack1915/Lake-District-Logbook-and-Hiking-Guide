@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MapContainer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import MapBaseLayer from "./MapBaseLayer";
@@ -11,6 +11,7 @@ import { Button } from "@nextui-org/react";
 export default function MapView({ type, toggleSidebar }) {
   const markersRef = useRef([]);
 
+  //If the map type changes, remove the markers so new ones can be implemented, i.e. for routes or Wainwrights
   useEffect(() => {
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
@@ -20,9 +21,12 @@ export default function MapView({ type, toggleSidebar }) {
     <MapContainer
       center={[54.5522, -3.1038704]}
       zoom={10}
+      maxZoom={15}
+      minZoom={9}
       style={{ height: "75vh", borderRadius: "5vh" }}
     >
       <MapBaseLayer />
+      {/* Reuse map, just apply different markers */}
       {type === "wainwrights" && <WainwrightMarkers />}
       {type === "routes" && <RouteMarkers />}
       <Control prepend position="topleft">
@@ -32,25 +36,4 @@ export default function MapView({ type, toggleSidebar }) {
       </Control>
     </MapContainer>
   );
-}
-
-// <a href="https://www.flaticon.com/free-icons/walk" title="walk icons">
-//   Walk icons created by Freepik - Flaticon
-// </a>;
-
-// <a href="https://www.flaticon.com/free-icons/hiking" title="hiking icons">
-//   Hiking icons created by IYIKON - Flaticon
-// </a>;
-
-{
-  /* <a
-  href="https://www.flaticon.com/free-icons/placeholder"
-  title="placeholder icons"
->
-  Placeholder icons created by Freepik - Flaticon
-</a>;
-
-<a href="https://www.flaticon.com/free-icons/map-pin" title="map pin icons">
-  Map pin icons created by Md Tanvirul Haque - Flaticon
-</a>; */
 }

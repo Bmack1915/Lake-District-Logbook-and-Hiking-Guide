@@ -29,7 +29,6 @@ export default function NavBar() {
               className="mx-4 object-contain p-2"
             />
           </Link>
-          {/* <p className="px-2 pb-2 text-center text-2xl">Wainwright Logbook</p> */}
         </div>
       </div>
       <div className="flex flex-grow justify-center space-x-8 text-xl">

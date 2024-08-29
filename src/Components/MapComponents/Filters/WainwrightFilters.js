@@ -1,17 +1,15 @@
-import Slider from "../../Utilities/Slider";
-import { useSelector } from "react-redux";
-import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
-
-import { Button, Select, SelectItem } from "@nextui-org/react";
-import { maxWHeight, minWHeight } from "../../Utilities/Stats";
-import { useUserWainwrights } from "../../Utilities/useUserWainwrights";
-import { RadioGroup, Radio } from "@nextui-org/react";
-import Search from "./SearchBar";
 import { areas } from "../../Utilities/utilityFuncsStats";
+import { useSelector } from "react-redux";
+import { RadioGroup, Radio } from "@nextui-org/react";
+import { maxWHeight, minWHeight } from "../../Utilities/Stats";
+import { Button, Select, SelectItem } from "@nextui-org/react";
+
+import useWainwrightFilters from "../../Utilities/useWainwrightFilters";
+import Slider from "../../Utilities/Slider";
+import Search from "./SearchBar";
 
 function WainwrightFilters() {
-  const id = useSelector((state) => state.user.id);
-  const { userWainwrights } = useUserWainwrights(id);
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
 
   const {
     selectedArea,

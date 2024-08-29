@@ -5,13 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchWainwrights } from "./redux/wainwrightSlice.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchRoutes } from "./redux/routeSlice.js";
 
 import LoginPage from "./Pages/LoginPage.js";
-import FinderMapPage from "./Pages/FinderMapPage.js";
+import MapPage from "./Pages/MapPage.js";
 import RouteHomePage from "./Pages/RoutePage.js";
 
 import Logbook from "./Pages/LogbookPage.js";
@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchWainwrights());
     dispatch(fetchRoutes());
+    console.log("All data fetched");
   }, [dispatch]);
 
   return (
@@ -58,7 +59,7 @@ function App() {
               path="/routeFinder"
               element={
                 <ProtectedRoute>
-                  <FinderMapPage key="routes" type="routes" />{" "}
+                  <MapPage key="routes" type="routes" />{" "}
                 </ProtectedRoute>
               }
             />
@@ -66,7 +67,7 @@ function App() {
               path="/wainwrightFinder"
               element={
                 <ProtectedRoute>
-                  <FinderMapPage key="wainwrights" type="wainwrights" />
+                  <MapPage key="wainwrights" type="wainwrights" />
                 </ProtectedRoute>
               }
             />

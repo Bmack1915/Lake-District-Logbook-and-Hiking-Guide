@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@nextui-org/react";
 
 import RouteForm from "./RouteForm";
-import ViewRouteLog from "./ViewRouteLog";
+import RouteLog from "./RouteLog";
 
 export default function ViewRouteButton({ userRoute }) {
   const [editOpen, setEditOpen] = useState(false);
@@ -19,12 +19,12 @@ export default function ViewRouteButton({ userRoute }) {
   return (
     <div>
       <Button
-        className="bg-blue text-lg font-thin text-white"
+        className="text-black bg-lightblue text-lg"
         onPress={handleClickOpen}
       >
         Open
       </Button>
-      <ViewRouteLog
+      <RouteLog
         withNavigation={true}
         handleEditClickOpen={handleEditClickOpen}
         setOpen={setOpen}
