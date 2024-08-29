@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { API_BASE_URL } from "../../Utilities/apiConfig";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AlertDialog from "../../materialUI/alertDialog";
+import DeleteDialogWindow from "../DeleteDialogWindow";
 import apiClient from "../../Utilities/axiosInterceptor";
 import { Button } from "@nextui-org/react";
 import { fetchUserData } from "../../../redux/userSlice";
@@ -47,11 +47,11 @@ function DeleteRouteDialog({ userRoute }) {
       <Button
         endContent={<DeleteIcon />}
         onPress={handleDeleteClick}
-        className="font-poppins bg-red text-xl text-white"
+        className="bg-red font-poppins text-xl text-white"
       >
         Delete
       </Button>
-      <AlertDialog
+      <DeleteDialogWindow
         open={dialogOpen}
         title="Confirm Deletion"
         message="Would you like to remove the Wainwrights associated with this walk from your logbook?"

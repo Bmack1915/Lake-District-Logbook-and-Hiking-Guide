@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   Button,
   FormControl,
@@ -10,10 +9,10 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { API_BASE_URL } from "../Utilities/apiConfig";
-import StarRating from "../Utilities/StarRating";
-import { toast } from "react-toastify";
-import apiClient from "../Utilities/axiosInterceptor";
 import { difficulties } from "../Utilities/utilityFuncsStats";
+import { toast } from "react-toastify";
+import StarRating from "../Utilities/StarRating";
+import apiClient from "../Utilities/axiosInterceptor";
 
 export default function RouteLogForm({ route }) {
   const id = useSelector((state) => state.user.id);
@@ -37,7 +36,7 @@ export default function RouteLogForm({ route }) {
   }
 
   function handleSubmit(e) {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
     const newLog = {
       id,

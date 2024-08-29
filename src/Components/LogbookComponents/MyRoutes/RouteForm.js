@@ -19,9 +19,8 @@ import BasicTimeField from "../../Utilities/TimePicker.js";
 import dayjs from "dayjs";
 import useEditRouteLog from "../../Utilities/useEditLog.js";
 import useCreateRouteLog from "../../Utilities/useCreateRouteLog.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-// Apply Bootstrap Dialog Styles
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(3),
@@ -50,9 +49,12 @@ export default function RouteForm({
 
   const { EditRouteLog } = useEditRouteLog();
   const { CreateUserRouteLog } = useCreateRouteLog();
+
   const id = useSelector((state) => state.user.id);
+
   function handleSubmit(e) {
     e.preventDefault();
+    //Prepare log for backend
     const updatedLog = {
       id,
       description,
@@ -62,6 +64,7 @@ export default function RouteForm({
       rating,
     };
 
+    //If editing, get the same route ID from the route attribute of the userRoute
     if (type === "edit") {
       updatedLog.routeID = userRoute.route.routeID;
       try {
@@ -117,7 +120,7 @@ export default function RouteForm({
           backgroundColor: "primary.main",
           color: "white",
           fontWeight: "bold",
-          fontSize: "1.75rem", // Larger title
+          fontSize: "1.75rem",
           fontFamily: "poppins",
         }}
       >
@@ -128,7 +131,6 @@ export default function RouteForm({
       </DialogTitle>
       <DialogContent dividers>
         <ul>
-          {/* Description Field */}
           <li className="mb-4">
             <Typography
               variant="h5"
@@ -148,7 +150,7 @@ export default function RouteForm({
             />
           </li>
 
-          {/* Difficulty Field */}
+          {/* Difficulty */}
           <li className="mb-4 mt-5">
             <Typography
               variant="h5"
@@ -177,7 +179,7 @@ export default function RouteForm({
             </FormControl>
           </li>
 
-          {/* Date Field */}
+          {/* Date */}
           <li className="mb-4 mt-2">
             <Typography
               variant="h5"
@@ -195,7 +197,7 @@ export default function RouteForm({
             />
           </li>
 
-          {/* Duration Field */}
+          {/* Duration */}
           <li className="mb-4 mt-2">
             <Typography
               variant="h5"
@@ -206,7 +208,7 @@ export default function RouteForm({
             <BasicTimeField value={duration} setValue={setDuration} />
           </li>
 
-          {/* Rating Field */}
+          {/* Rating */}
           <li className="mb-1 mt-2">
             <Typography
               variant="h5"
@@ -224,14 +226,14 @@ export default function RouteForm({
       </DialogContent>
       <DialogActions>
         <Button
-          className="font-poppins bg-mint text-xl text-blue"
+          className="bg-mint font-poppins text-xl text-blue"
           onClick={handleClose}
           autoFocus
         >
           Cancel
         </Button>
         <Button
-          className="font-poppins bg-blue text-xl text-white"
+          className="bg-blue font-poppins text-xl text-white"
           type="submit"
           autoFocus
         >

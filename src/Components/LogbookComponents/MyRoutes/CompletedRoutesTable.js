@@ -8,7 +8,6 @@ import {
 } from "@nextui-org/react";
 
 import StarRating from "../../Utilities/StarRating";
-
 import ViewRouteButton from "./ViewRouteButton";
 import formatDate from "../../Utilities/utilityFuncsStats";
 import timeConverter from "../../Utilities/timeConverter";

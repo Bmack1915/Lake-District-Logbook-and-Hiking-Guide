@@ -1,7 +1,7 @@
+import L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import L from "leaflet";
 import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { IoMdSend } from "react-icons/io";
@@ -49,7 +49,6 @@ function RouteMarkers() {
               </div>
               <Button
                 endContent={<IoMdSend />}
-                // className="bg-lightblue"
                 className="text-black bg-lightblue font-bold"
                 onPress={() => handleNavigate(r)}
                 size="sm"

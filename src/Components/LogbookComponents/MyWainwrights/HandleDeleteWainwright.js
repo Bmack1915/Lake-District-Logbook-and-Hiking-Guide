@@ -1,7 +1,7 @@
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import useDeleteWainwright from "../../Utilities/useDeleteWainwright";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AlertDialog from "../../materialUI/alertDialog";
+import DeleteDialogWindow from "../DeleteDialogWindow";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../../redux/userSlice";
@@ -32,11 +32,11 @@ function HandleDeleteWainwright({ setOpen, userWainwright }) {
       <Button
         endContent={<DeleteIcon />}
         onPress={() => setDialogOpen(true)}
-        className="font-poppins bg-red text-xl text-white"
+        className="bg-red font-poppins text-xl text-white"
       >
         Delete
       </Button>
-      <AlertDialog
+      <DeleteDialogWindow
         open={dialogOpen}
         title="Confirm Deletion"
         message="Would you like to remove this Wainwright from your logbook?"

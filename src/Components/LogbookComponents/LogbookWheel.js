@@ -59,7 +59,6 @@ function ProgressWheel({ isLoading }) {
         <PieChart>
           <Pie
             data={data}
-            // dataKey
             cx="50%"
             cy="50%"
             innerRadius={180}

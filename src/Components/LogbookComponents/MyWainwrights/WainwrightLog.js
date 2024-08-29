@@ -28,10 +28,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
+export default function WainrightLog({ userWainwright, open, setOpen }) {
   const [editOpen, setEditOpen] = useState(false);
-  const { rating, description, duration, routeName, difficultyRating } =
-    userWainwright;
+  const { rating, description, duration, difficultyRating } = userWainwright;
   const wainwright = userWainwright.wainwright;
   const date = formatDate(userWainwright.date);
 
@@ -89,7 +88,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          {/* Description Section */}
+          {/* Description  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -106,7 +105,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             )}
           </div>
 
-          {/* Duration Section */}
+          {/* Duration */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -121,7 +120,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             </Typography>
           </div>
 
-          {/* Difficulty Rating Section */}
+          {/* Difficulty  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -138,24 +137,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             )}
           </div>
 
-          {/* Route Section */}
-          {/* <div className="mb-4">
-            <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", mb: 1, fontFamily: "poppins" }}
-            >
-              Route
-            </Typography>
-            {routeName ? (
-              <Typography variant="body1">{routeName}</Typography>
-            ) : (
-              <Typography variant="body2" sx={{ fontStyle: "italic" }}>
-                No Route Specified
-              </Typography>
-            )}
-          </div> */}
-
-          {/* Rating Section */}
+          {/* Rating  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -181,7 +163,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             }}
           >
             <Button
-              className="font-poppins bg-mint px-5 text-xl text-blue"
+              className="bg-mint px-5 font-poppins text-xl text-blue"
               autoFocus
               onClick={handleEditClickOpen}
             >
@@ -194,7 +176,7 @@ export default function ViewWainrightLog({ userWainwright, open, setOpen }) {
             />
 
             <Button
-              className="font-poppins bg-blue text-xl text-white"
+              className="bg-blue font-poppins text-xl text-white"
               autoFocus
               onClick={handleClose}
             >

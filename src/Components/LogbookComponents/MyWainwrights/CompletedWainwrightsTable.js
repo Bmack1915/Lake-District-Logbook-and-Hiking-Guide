@@ -8,7 +8,7 @@ import {
   TableCell,
   Button,
 } from "@nextui-org/react";
-import ViewWainrightLog from "./ViewWainwrightLog";
+import WainrightLog from "./WainwrightLog";
 import formatDate from "../../Utilities/utilityFuncsStats";
 import { useSelector } from "react-redux";
 import Search from "../../MapComponents/Filters/SearchBar";
@@ -20,6 +20,7 @@ function CompletedWainwrightsTable() {
   const [data, setData] = useState(userWainwrights);
   console.log("userwainwrights in table", userWainwrights);
 
+  //Search bar useEffect
   useEffect(() => {
     if (query.length > 1) {
       const filteredWainwrights = userWainwrights.filter((uw) =>
@@ -75,7 +76,7 @@ function CompletedWainwrightsTable() {
                   View Log
                 </Button>
                 {selectedWainwrightID === uw.wainwrightID && (
-                  <ViewWainrightLog
+                  <WainrightLog
                     open={true}
                     setOpen={handleCloseLog}
                     userWainwright={uw}

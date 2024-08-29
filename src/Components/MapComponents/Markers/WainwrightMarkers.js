@@ -12,6 +12,7 @@ function WainwrightMarkers() {
     navigate(`/wainwrightinfo/${w.wainwrightID}`);
   }
 
+  //Custom hook to create markers
   const { data, wainwrightIcons } = useCreateMarkers();
 
   if (data)

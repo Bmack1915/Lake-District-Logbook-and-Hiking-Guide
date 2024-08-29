@@ -14,7 +14,6 @@ import DeleteRouteDialog from "./DeleteRouteDialog";
 import { IoMdSend } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-// Apply Bootstrap Dialog Styles
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(3),
@@ -28,7 +27,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-function ViewRouteLog({
+function RouteLog({
   userRoute,
   open,
   setOpen,
@@ -93,7 +92,7 @@ function ViewRouteLog({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          {/* Description Section */}
+          {/* Description  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -123,7 +122,7 @@ function ViewRouteLog({
               </Typography>
             )}
           </div>
-          {/* Date Completed Section */}
+          {/* Date  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -139,7 +138,7 @@ function ViewRouteLog({
               </Typography>
             )}
           </div>
-          {/* Duration Section */}
+          {/* Duration  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -157,7 +156,7 @@ function ViewRouteLog({
               </Typography>
             )}
           </div>
-          {/* Difficulty Rating Section */}
+          {/* Difficulty  */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -173,7 +172,7 @@ function ViewRouteLog({
               </Typography>
             )}
           </div>
-          {/* Rating Section */}
+          {/* Rating */}
           <div className="mb-4">
             <Typography
               variant="h6"
@@ -193,7 +192,7 @@ function ViewRouteLog({
         <div className="flex justify-center">
           <DialogActions>
             <Button
-              className="font-poppins bg-mint px-5 text-xl text-blue"
+              className="bg-mint px-5 font-poppins text-xl text-blue"
               autoFocus
               onClick={handleEditClickOpen}
             >
@@ -203,7 +202,7 @@ function ViewRouteLog({
             {withNavigation && (
               <Button
                 endContent={<IoMdSend />}
-                className="font-poppins bg-lightblue text-xl"
+                className="bg-lightblue font-poppins text-xl"
                 onPress={handleNavigate}
               >
                 Route Info
@@ -211,7 +210,7 @@ function ViewRouteLog({
             )}
 
             <Button
-              className="font-poppins bg-blue text-xl text-white"
+              className="bg-blue font-poppins text-xl text-white"
               autoFocus
               onClick={handleClose}
             >
@@ -224,4 +223,4 @@ function ViewRouteLog({
   );
 }
 
-export default ViewRouteLog;
+export default RouteLog;

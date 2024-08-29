@@ -1,6 +1,5 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import Slider from "../../Utilities/Slider";
-import { FaMountain, FaHiking, FaClock } from "react-icons/fa";
 
 import {
   maxRascent,
@@ -56,7 +55,6 @@ function RouteFilters() {
       >
         <div className="flex items-center">
           <p className="px-4">Length of Walk</p>
-          {/* <FaHiking size={36} /> */}
         </div>
       </Slider>
 
@@ -69,7 +67,6 @@ function RouteFilters() {
       >
         <div className="flex items-center">
           <p className="px-4">Estimated Time</p>
-          {/* <FaClock size={36} /> */}
         </div>
       </Slider>
 
@@ -82,7 +79,6 @@ function RouteFilters() {
       >
         <div className="flex items-center">
           <p className="px-4">Ascent</p>
-          {/* <FaMountain size={36} /> */}
         </div>
       </Slider>
 
