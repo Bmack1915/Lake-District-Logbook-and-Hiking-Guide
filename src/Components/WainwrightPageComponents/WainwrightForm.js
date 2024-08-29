@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  InputLabel,
   TextField,
   Dialog,
   DialogActions,
@@ -11,19 +10,20 @@ import {
 import { Button } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Loading } from "../Utilities/Loading.js";
+import { getAssociatedWainwrights } from "../Utilities/useAssociatedWainwrights.js";
+import { fetchUserData } from "../../redux/userSlice.js";
+import { difficulties } from "../Utilities/utilityFuncsStats.js";
+
 import formatDate from "../Utilities/utilityFuncsStats.js";
 import StarRating from "../Utilities/StarRating.js";
 import dayjs from "dayjs";
 import BasicTimeField from "../Utilities/TimePicker.js";
 import useAssociatedRoutes from "../Utilities/useAssociatedRoutes.js";
-import { Loading } from "../Utilities/Loading.js";
 import useCreateRouteLog from "../Utilities/useCreateRouteLog.js";
 import useCreateWainwrightLog from "../Utilities/useCreateWainwrightLog.js";
-import { getAssociatedWainwrights } from "../Utilities/useAssociatedWainwrights.js";
 import useEditRouteLog from "../Utilities/useEditLog.js";
-import { difficulties } from "../Utilities/utilityFuncsStats.js";
 import useEditWainwrightLog from "../Utilities/useEditWainwrightLog.js";
-import { fetchUserData } from "../../redux/userSlice.js";
 
 export default function WainwrightForm({
   userWainwright,
@@ -65,8 +65,8 @@ export default function WainwrightForm({
       }
     };
 
-    fetchAssociatedWainwrights(); // Call the async function
-  }, [routeName]); // Trigger when route changes
+    fetchAssociatedWainwrights();
+  }, [routeName]);
 
   useEffect(() => {
     if (type === "edit" && userWainwright) {
@@ -91,7 +91,7 @@ export default function WainwrightForm({
   };
 
   const handleSubmit = async (e) => {
-    // Prepare the base log data
+    //Base log data for the backend
     const logData = {
       id: userId,
       description,
@@ -136,10 +136,6 @@ export default function WainwrightForm({
             }));
 
             wainwrightLogs.map((wL) => CreateUserWainwrightLog(wL, true));
-
-            // for (let wainwrightLog of wainwrightLogs) {
-            //   CreateUserWainwrightLog(wainwrightLog, true);
-            // }
           }
         } else {
           const WainwrightLog = { ...logData, wainwrightID: wainwrightID };
@@ -183,7 +179,7 @@ export default function WainwrightForm({
         }}
       >
         <form onSubmit={handleSubmit}>
-          {/* Description Section */}
+          {/* Description  */}
           <div style={{ width: "400px" }}>
             <Typography
               variant="h5"
@@ -209,7 +205,7 @@ export default function WainwrightForm({
             />
           </div>
 
-          {/* Duration Section */}
+          {/* Duration  */}
           <Typography
             variant="h6"
             sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
@@ -218,7 +214,7 @@ export default function WainwrightForm({
           </Typography>
           <BasicTimeField width={385} value={duration} setValue={setDuration} />
 
-          {/* Difficulty Section */}
+          {/* Difficulty */}
           <Typography
             variant="h6"
             sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
@@ -238,7 +234,7 @@ export default function WainwrightForm({
             ))}
           </select>
 
-          {/* Date Section */}
+          {/* Date  */}
           <Typography
             variant="h6"
             sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
@@ -252,47 +248,7 @@ export default function WainwrightForm({
             className="w-96 rounded border p-2"
           />
 
-          {/* Associated Routes Section (optional) */}
-          {/* {associatedRoutes && type === "create" && (
-            <div>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: "bold",
-                  mt: 3,
-                  mb: 1,
-                  fontFamily: "poppins",
-                }}
-              >
-                Route Taken:
-              </Typography>
-              <select
-                onChange={(e) => {
-                  const selectedValue = e.target.value;
-                  if (selectedValue === "None") {
-                    setRouteName(null);
-                  } else {
-                    const selectedRoute = associatedRoutes.find(
-                      (ar) => ar.routeID === parseInt(selectedValue),
-                    );
-                    setRouteName(selectedRoute);
-                  }
-                }}
-                className="w-96 rounded border p-2"
-                id="route"
-                value={routeName?.routeID || "None"}
-              >
-                <option value="None">None</option>
-                {associatedRoutes.map((ar) => (
-                  <option key={ar.routeID} value={ar.routeID}>
-                    {ar.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )} */}
-
-          {/* Associated Wainwrights Section */}
+          {/* Associated Wainwrights */}
           {associatedWainwrights.length > 0 && type === "create" && (
             <div className="flex flex-col pt-3">
               <Typography variant="body2" sx={{ fontFamily: "poppins", mb: 1 }}>
@@ -306,7 +262,7 @@ export default function WainwrightForm({
             </div>
           )}
 
-          {/* Rating Section */}
+          {/* Rating  */}
           <Typography
             variant="h6"
             sx={{ fontWeight: "bold", mt: 3, mb: 1, fontFamily: "poppins" }}
@@ -319,14 +275,14 @@ export default function WainwrightForm({
       <DialogActions sx={{ backgroundColor: "background.paper" }}>
         <Button
           onPress={() => setFormOpen(false)}
-          className="font-poppins bg-mint text-xl text-blue"
+          className="bg-mint font-poppins text-xl text-blue"
         >
           Cancel
         </Button>
         <Button
           type="submit"
           onPress={handleSubmit}
-          className="font-poppins bg-green text-xl text-white"
+          className="bg-green font-poppins text-xl text-white"
         >
           {type === "edit" ? "Save" : "Create Log"}
         </Button>

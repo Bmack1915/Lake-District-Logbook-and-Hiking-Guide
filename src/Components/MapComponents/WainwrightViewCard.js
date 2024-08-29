@@ -1,14 +1,12 @@
 import React from "react";
 import { Button, Card, CardHeader, Image } from "@nextui-org/react";
 import { useSelector } from "react-redux";
-import { useUserWainwrights } from "../Utilities/useUserWainwrights";
 import { IoMdSend } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 export default function WainwrightViewCard({ wainwright, img }) {
   const navigate = useNavigate();
-  const id = useSelector((state) => state.user.id);
-  const { userWainwrights } = useUserWainwrights(id);
+  const userWainwrights = useSelector((state) => state.user.userWainwrights);
   const wainwrightNames = userWainwrights.map((w) => w.wainwright.name);
   const completed = wainwrightNames.includes(wainwright.name);
 

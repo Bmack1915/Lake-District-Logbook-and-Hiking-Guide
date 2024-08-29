@@ -11,15 +11,13 @@ function useEditRouteLog() {
   const dispatch = useDispatch();
 
   async function EditRouteLog(log) {
-    setIsLoading(true); // Set loading to true before the request
+    setIsLoading(true);
     const routeID = log.routeID;
     try {
       const response = await apiClient.put(
         `${API_BASE_URL}userroutes/${id}?routeID=${routeID}`,
         log,
       );
-
-      console.log("edit response", response);
 
       if (
         response.status === 200 ||
@@ -35,7 +33,7 @@ function useEditRouteLog() {
       console.error("Error updating log:", error);
       toast.error("An error occurred while updating the log.");
     } finally {
-      setIsLoading(false); // Set loading to false after the request completes
+      setIsLoading(false);
     }
   }
 

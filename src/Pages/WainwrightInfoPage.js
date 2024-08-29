@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useWainwright } from "../Components/Utilities/useWainwright";
 import { Loading } from "../Components/Utilities/Loading";
 
 import WainwrightMap from "../Components/WainwrightPageComponents/WainwrightMap";

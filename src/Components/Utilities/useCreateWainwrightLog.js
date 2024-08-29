@@ -13,7 +13,7 @@ function useCreateWainwrightLog() {
   let isSubmitting = false;
 
   async function CreateUserWainwrightLog(log, isRouteLogging = false) {
-    if (isSubmitting) return; // Prevent duplicate submissions
+    if (isSubmitting) return;
     isSubmitting = true;
     console.log(log);
     // try {
@@ -29,23 +29,9 @@ function useCreateWainwrightLog() {
     ) {
       toast.success("Wainwright log successfully created!");
     }
-    // } catch (error) {
-    // if (error.response && error.response.status === 409) {
-    //   console.log("Error from API", error);
-    //   if (isRouteLogging) {
-    //     console.log(
-    //       "Wainwright log already exists. Continuing route logging...",
-    //     );
-    //   }
-    // } else {
-    //   console.error("Error creating log:", error);
-    //   toast.error("An error occurred while creating the log.");
-    // }
-    // } finally {
     await dispatch(fetchUserData(id));
     isSubmitting = false;
-    setIsLoading(false); // Set loading to false after the request completes
-    // }
+    setIsLoading(false);
   }
 
   return { CreateUserWainwrightLog, isLoading };

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
 import decodeBase64 from "./Decode64";
 import apiClient from "./axiosInterceptor";
