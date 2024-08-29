@@ -29,7 +29,11 @@ export default function CompletedRoutesTable({ userRoutes }) {
 
   return (
     <div>
-      <Table aria-label="Completed Routes Table" isStriped>
+      <Table
+        className="px-10 pb-5"
+        aria-label="Completed Routes Table"
+        isStriped
+      >
         <TableHeader>
           {columns.map((col, index) => (
             <TableColumn className="text-2xl font-bold" key={index}>

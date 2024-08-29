@@ -1,7 +1,6 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginAndFetchUserInfo, register } from "../redux/userSlice";
-import { Loading } from "../Components/Utilities/Loading";
 import { useState } from "react";
 import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
@@ -179,13 +178,6 @@ export default function LoginPage() {
               >
                 Password
               </label>
-              {/* <div className="text-sm">
-                <Link to="/">
-                  <div className="font-semibold text-blue hover:text-lightblue">
-                    {!isRegistering && "Forgot Password?"}
-                  </div>
-                </Link>
-              </div> */}
             </div>
             <div className="mt-2">
               <input
