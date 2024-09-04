@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
 import handleHomeNavigate from "./handleHomeNavigate";

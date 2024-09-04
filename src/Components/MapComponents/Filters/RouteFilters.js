@@ -62,7 +62,7 @@ function RouteFilters() {
         currentValue={time}
         setCurrentValue={setTime}
         unit="hrs"
-        min={minRouteTime - 1}
+        min={minRouteTime}
         max={maxRouteTime}
       >
         <div className="flex items-center">
@@ -78,7 +78,9 @@ function RouteFilters() {
         max={maxRascent}
       >
         <div className="flex items-center">
-          <p className="px-4">Ascent</p>
+          <p className="overflow-auto px-4 text-center">
+            Total Elevation Climbed
+          </p>
         </div>
       </Slider>
 

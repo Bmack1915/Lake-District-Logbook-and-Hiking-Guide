@@ -23,8 +23,8 @@ function useCreateMarkers() {
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
 
   const userId = useSelector((state) => state.user.id);
+
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
-  // const { userWainwrights } = useUserWainwrights(userId);
 
   //By default show all wainwright markers
   const [data, setData] = useState(wainwrights);

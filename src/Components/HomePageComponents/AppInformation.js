@@ -1,8 +1,10 @@
 import { Divider } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function AppInformation() {
+  const navigate = useNavigate();
   const token = useSelector((state) => state.user.token);
   const features = [
     {
@@ -23,6 +25,9 @@ function AppInformation() {
     },
   ];
 
+  function handleNavigate() {
+    navigate("/login");
+  }
   return (
     <div>
       <div className="flex flex-col items-center justify-center bg-white bg-opacity-75">
@@ -41,10 +46,16 @@ function AppInformation() {
         <div className="mt-10 flex space-x-4">
           {!token.length > 0 && (
             <div className="flex">
-              <Button className="mx-5 rounded-lg bg-green px-6 py-3 text-white">
+              <Button
+                onPress={handleNavigate}
+                className="mx-5 rounded-lg bg-green px-6 py-3 text-white"
+              >
                 Login
               </Button>
-              <Button className="rounded-lg bg-blue px-6 py-3 text-white">
+              <Button
+                onPress={handleNavigate}
+                className="rounded-lg bg-blue px-6 py-3 text-white"
+              >
                 Register
               </Button>
             </div>

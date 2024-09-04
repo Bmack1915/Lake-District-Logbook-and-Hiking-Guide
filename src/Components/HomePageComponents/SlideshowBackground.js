@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense, useMemo } from "react";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
@@ -10,30 +10,33 @@ export default function SlideshowBackground({
   opacity,
 }) {
   const slideshowRef = useRef(null);
-  const images = [
-    `${link}ambleside.jpg`,
-    `${link}lakewithstumps.jpg`,
-    `${link}buttermere.jpg`,
-    `${link}buttermerelake.jpg`,
-    `${link}coniston.jpg`,
-    `${link}duddon.jpg`,
-    `${link}coniston2.jpg`,
-    `${link}ennerdale.jpg`,
-    `${link}grasmere.jpg`,
-    `${link}gummershow.jpg`,
-    `${link}haweswater.jpg`,
-    `${link}lakenight.jpg`,
-    `${link}langdale.jpg`,
-    `${link}langdale2.jpg`,
-    `${link}keswick.jpg`,
-    `${link}langdaleWinter.jpg`,
-    `${link}sheep2.jpg`,
-    `${link}loughrigg.jpg`,
-    `${link}loughrigg2.jpg`,
-    `${link}rydal.jpg`,
-    `${link}langdaleWinter.jpg`,
-    `${link}sheep.jpg`,
-  ];
+  const images = useMemo(
+    () => [
+      `${link}ambleside.jpg`,
+      // `${link}lakewithstumps.jpg`,
+      `${link}buttermere.jpg`,
+      `${link}buttermerelake.jpg`,
+      `${link}coniston.jpg`,
+      `${link}duddon.jpg`,
+      `${link}coniston2.jpg`,
+      `${link}ennerdale.jpg`,
+      `${link}grasmere.jpg`,
+      `${link}gummershow.jpg`,
+      `${link}haweswater.jpg`,
+      `${link}lakenight.jpg`,
+      `${link}langdale.jpg`,
+      `${link}langdale2.jpg`,
+      `${link}keswick.jpg`,
+      `${link}langdaleWinter.jpg`,
+      `${link}sheep2.jpg`,
+      `${link}loughrigg.jpg`,
+      `${link}loughrigg2.jpg`,
+      `${link}rydal.jpg`,
+      `${link}langdaleWinter.jpg`,
+      `${link}sheep.jpg`,
+    ],
+    [],
+  );
 
   useEffect(() => {
     if (slideshowRef.current) {
@@ -45,7 +48,7 @@ export default function SlideshowBackground({
     <div>
       <Fade
         ref={slideshowRef}
-        duration={5000}
+        duration={7000}
         indicators={false}
         autoplay={true}
         infinite={true}
@@ -53,38 +56,40 @@ export default function SlideshowBackground({
         defaultIndex={currentSlide}
       >
         {images.map((image, index) => (
-          <div className="each-slide" key={index}>
-            <div
-              style={{
-                position: "relative",
-                height: "90vh",
-                width: "100%",
-              }}
-            >
-              <div
-                style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-
-                  opacity: opacity,
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: -1,
-                }}
-              />
-
+          <div>
+            <div className="each-slide" key={index}>
               <div
                 style={{
                   position: "relative",
-                  zIndex: 1,
-                  height: "100%",
+                  height: "90vh",
+                  width: "100%",
                 }}
               >
-                {children}
+                <div
+                  style={{
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+
+                    opacity: opacity,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: -1,
+                  }}
+                />
+
+                <div
+                  style={{
+                    position: "relative",
+                    zIndex: 1,
+                    height: "100%",
+                  }}
+                >
+                  {children}
+                </div>
               </div>
             </div>
           </div>

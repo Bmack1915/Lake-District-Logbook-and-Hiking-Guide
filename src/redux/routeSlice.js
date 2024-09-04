@@ -5,7 +5,6 @@ import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 const initialState = {
   routes: [],
   filteredRoutes: [],
-  selectedRoute: null,
 };
 
 const routeSlice = createSlice({
