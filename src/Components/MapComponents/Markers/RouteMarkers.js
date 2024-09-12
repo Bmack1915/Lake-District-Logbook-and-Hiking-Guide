@@ -7,6 +7,7 @@ import { Button } from "@nextui-org/react";
 import { IoMdSend } from "react-icons/io";
 import timeConverter from "../../Utilities/timeConverter";
 
+//Route Icon creates using leaflet maps documentation
 const RouteIcon = new L.Icon({
   iconUrl: "assets/pins/pinEasternUnComplete.png",
   iconSize: [30, 35],
@@ -20,6 +21,7 @@ function RouteMarkers() {
   const routes = useSelector((state) => state.route.routes);
   const [data, setData] = useState(routes);
 
+  //If no filters applied, all route markers are shown. if filters applied, set the filtered data from the redux store as the markers
   useEffect(() => {
     if (filteredRoutes.length > 0) {
       setData(filteredRoutes);
@@ -28,12 +30,14 @@ function RouteMarkers() {
     }
   }, [filteredRoutes, routes]);
 
+  //Each marker navigates the user to the route page for that Route
   function handleNavigate(r) {
     navigate(`/routeinfo/${r.routeID}`);
   }
 
   return (
     <div>
+      {/* Create marker object for the array of route data passed, whether filtered or not */}
       {data?.length > 0 &&
         data.map((r) => (
           <Marker
@@ -41,6 +45,7 @@ function RouteMarkers() {
             position={[r.latitude, r.longitude]}
             icon={RouteIcon}
           >
+            {/* More info about the Route */}
             <Popup>
               <div className="">
                 <b>{r.name}</b>

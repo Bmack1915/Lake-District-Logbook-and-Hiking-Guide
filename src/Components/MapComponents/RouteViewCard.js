@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IoMdSend } from "react-icons/io";
 import timeConverter from "../Utilities/timeConverter";
 
+//Card to display information for the ListView component, Suggestions.
 export default function RouteViewCard({ route, img }) {
   const navigate = useNavigate();
 

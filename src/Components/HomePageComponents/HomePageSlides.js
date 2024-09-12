@@ -25,6 +25,7 @@ export default function HomepageSlides({ setCurrentSlide }) {
     setCurrentSlide(next);
   }
 
+  //Slideshow of text, that can be manually fitlered through.
   return (
     <div>
       <Fade

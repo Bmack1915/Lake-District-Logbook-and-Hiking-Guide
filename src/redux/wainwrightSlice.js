@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 
 const initialState = {
   wainwrights: [],
@@ -26,7 +25,9 @@ export const { setWainwrights, setFilteredWainwrights } =
 export function fetchWainwrights() {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`${API_BASE_URL}Wainwrights`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}Wainwrights`,
+      );
       const data = await res.data.$values;
       dispatch(setWainwrights(data));
     } catch (error) {

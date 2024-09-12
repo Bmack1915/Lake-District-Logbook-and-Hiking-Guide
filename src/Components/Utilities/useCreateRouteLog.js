@@ -1,6 +1,5 @@
 import { useState } from "react";
 import apiClient from "./axiosInterceptor";
-import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../redux/userSlice";
@@ -15,7 +14,7 @@ function useCreateRouteLog() {
     setIsLoading(true);
     try {
       const response = await apiClient.post(
-        `${API_BASE_URL}userroutes/`,
+        `${process.env.REACT_APP_API_BASE_URL}userroutes/`,
         JSON.stringify(log),
         {
           headers: {

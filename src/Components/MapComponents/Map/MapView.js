@@ -17,6 +17,7 @@ export default function MapView({ type, toggleSidebar }) {
     markersRef.current = [];
   }, [type]);
 
+  //Creation of map instance
   return (
     <MapContainer
       center={[54.5522, -3.1038704]}
@@ -29,6 +30,7 @@ export default function MapView({ type, toggleSidebar }) {
       {/* Reuse map, just apply different markers */}
       {type === "wainwrights" && <WainwrightMarkers />}
       {type === "routes" && <RouteMarkers />}
+      {/* Filter button on the map that opens and closes the filter sidebar */}
       <Control prepend position="topleft">
         <Button className="bg-white" onPress={toggleSidebar}>
           <FiFilter size={24} />

@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+//Weather API component using openweathermapAPI
 function WeatherBar({ route }) {
   const [data, setData] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${route.latitude}&lon=${route.longitude}&units=metric&appid=c8444dc095cbd98d6d1f799a6e88bf83`;
 
+  //Get weather everytime different route is passed to the URL
   useEffect(() => {
     async function getWeather() {
       try {
@@ -21,10 +23,12 @@ function WeatherBar({ route }) {
     getWeather();
   }, [url]);
 
+  //Default data comes with multiple timepoints a day, we just want an average from midday
   const filteredData = data.list
     ? data.list.filter((timePoint) => timePoint.dt_txt.includes("12:00:00"))
     : [];
 
+  //Convert long dateString to "05 Feb" for example
   const formattedDateData = filteredData.map((timePoint) => {
     const date = new Date(timePoint.dt_txt);
     const formattedDate = date

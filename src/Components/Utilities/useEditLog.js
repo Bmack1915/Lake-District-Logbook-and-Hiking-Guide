@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import apiClient from "./axiosInterceptor";
-import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
 import { fetchUserData } from "../../redux/userSlice";
 
@@ -15,7 +14,7 @@ function useEditRouteLog() {
     const routeID = log.routeID;
     try {
       const response = await apiClient.put(
-        `${API_BASE_URL}userroutes/${id}?routeID=${routeID}`,
+        `${process.env.REACT_APP_API_BASE_URL}userroutes/${id}?routeID=${routeID}`,
         log,
       );
 

@@ -7,12 +7,13 @@ import L from "leaflet";
 function GPXLayer({ url }) {
   const map = useMap();
 
+  //Add GPX Layer to map using Leaflet functionality
   useEffect(() => {
     const gpx = new L.GPX(url, {
       async: true,
       marker_options: {
-        startIconUrl: "/assets/pins/greenPin.png", // Make sure this path is correct
-        endIconUrl: "/assets/pins/redPin.png", // Make sure this path is correct
+        startIconUrl: "/assets/pins/greenPin.png",
+        endIconUrl: "/assets/pins/redPin.png",
         shadowUrl: null,
       },
     })

@@ -3,6 +3,7 @@ import RouteViewCard from "../MapComponents/RouteViewCard";
 import { lakeDistrictImages } from "../Utilities/WainwrightImages";
 
 function AssociatedRoutes({ wainwright, associatedRoutes }) {
+  //Function to get image at the index of its positiion in the array so it can be used in a .map function
   function getImages(index) {
     // modulo operation to cycle through images
     return lakeDistrictImages[index % lakeDistrictImages.length];

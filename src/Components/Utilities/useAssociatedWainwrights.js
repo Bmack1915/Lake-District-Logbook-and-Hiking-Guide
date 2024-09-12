@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import apiClient from "./axiosInterceptor";
-import { API_BASE_URL } from "./apiConfig";
 
 export async function getAssociatedWainwrights(routeID) {
   if (!routeID) return [];
 
   try {
     const res = await apiClient.get(
-      `${API_BASE_URL}WainwrightRoutes/wainwrights/fromRoute/${routeID}`,
+      `${process.env.REACT_APP_API_BASE_URL}WainwrightRoutes/wainwrights/fromRoute/${routeID}`,
     );
     return res.data.$values || [];
   } catch (error) {

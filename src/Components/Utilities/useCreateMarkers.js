@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import L from "leaflet";
 
+//Completed and uncompleted markers are different. This function creates them based on if the user has completed it or not.
 function createWainwrightIcon(area, completed) {
+  // Each area is a different colour icon, completed ones are filled in.
   const iconUrl = completed
     ? `assets/pins/pin${area}Complete.png`
     : `assets/pins/pin${area}Uncomplete.png
@@ -21,9 +23,6 @@ function useCreateMarkers() {
     (state) => state.wainwright.filteredWainwrights,
   );
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
-
-  const userId = useSelector((state) => state.user.id);
-
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
 
   //By default show all wainwright markers

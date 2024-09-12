@@ -47,6 +47,7 @@ export default function RouteForm({
   const [duration, setDuration] = useState(dayjs().hour(0).minute(0));
   const [rating, setRating] = useState(5);
 
+  //Custom hooks to either edit or create a route depending on the use of this reusable form
   const { EditRouteLog } = useEditRouteLog();
   const { CreateUserRouteLog } = useCreateRouteLog();
 
@@ -84,6 +85,8 @@ export default function RouteForm({
     setFormOpen(false);
   }
 
+  //If editing a form (log already exists), users are shown the information of the existing log, if they're creating a new log,
+  //the information is blank
   useEffect(() => {
     if (type === "edit" && userRoute) {
       setDescription(userRoute?.description || "");

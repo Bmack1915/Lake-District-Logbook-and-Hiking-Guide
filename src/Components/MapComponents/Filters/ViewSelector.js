@@ -1,7 +1,9 @@
 import React from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 
+//Provides the Map View and List View tabs to filter between the two
 export default function ViewSelector({ viewType, setViewType }) {
+  //Clicking on a tab sets the view type, which can be used to conditionally render other components
   function handleTabChange(key) {
     setViewType(key);
   }

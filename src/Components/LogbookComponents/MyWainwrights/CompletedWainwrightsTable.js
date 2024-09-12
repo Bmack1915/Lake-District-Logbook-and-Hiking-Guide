@@ -21,6 +21,7 @@ function CompletedWainwrightsTable() {
 
   //Search bar useEffect
   useEffect(() => {
+    //If a query exists, and matches any names of Wainwrights, set the data State to the search results.
     if (query.length > 1) {
       const filteredWainwrights = userWainwrights.filter((uw) =>
         uw.wainwright.name.toLowerCase().includes(query.toLowerCase()),

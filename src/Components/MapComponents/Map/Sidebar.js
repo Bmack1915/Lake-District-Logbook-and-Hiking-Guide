@@ -1,7 +1,7 @@
 import React from "react";
 import RouteFilters from "../Filters/RouteFilters";
 import WainwrightFilters from "../Filters/WainwrightFilters";
-//Sidebar that displays the appropraite filters depending on the type passed
+//Sidebar that displays the appropriate filters depending on the type passed
 function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
   return (
     <div>
@@ -41,6 +41,7 @@ function Sidebar({ toggleSidebar, isSidebarOpen, type }) {
           </svg>
           <span className="sr-only">Close menu</span>
         </button>
+        {/* Filters for routes or Wainwrights applied */}
         {type === "routes" && <RouteFilters />}
         {type === "wainwrights" && <WainwrightFilters />}
       </div>

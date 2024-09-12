@@ -27,6 +27,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+//Component for simply viewing an existing log, tied ot editing and deleting functionality.
 function RouteLog({
   userRoute,
   open,

@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { API_BASE_URL } from "../../Utilities/apiConfig";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteDialogWindow from "../DeleteDialogWindow";
@@ -7,6 +6,7 @@ import apiClient from "../../Utilities/axiosInterceptor";
 import { Button } from "@nextui-org/react";
 import { fetchUserData } from "../../../redux/userSlice";
 
+//Component for confirming the deletion of a Route log
 function DeleteRouteDialog({ userRoute }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.id);
@@ -18,10 +18,12 @@ function DeleteRouteDialog({ userRoute }) {
     setDialogOpen(true);
   };
 
+  //Users can choose to delete the associated Wainwrights from their logbook when deleting their route.
+  //Boolean used to call different endpoints that delete the assosicated Wainwrights or not
   async function handleConfirm(bool) {
     const url = bool
-      ? `${API_BASE_URL}userroutes/deleteWainwrightsWithRoute/${userId}?routeID=${userRoute.route.routeID}`
-      : `${API_BASE_URL}userroutes/${userId}?routeID=${userRoute.route.routeID}`;
+      ? `${process.env.REACT_APP_API_BASE_URL}userroutes/deleteWainwrightsWithRoute/${userId}?routeID=${userRoute.route.routeID}`
+      : `${process.env.REACT_APP_API_BASE_URL}userroutes/${userId}?routeID=${userRoute.route.routeID}`;
 
     try {
       await apiClient.delete(url);

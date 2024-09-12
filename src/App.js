@@ -27,6 +27,7 @@ const HomePage = React.lazy(() => import("./Pages/HomePage.js"));
 function App() {
   const dispatch = useDispatch();
 
+  //Fetch all Wainwright and Route Data upon application mount
   useEffect(() => {
     dispatch(fetchWainwrights());
     dispatch(fetchRoutes());
@@ -88,6 +89,7 @@ function App() {
           </Routes>
         </Suspense>
       </Router>
+      {/* Custom implementation of toast notifations */}
       <ToastContainer
         position="top-right"
         autoClose={5000}

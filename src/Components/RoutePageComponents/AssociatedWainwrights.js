@@ -2,11 +2,13 @@ import { Loading } from "../Utilities/Loading";
 import { FaArrowsAltH } from "react-icons/fa";
 import useAssociatedWainwrights from "../Utilities/useAssociatedWainwrights";
 
+//Component to show the Wainwrights a route summits
 function AssociatedWainwrights({ route }) {
   const { associatedWainwrights, isLoading } = useAssociatedWainwrights(route);
 
   if (isLoading) return <Loading />;
 
+  //If no assosicated wainwrights return null
   if (associatedWainwrights.length < 1) return null;
 
   return (

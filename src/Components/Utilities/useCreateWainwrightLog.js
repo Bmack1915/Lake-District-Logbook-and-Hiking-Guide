@@ -1,6 +1,5 @@
 import { useState } from "react";
 import apiClient from "./axiosInterceptor";
-import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../redux/userSlice";
@@ -16,7 +15,7 @@ function useCreateWainwrightLog() {
     if (isSubmitting) return;
     isSubmitting = true;
     const response = await apiClient.post(
-      `${API_BASE_URL}userwainwrights/`,
+      `${process.env.REACT_APP_API_BASE_URL}userwainwrights/`,
       log,
     );
 

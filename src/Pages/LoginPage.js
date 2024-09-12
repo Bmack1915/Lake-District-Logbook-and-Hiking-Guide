@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoginAndFetchUserInfo, register } from "../redux/userSlice";
 import { useState } from "react";
-import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -78,7 +77,7 @@ export default function LoginPage() {
   async function RegisterUser(newUser) {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}account/register`,
+        `${process.env.REACT_APP_API_BASE_URL}account/register`,
         newUser,
       );
       if (response.status === 200) {

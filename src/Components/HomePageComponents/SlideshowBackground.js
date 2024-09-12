@@ -10,10 +10,11 @@ export default function SlideshowBackground({
   opacity,
 }) {
   const slideshowRef = useRef(null);
+
+  //Link to all images referenced here so they can be indexed to change the slideshow
   const images = useMemo(
     () => [
       `${link}ambleside.jpg`,
-      // `${link}lakewithstumps.jpg`,
       `${link}buttermere.jpg`,
       `${link}buttermerelake.jpg`,
       `${link}coniston.jpg`,
@@ -44,6 +45,7 @@ export default function SlideshowBackground({
     }
   }, [currentSlide]);
 
+  //Slideshow component that changes image every 7 seconds. Can be fully customised
   return (
     <div>
       <Fade

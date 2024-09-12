@@ -3,7 +3,9 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
 import { Loading } from "../Utilities/Loading";
 import { useSelector } from "react-redux";
 
+//Logbook progress wheel from ReCharts
 function ProgressWheel({ isLoading }) {
+  //Fetch userWainwrights from store
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
   if (isLoading) {
     return (
@@ -18,7 +20,7 @@ function ProgressWheel({ isLoading }) {
     ? ((userWainwrights.length / total) * 100).toFixed()
     : 0;
 
-  // Create the data array with the completed count
+  // Create the data array with the completed count of Wainwrights
   const data = [
     { name: "Completed", value: userWainwrights.length, fill: "#00C47F" },
     {
@@ -53,6 +55,7 @@ function ProgressWheel({ isLoading }) {
     );
   };
 
+  //Customisable PieChart Display from recharts
   return (
     <div className="h-[70vh] w-[100vh]">
       <ResponsiveContainer width="100%" height="100%">

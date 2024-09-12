@@ -1,6 +1,6 @@
 import { LayersControl, TileLayer } from "react-leaflet";
 const { BaseLayer } = LayersControl;
-//Tile packages to offer use different map types
+//Tile packages to offer use different map types, i.e. topographic, satellite
 function MapBaseLayer() {
   return (
     <div>

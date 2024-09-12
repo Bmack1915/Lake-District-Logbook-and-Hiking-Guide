@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { API_BASE_URL } from "./apiConfig";
 import apiClient from "./axiosInterceptor";
 import { toast } from "react-toastify";
 
@@ -9,7 +8,7 @@ function useDeleteWainwright(wainwrightID) {
   async function handleRemoveWainwright() {
     try {
       await apiClient.delete(
-        `${API_BASE_URL}userwainwrights/${userId}/${wainwrightID}`,
+        `${process.env.REACT_APP_API_BASE_URL}userwainwrights/${userId}/${wainwrightID}`,
       );
       toast.success("Wainwright log successfully removed!");
     } catch (err) {
