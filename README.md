@@ -1,4 +1,4 @@
-## Wainwright Logbook + Hiking Guide
+## Wainwright Logbook + Hiking Guide (See GIFs below)
 
 This application is a personalised logbook for tracking your progress of the Wainwright Challenge (All 214 Wainwrights/Mountains in the Lake District, Cumbria, UK). This application allows users to record their ascents with personal touches such as difficulty and visualise their progress in an interactive map based UI. Additionally users can search for routes based on their preferences, such as difficulty, length, area, total ascent, again in an interactive map UI. 
 
