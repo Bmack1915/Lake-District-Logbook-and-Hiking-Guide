@@ -21,12 +21,17 @@ This project has not been deployed, but a video demonstration can be found here 
 
 ## Screenshots
 
+![ScreenRecording2024-09-12at09 09 39-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/de9ed658-e0d4-4754-bff5-29dcb9ff8061)
 
+![ScreenRecording2024-09-12at09 11 06-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/990e3eb2-983a-4e04-8769-adc2860856a2)
 
-![ScreenRecording2024-09-12at08 55 54-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/bca2b361-6820-442e-93e9-75008ace3330)
+![ScreenRecording2024-09-12at09 11 38-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/12b650f8-7a29-46e7-b126-fb1a0868edf0)
 
+![ScreenRecording2024-09-12at09 12 12-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/f141c089-a37a-47c8-871e-a4cd3271ca88)
 
-![ScreenRecording2024-09-12at08 57 06-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/eb5c7e3d-b6be-4623-ad82-454affc34894)
+![ScreenRecording2024-09-12at09 12 55-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/393f66b8-3cff-4273-be83-53243aeb9c38)
 
+![ScreenRecording2024-09-12at09 13 33-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/72990db1-3d09-4da3-9caf-20f3030c2714)
 
-![ScreenRecording2024-09-11at18 23 47-ezgif com-crop](https://github.com/user-attachments/assets/336f9e3b-23c1-4e50-b78c-94198932db52)
+![ScreenRecording2024-09-12at09 13 58-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/17ac773f-8c9c-4d7e-8d81-91584b4dcf04)
+
