@@ -16,6 +16,8 @@ export default function ViewRouteButton({ userRoute }) {
     setOpen(true);
   };
 
+  //View Route button, that offers the user the Edit dialog option to trigger the dialog component to open
+
   return (
     <div>
       <Button

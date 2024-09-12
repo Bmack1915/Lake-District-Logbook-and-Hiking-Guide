@@ -25,6 +25,7 @@ function RouteInfo({ route, gpxFileUrl }) {
     setEditOpen(true);
   }
 
+  //Check if the user has completed the route
   useEffect(() => {
     if (route && userRoutes.length > 0) {
       const matchingUserRoute = userRoutes.find(

@@ -15,6 +15,7 @@ import { difficulties } from "../../Utilities/utilityFuncsStats";
 
 //Purpose of this component is to give the user filters, that is then used to update the state of the filteredRoutes via the setFilteredRoutes
 function RouteFilters() {
+  //Handling of updating the filter results handled in a custom hook
   const {
     currentAscent,
     setCurrentAscent,

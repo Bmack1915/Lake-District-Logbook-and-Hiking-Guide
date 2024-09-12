@@ -8,6 +8,7 @@ import { Button } from "@nextui-org/react";
 function WainwrightMarkers() {
   const navigate = useNavigate();
 
+  //Each marker allows user to navigate to a page about the Wainwright selected
   function handleNavigate(w) {
     navigate(`/wainwrightinfo/${w.wainwrightID}`);
   }

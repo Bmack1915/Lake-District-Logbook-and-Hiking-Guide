@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { maxWHeight, minWHeight } from "./Stats";
 import { setFilteredWainwrights } from "../../redux/wainwrightSlice";
 
+//Component that filters a Wainwrights array based on the UI filters applied.
 function useWainwrightFilters(userWainwrights) {
   const dispatch = useDispatch();
   const wainwrights = useSelector((state) => state.wainwright.wainwrights);
@@ -15,6 +16,7 @@ function useWainwrightFilters(userWainwrights) {
     function checkFilter() {
       let filtered = Array.isArray(wainwrights) ? wainwrights : [];
 
+      //If the user has selected completed radio button, the filtered array becomes their completed Wainwrights list
       if (filterStatus === "completed") {
         filtered = filtered.filter((w) =>
           userWainwrights.map((uw) => uw.wainwright.name).includes(w.name),
@@ -40,6 +42,7 @@ function useWainwrightFilters(userWainwrights) {
         }
       }
 
+      //Search bar implementation
       if (query.length > 0) {
         filtered = filtered.filter((w) =>
           w.name.toLowerCase().includes(query.toLocaleLowerCase()),
@@ -54,6 +57,7 @@ function useWainwrightFilters(userWainwrights) {
         filtered = filtered.filter((w) => w.area === selectedArea);
       }
 
+      //Update the filtered Wainwrights data globally
       dispatch(setFilteredWainwrights(filtered));
     }
 

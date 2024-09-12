@@ -9,8 +9,10 @@ import Slider from "../../Utilities/Slider";
 import Search from "./SearchBar";
 
 function WainwrightFilters() {
+  //Fetch userWainwrights from store
   const userWainwrights = useSelector((state) => state.user.userWainwrights);
 
+  //Custom hook for filtering the wainwrights
   const {
     selectedArea,
     setSelectedArea,
@@ -27,6 +29,7 @@ function WainwrightFilters() {
     <div className="flex flex-col items-center justify-between space-y-10 pt-5">
       <Search placeholder="Wainwrights" query={query} setQuery={setQuery} />
       <div className="mb-8 flex items-center justify-center">
+        {/* Buttons to toggle the map for "all","completed" and "uncompleted Wainwrights" */}
         <RadioGroup
           value={filterStatus}
           onValueChange={setFilterStatus}

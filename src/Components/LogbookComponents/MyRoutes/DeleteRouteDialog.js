@@ -6,6 +6,7 @@ import apiClient from "../../Utilities/axiosInterceptor";
 import { Button } from "@nextui-org/react";
 import { fetchUserData } from "../../../redux/userSlice";
 
+//Component for confirming the deletion of a Route log
 function DeleteRouteDialog({ userRoute }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.id);
@@ -17,6 +18,8 @@ function DeleteRouteDialog({ userRoute }) {
     setDialogOpen(true);
   };
 
+  //Users can choose to delete the associated Wainwrights from their logbook when deleting their route.
+  //Boolean used to call different endpoints that delete the assosicated Wainwrights or not
   async function handleConfirm(bool) {
     const url = bool
       ? `${process.env.REACT_APP_API_BASE_URL}userroutes/deleteWainwrightsWithRoute/${userId}?routeID=${userRoute.route.routeID}`

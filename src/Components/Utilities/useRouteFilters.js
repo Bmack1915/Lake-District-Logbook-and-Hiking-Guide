@@ -10,9 +10,13 @@ import {
 } from "./Stats";
 import { setFilteredRoutes } from "../../redux/routeSlice";
 
+//Custom hook for displaying the routes that correspond to the filters.
 function useRouteFilters() {
   const dispatch = useDispatch();
   const routes = useSelector((state) => state.route.routes);
+
+  //As sliders are used, giving two values for upper and lower limits of ascent and distance,
+  //the state is is a tuple that specifies the upper and lower limits of the search criteria.
   const [currentAscent, setCurrentAscent] = useState([minRascent, maxRascent]);
   const [currentDistance, setCurrentDistance] = useState([
     minRdistance,
@@ -22,10 +26,12 @@ function useRouteFilters() {
   const [time, setTime] = useState([minRouteTime, maxRouteTime]);
   const [query, setQuery] = useState("");
 
+  //Everytime a filter is updated, re-filter the original dataset of routes to get the results
   useEffect(() => {
     function checkFilter() {
       let filtered = Array.isArray(routes) ? routes : [];
 
+      //Get the routes that fall between the sliders upper and lower bounds
       filtered = filtered.filter(
         (r) => r.ascentM >= currentAscent[0] && r.ascentM <= currentAscent[1],
       );
