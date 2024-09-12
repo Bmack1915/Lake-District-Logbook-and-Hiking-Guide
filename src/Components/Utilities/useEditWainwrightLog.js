@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import apiClient from "./axiosInterceptor";
-import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
 
 function useEditWainwrightLog(wainwrightID) {
@@ -12,7 +11,7 @@ function useEditWainwrightLog(wainwrightID) {
     setIsLoading(true);
     try {
       const response = await apiClient.put(
-        `${API_BASE_URL}userwainwrights/${id}?wainwrightID=${wainwrightID}`,
+        `${process.env.REACT_APP_API_BASE_URL}userwainwrights/${id}?wainwrightID=${wainwrightID}`,
         log,
       );
       if (

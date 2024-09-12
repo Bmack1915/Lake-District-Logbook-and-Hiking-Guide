@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "./apiConfig";
 import apiClient from "./axiosInterceptor";
 
 export async function fetchWainwrightData(id) {
@@ -7,7 +6,9 @@ export async function fetchWainwrightData(id) {
     return;
   }
   try {
-    const res = await apiClient.get(`${API_BASE_URL}wainwrights/${id}`);
+    const res = await apiClient.get(
+      `${process.env.REACT_APP_API_BASE_URL}wainwrights/${id}`,
+    );
     return res.data;
   } catch (err) {
     console.error("Error fetching Wainwright data:", err);

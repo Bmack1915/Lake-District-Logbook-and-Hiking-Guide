@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "./apiConfig";
 import decodeBase64 from "./Decode64";
 import apiClient from "./axiosInterceptor";
 
@@ -9,7 +8,7 @@ const useFetchGpxFile = (route) => {
   useEffect(() => {
     async function getGpxFile() {
       const res = await apiClient.get(
-        `${API_BASE_URL}Routes/gpxfile/${route.routeID}`,
+        `${process.env.REACT_APP_API_BASE_URL}Routes/gpxfile/${route.routeID}`,
       );
       const url = decodeBase64(res.data.gpxFile);
       setGpxFileUrl(url);

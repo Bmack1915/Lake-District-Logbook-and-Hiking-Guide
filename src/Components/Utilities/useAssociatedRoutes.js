@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import apiClient from "./axiosInterceptor";
-import { API_BASE_URL } from "./apiConfig";
 
 function useAssociatedRoutes(wainwright) {
   const [associatedRoutes, setAssociatedRoutes] = useState([]);
@@ -11,7 +10,7 @@ function useAssociatedRoutes(wainwright) {
       try {
         setIsLoading(true);
         const res = await apiClient.get(
-          `${API_BASE_URL}WainwrightRoutes/routes/fromWainwright/${wainwright.wainwrightID}`,
+          `${process.env.REACT_APP_API_BASE_URL}WainwrightRoutes/routes/fromWainwright/${wainwright.wainwrightID}`,
         );
         const wainwrightObjs = res.data.$values;
         setAssociatedRoutes(wainwrightObjs);

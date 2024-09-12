@@ -27,8 +27,6 @@ const HomePage = React.lazy(() => import("./Pages/HomePage.js"));
 function App() {
   const dispatch = useDispatch();
 
-  console.log("Hello", process.env.REACT_APP_API_KEY);
-
   useEffect(() => {
     dispatch(fetchWainwrights());
     dispatch(fetchRoutes());

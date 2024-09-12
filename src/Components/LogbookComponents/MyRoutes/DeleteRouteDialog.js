@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { API_BASE_URL } from "../../Utilities/apiConfig";
 import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteDialogWindow from "../DeleteDialogWindow";
@@ -20,8 +19,8 @@ function DeleteRouteDialog({ userRoute }) {
 
   async function handleConfirm(bool) {
     const url = bool
-      ? `${API_BASE_URL}userroutes/deleteWainwrightsWithRoute/${userId}?routeID=${userRoute.route.routeID}`
-      : `${API_BASE_URL}userroutes/${userId}?routeID=${userRoute.route.routeID}`;
+      ? `${process.env.REACT_APP_API_BASE_URL}userroutes/deleteWainwrightsWithRoute/${userId}?routeID=${userRoute.route.routeID}`
+      : `${process.env.REACT_APP_API_BASE_URL}userroutes/${userId}?routeID=${userRoute.route.routeID}`;
 
     try {
       await apiClient.delete(url);

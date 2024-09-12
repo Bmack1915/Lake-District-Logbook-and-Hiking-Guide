@@ -1,7 +1,6 @@
 import { fetchUserRouteData } from "../Components/Utilities/fetchUserRouteData";
 import { fetchUserWainwrightData } from "../Components/Utilities/fetchUserWainwrightData";
 import { createSlice } from "@reduxjs/toolkit";
-import { API_BASE_URL } from "../Components/Utilities/apiConfig";
 import { jwtDecode as decodeJwt } from "jwt-decode";
 
 import { toast } from "react-toastify";
@@ -77,10 +76,13 @@ export function fetchUserData(userId) {
 export function LoginAndFetchUserInfo(email, password) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(`${API_BASE_URL}account/login`, {
-        Email: email,
-        Password: password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}account/login`,
+        {
+          Email: email,
+          Password: password,
+        },
+      );
 
       const { token } = response.data;
       const decodedToken = decodeJwt(token);
@@ -108,7 +110,7 @@ export function LoginAndFetchUserInfo(email, password) {
 export function Logout() {
   return async function (dispatch) {
     try {
-      await axios.post(`${API_BASE_URL}account/logout`);
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}account/logout`);
 
       // clear sessionStorage
       sessionStorage.removeItem("token");

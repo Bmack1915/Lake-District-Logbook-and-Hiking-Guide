@@ -1,11 +1,10 @@
 import axios from "axios";
-import { API_BASE_URL } from "./apiConfig";
 import { toast } from "react-toastify";
 import handleHomeNavigate from "./handleHomeNavigate";
 
 // Create an instance of Axios
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
 // flag to track if the logout action has been triggered
