@@ -21,17 +21,31 @@ This project has not been deployed, but a video demonstration can be found here 
 
 ## Screenshots
 
+## Homepage
+
 ![ScreenRecording2024-09-12at09 09 39-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/de9ed658-e0d4-4754-bff5-29dcb9ff8061)
 
+------------------------------------------
+## Wainwright Finder
 ![ScreenRecording2024-09-12at09 11 06-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/990e3eb2-983a-4e04-8769-adc2860856a2)
 
+------------------------------------------
+## Wainwright Info
 ![ScreenRecording2024-09-12at09 11 38-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/12b650f8-7a29-46e7-b126-fb1a0868edf0)
 
+------------------------------------------
+## Logging a Wainwright
 ![ScreenRecording2024-09-12at09 12 12-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/f141c089-a37a-47c8-871e-a4cd3271ca88)
 
+------------------------------------------
+## Route Finder with filters and list view
 ![ScreenRecording2024-09-12at09 12 55-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/393f66b8-3cff-4273-be83-53243aeb9c38)
 
+------------------------------------------
+## Route Page with GPX File 
 ![ScreenRecording2024-09-12at09 13 33-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/72990db1-3d09-4da3-9caf-20f3030c2714)
 
+------------------------------------------
+## My Logbook
 ![ScreenRecording2024-09-12at09 13 58-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/17ac773f-8c9c-4d7e-8d81-91584b4dcf04)
 
